@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/BabluAgrahari/carwash-react.git/static/css/main.073c9b0a.css",
+    "main.js": "/BabluAgrahari/carwash-react.git/static/js/main.358f57ec.js",
+    "static/js/787.736802ec.chunk.js": "/BabluAgrahari/carwash-react.git/static/js/787.736802ec.chunk.js",
+    "index.html": "/BabluAgrahari/carwash-react.git/index.html",
+    "main.073c9b0a.css.map": "/BabluAgrahari/carwash-react.git/static/css/main.073c9b0a.css.map",
+    "main.358f57ec.js.map": "/BabluAgrahari/carwash-react.git/static/js/main.358f57ec.js.map",
+    "787.736802ec.chunk.js.map": "/BabluAgrahari/carwash-react.git/static/js/787.736802ec.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.358f57ec.js"
+  ]
+}
