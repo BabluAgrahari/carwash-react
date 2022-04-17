@@ -8,14 +8,12 @@ import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
 
 export default function Add() {
-  // const [inputs, setInputs] = useState([]);
+  const initialState = { alt: "", src: "" };
   const navigate = useNavigate();
 
-  const [inputs, setInputs] = useState({
-    name: "",
-    status: "",
-  });
+  const [inputs, setInputs] = useState([]);
   const [icons, setIcon] = useState([]);
+  const [{ alt, src }, setPreview] = useState(initialState);
 
   const handleInput = (e) => {
     e.persist();
@@ -24,6 +22,15 @@ export default function Add() {
 
   const handleImage = (e) => {
     setIcon({ icon: e.target.files[0] });
+    const { files } = e.target;
+    setPreview(
+      files.length
+        ? {
+            src: URL.createObjectURL(files[0]),
+            alt: files[0].name,
+          }
+        : initialState
+    );
   };
 
   //for submit data in collection
@@ -41,10 +48,10 @@ export default function Add() {
         `${response.message}`,
         `${response.status}`
       );
-      if (response.stats == "success") {
+      if (response.status == "success") {
         setTimeout(() => {
           Swal.close();
-           navigate("/category");
+          navigate("/category");
         }, 1000);
       }
     });
@@ -99,7 +106,7 @@ export default function Add() {
                           </div>
                         </div>
 
-                        <div className="col-md-6">
+                        <div className="col-md-3">
                           <div className="form-group">
                             <label>Icon</label>
                             <div className="custom-file">
@@ -118,8 +125,12 @@ export default function Add() {
                                 Choose file
                               </label>
                             </div>
-                            {/* <img src={thumbRef} className='img-fluid' alt=''/> */}
                           </div>
+                        </div>
+
+                        <div className="col-md-3">
+
+                           {src && <img className="preview" src={src} alt={alt} />}
                         </div>
 
                         <div className="col-md-12">

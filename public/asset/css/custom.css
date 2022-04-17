@@ -315,7 +315,7 @@ color: #ff6a00 !important;
 }
 .custom-file-label {
     padding: 4px 0.75rem !important;
-    height: 31px !important;
+    /* height: 31px !important; */
 }
 .custom-file-input {
     height: 31px !important;
@@ -493,7 +493,19 @@ a.pro-li.dropdown-item {
 
 
 
+.preview{
+      width: 130px;
+    height: 140px;
 
+}
+
+span.text-size{
+  font-size:0.8rem;
+}
+
+.custom-card-shasow{
+  box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(233 81 40)!important;
+}
     /* input {
       font-family: IBM Plex Sans, sans-serif !important;
       font-size: 12px !important;

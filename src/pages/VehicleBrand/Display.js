@@ -8,15 +8,15 @@ import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
 
 export default function Display() {
-  const [categories, setCategory] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
 
   //for show list of data
   useEffect(() => {
-    categoryList();
+    vehiclesList();
   }, []);
-  const categoryList = async () => {
+  const vehiclesList = async () => {
     await http.get("vehicle-brand").then((res) => {
-      setCategory(res.data.data);
+      setVehicles(res.data.data);
     });
   };
 
@@ -77,19 +77,19 @@ export default function Display() {
                         <th>CreatetAt</th>
                         <th>Action</th>
                       </tr>
-                      {categories &&
-                        categories.map((category, index) => (
+                      {vehicles &&
+                        vehicles.map((vehicle, index) => (
 
                           <tr>
                             <td>{++index}</td>
-                            <td>{category.icon?'':<img className="custom-img-size" src={process.env.PUBLIC_URL +"asset/img/noimage.jpg"}/>}</td>
-                            <td>{category.name}</td>
-                            <td>{category.status ?'Active':'Inactive'}</td>
-                            <td>{category.created}</td>
+                           <td>{<img src={vehicle.icon?vehicle.icon:process.env.PUBLIC_URL +"asset/img/noimage.jpg"} className="custom-img-size" />}</td>
+                            <td>{vehicle.name}</td>
+                            <td>{vehicle.status}</td>
+                            <td>{vehicle.created}</td>
                             <td>
                               <Link
                                 to={{
-                                  pathname: "/vehicle-brand/edit/" + category._id,
+                                  pathname: "/vehicle-brand/edit/" + vehicle._id,
                                 }}
                                 className="text-info mr-2"
                               >

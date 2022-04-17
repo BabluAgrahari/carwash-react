@@ -3,9 +3,9 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./Middleware/Auth";
-import Display from "./pages/category/Display";
-import Add from "./pages/category/Add";
-import Edit from "./pages/category/Edit";
+import Display from "./pages/Category/Display";
+import Add from "./pages/Category/Add";
+import Edit from "./pages/Category/Edit";
 //for vehicle
 import  VehicleBrandDisplay from "./pages/VehicleBrand/Display";
 import  VehicleBrandAdd from "./pages/VehicleBrand/Add";

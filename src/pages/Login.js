@@ -13,8 +13,8 @@ useEffect(()=>{
   }
 })
 
-// var url = 'http://127.0.0.1:8000/api/login';
-var url = 'http://www.theserv.in/crm3/public/api/login';
+var url = 'http://127.0.0.1:8000/api/login';
+// var url = 'http://www.theserv.in/crm3/public/api/login';
   async function login(){
     console.warn("data",email,password);
     let item ={email,password}

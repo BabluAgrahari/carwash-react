@@ -71,11 +71,11 @@ export default function Display() {
                     <table id="example1" className="table table-hover table-sm">
                       <tr>
                         <th>Sr.No</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>addrss</th>
-                        <th>Status</th>
+                        <th>Business Name</th>
+                        <th>Business Email</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        {/* <th>Status</th> */}
                         <th>CreatetAt</th>
                         <th>Action</th>
                       </tr>
@@ -84,11 +84,11 @@ export default function Display() {
 
                           <tr>
                             <td>{++index}</td>
-                            <td>{owner.name}</td>
-                            <td>{owner.email}</td>
-                            <td>{owner.phone_no}</td>
+                            <td>{owner.business_name}</td>
+                            <td>{owner.business_email}</td>
+                            <td>{owner.mobile}</td>
                             <td>{owner.address}</td>
-                            <td>{owner.status}</td>
+                            {/* <td>{owner.status}</td> */}
                             <td>{owner.created}</td>
                             <td>
                               <Link

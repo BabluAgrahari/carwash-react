@@ -82,7 +82,7 @@ export default function Display() {
 
                           <tr>
                             <td>{++index}</td>
-                            <td>{<img src={category.icon} className="custom-img-size" />}</td>
+                            <td>{<img src={category.icon?category.icon:process.env.PUBLIC_URL +"asset/img/noimage.jpg"} className="custom-img-size" />}</td>
                             {/* <td>{category.icon?'':<img className="custom-img-size" src={process.env.PUBLIC_URL +"asset/img/noimage.jpg"}/>}</td> */}
                             <td>{category.name}</td>
                             <td>{category.status ?'Active':'Inactive'}</td>

@@ -7,8 +7,8 @@ console.log(userData.token);
 }
 
 export default axios.create({
-  // baseURL: "http://127.0.0.1:8000/api/",
-  baseURL:"http://www.theserv.in/crm3/public/api/",
+  baseURL: "http://127.0.0.1:8000/api/",
+  // baseURL:"http://www.theserv.in/crm3/public/api/",
   headers: {
     // "Content-type": "application/json",
     "Authorization": `Bearer ${token}`,

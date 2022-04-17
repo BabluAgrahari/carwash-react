@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
@@ -8,9 +7,37 @@ import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
 
 export default function Edit(props) {
-  const [inputs, setInputs] = useState([]);
+  const initialState = {
+    alt: "",
+    src: process.env.PUBLIC_URL + "asset/img/noimage.jpg",
+  };
+  // const [inputs, setInputs] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const [inputs, setInputs] = useState([]);
+  const [icons, setIcon] = useState([]);
+  const [{ alt, src }, setPreview] = useState(initialState);
+
+  //for setting input filed
+  const handleInput = (e) => {
+    e.persist();
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  };
+
+  //for getting img
+  const handleImage = (e) => {
+    setIcon({ icon: e.target.files[0] });
+    const { files } = e.target;
+    setPreview(
+      files.length
+        ? {
+            src: URL.createObjectURL(files[0]),
+            alt: files[0].name,
+          }
+        : initialState
+    );
+  };
 
   useEffect(() => {
     fetchCatgory();
@@ -19,35 +46,39 @@ export default function Edit(props) {
   const fetchCatgory = () => {
     http.get("/category/" + id).then((res) => {
       // console.log(res.data.data);
+      let response = res.data.data;
       setInputs({
-        name: res.data.data.name,
-        status: res.data.data.status,
+        name: response.name,
+        status: response.status,
       });
+      setPreview({
+            src: response.icon?response.icon:process.env.PUBLIC_URL + "asset/img/noimage.jpg",
+            alt:'',
+      })
     });
-  };
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    // const status = event.target.status;
-    setInputs((values) => ({ ...values, [name]: value }));
   };
 
   //for submit data in collection
   function submit(e) {
     e.preventDefault();
-    http.put("category/" + id, inputs).then((res) => {
+    const inputsV = new FormData();
+    inputsV.append("icon", icons.icon);
+    inputsV.append("name", inputs.name);
+    inputsV.append("status", inputs.status);
+    inputsV.append('_method',"put");
+
+    http.post("category/" + id, inputsV).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
         `${response.message}`,
         `${response.status}`
       );
-      if(response.status=='success'){
-      setTimeout(() => {
-        Swal.close();
-        navigate("/category");
-      }, 1000);
+      if (response.status == "success") {
+        setTimeout(() => {
+          Swal.close();
+          navigate("/category");
+        }, 1000);
       }
     });
   }
@@ -68,7 +99,7 @@ export default function Edit(props) {
                   </div>
 
                   <div className="card-body">
-                    <form onSubmit={(e) => submit(e)}>
+                    <form onSubmit={(e) => submit(e)}  encType="multipart/form-data">
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-group">
@@ -78,7 +109,7 @@ export default function Edit(props) {
                               name="name"
                               className="form-control"
                               placeholder="Enter Name"
-                              onChange={handleChange}
+                              onChange={handleInput}
                               id="name"
                               value={inputs.name}
                             />
@@ -88,9 +119,10 @@ export default function Edit(props) {
                             <label>Status</label>
                             <select
                               name="status"
-                              onChange={handleChange}
+                              onChange={handleInput}
                               id="status"
                               className="form-control"
+                              value={inputs.status}
                             >
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
@@ -98,7 +130,7 @@ export default function Edit(props) {
                           </div>
                         </div>
 
-                        <div className="col-md-6">
+                        <div className="col-md-3">
                           <div className="form-group">
                             <label>Icon</label>
                             <div className="custom-file">
@@ -107,7 +139,7 @@ export default function Edit(props) {
                                 className="custom-file-input"
                                 id="icon"
                                 name="icon"
-                                onChange={handleChange}
+                                onChange={handleImage}
                               />
                               <label
                                 className="custom-file-label"
@@ -117,6 +149,14 @@ export default function Edit(props) {
                               </label>
                             </div>
                           </div>
+                        </div>
+
+                        <div className="col-md-3">
+                          <img
+                            className="preview"
+                            src={src}
+                            alt={alt}
+                          />
                         </div>
 
                         <div className="col-md-12">

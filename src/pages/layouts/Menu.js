@@ -81,8 +81,15 @@ export default class Menu extends Component {
 
                  <li className="nav-item">
                  <NavLink to="/shop-owner" className="nav-link" activeClassName="active">
-                    <i class="nav-icon  fas fa-store-alt"></i>
+                    <i class="nav-icon fas fa-store-alt"></i>
                     <p>Shop Owner</p>
+                  </NavLink>
+                </li>
+
+                 <li className="nav-item">
+                 <NavLink to="/booking" className="nav-link" activeClassName="active">
+                   <i class="nav-icon fab fa-first-order"></i>
+                    <p>Booking</p>
                   </NavLink>
                 </li>
 
