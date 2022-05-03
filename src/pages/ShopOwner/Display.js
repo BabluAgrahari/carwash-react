@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -9,6 +8,8 @@ import Menu from "../layouts/Menu";
 
 export default function Display() {
   const [owners, setOwner] = useState([]);
+  const [services, service] = useState([]);
+  const [checkboxes, setCheckbox] = useState([]);
 
   //for show list of data
   useEffect(() => {
@@ -32,8 +33,8 @@ export default function Display() {
     }).then((result) => {
       if (result.isConfirmed) {
         http.delete("shop-owner/" + id).then((res) => {
-            let response = res.data;
-          Swal.fire("Deleted!",`${response.message}`, `${response.status}`);
+          let response = res.data;
+          Swal.fire("Deleted!", `${response.message}`, `${response.status}`);
           OwnerList();
           if (response.status == "success") {
             setTimeout(() => {
@@ -45,8 +46,26 @@ export default function Display() {
     });
   };
 
+  //for show list of data
+  useEffect(() => {
+    ServiceList();
+  }, []);
+  const ServiceList = async () => {
+    await http.get("services").then((res) => {
+      service(res.data.data);
+    });
+  };
+
+  const handleCheckbox = (e) => {
+    e.persist();
+    var isChecked = e.target.checked;
+    let checkedVal = isChecked ?e.target.value:'';
+    setCheckbox({ ...checkboxes, [e.target.name]:checkedVal});
+  };
+
   return (
     <>
+    {console.log(checkboxes)}
       <Header></Header>
       <Menu></Menu>
       <div className="content-wrapper mt-2">
@@ -81,7 +100,6 @@ export default function Display() {
                       </tr>
                       {owners &&
                         owners.map((owner, index) => (
-
                           <tr>
                             <td>{++index}</td>
                             <td>{owner.business_name}</td>
@@ -91,7 +109,16 @@ export default function Display() {
                             {/* <td>{owner.status}</td> */}
                             <td>{owner.created}</td>
                             <td>
-                              <a href="" className="text-success mr-2" title="Assign Service"> <i class="fas fa-concierge-bell"></i></a>
+                              <a
+                                href="javascript:void(0)"
+                                className="text-success mr-2"
+                                title="Assign Service"
+                                data-toggle="modal"
+                                data-target="#exampleModalCenter"
+                              >
+                                {" "}
+                                <i class="fas fa-concierge-bell"></i>
+                              </a>
                               <Link
                                 to={{
                                   pathname: "/shop-owner/edit/" + owner._id,
@@ -119,6 +146,66 @@ export default function Display() {
           </div>
         </section>
       </div>
+
+      <div
+        className="modal fade"
+        id="exampleModalCenter"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLongTitle">
+                Service List
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <form onSubmit={(e) => assignService(e)}>
+                <table className="table table-sm">
+                  <tr>
+                    <th>Service</th>
+                    <th>Action</th>
+                  </tr>
+                  {services &&
+                    services.map((service, index) => (
+                      <tr>
+                        <td>{service.title}</td>
+                        <td>
+                          <input
+                            type="checkbox"
+                            name={index}
+                            id=""
+                            value={service._id}
+                            onClick={handleCheckbox}
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                </table>
+                <div className="form-group text-center">
+                  <input
+                    type="submit"
+                    className="btn btn-success btn-sm"
+                    value="Submit"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <Footer></Footer>
     </>
   );

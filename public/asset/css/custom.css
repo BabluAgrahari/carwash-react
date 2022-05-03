@@ -86,8 +86,8 @@
     }
 
     INPUT[type=checkbox]:checked {
-        background-color: #2fc296;
-        background: #2fc296 url("data:image/gif;base64,R0lGODlhCwAKAIABAP////3cnSH5BAEKAAEALAAAAAALAAoAAAIUjH+AC73WHIsw0UCjglraO20PNhYAOw==") 3px 3px no-repeat;
+        background-color: #e26005;
+        background: #e26005 url("data:image/gif;base64,R0lGODlhCwAKAIABAP////3cnSH5BAEKAAEALAAAAAALAAoAAAIUjH+AC73WHIsw0UCjglraO20PNhYAOw==") 3px 3px no-repeat;
     }
 
 label {
@@ -503,6 +503,8 @@ span.text-size{
   font-size:0.8rem;
 }
 
+
+
 .custom-card-shasow{
   box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(233 81 40)!important;
 }
@@ -548,13 +550,13 @@ span.text-size{
       letter-spacing: 0.01em;
       height: auto;
     }
-6
+*/
     .modal-title {
       font-family: IBM Plex Sans, sans-serif !important;
       font-size: 14px !important;
       letter-spacing: 0.01em;
       height: auto;
-    } */
+    }
 
     /* .sidebar-mini .main-sidebar .nav-link, .sidebar-mini-md .main-sidebar .nav-link, .sidebar-mini-xs .main-sidebar .nav-link {
     width: calc(180px - 0.5rem * 2);
