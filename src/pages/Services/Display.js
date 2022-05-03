@@ -83,8 +83,7 @@ export default function Display() {
 
                           <tr>
                             <td>{++index}</td>
-                            <td>{<img src={service.icon} className="custom-img-size" srcset={process.env.PUBLIC_URL +'asset/img/noimage.jpg'}/>}</td>
-                            {/* <td>{service.icon?'':<img className="custom-img-size" src={process.env.PUBLIC_URL +"asset/img/noimage.jpg"}/>}</td> */}
+                           <td>{<img src={service.icon?service.icon:process.env.PUBLIC_URL +"asset/img/noimage.jpg"} className="custom-img-size" />}</td>
                             <td>{service.title}</td>
                             <td>{service.description}</td>
                             <td>{service.status}</td>

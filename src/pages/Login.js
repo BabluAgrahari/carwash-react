@@ -26,6 +26,7 @@ var url = 'http://127.0.0.1:8000/api/login';
       body:JSON.stringify(item)
     });
     result = await result.json();
+    console.log(result);
     localStorage.setItem('userData',JSON.stringify({
       'login':true,
       'user':result.user,
@@ -35,8 +36,8 @@ var url = 'http://127.0.0.1:8000/api/login';
   }
   return (
     <div className="hold-transition login-page">
-      <div class="login-box">
-        <div class="login-logo">
+      <div className="login-box">
+        <div className="login-logo">
           <a href="">
            <img src="http://www.theserv.in/assets/images/logo/logo.png" style={{width:"145px"}}></img>
           </a>

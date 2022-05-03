@@ -91,6 +91,7 @@ export default function Display() {
                             {/* <td>{owner.status}</td> */}
                             <td>{owner.created}</td>
                             <td>
+                              <a href="" className="text-success mr-2" title="Assign Service"> <i class="fas fa-concierge-bell"></i></a>
                               <Link
                                 to={{
                                   pathname: "/shop-owner/edit/" + owner._id,
