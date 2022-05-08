@@ -13,7 +13,10 @@ export default function Add() {
   const [logo, setLogo] = useState([]);
   const [coverPhoto, setCoverPhoto] = useState([]);
   const [{ alt, src }, setPreview] = useState(initialState);
-  const [checkbox,setCheckbox] = useState({store_status:0,verified_store:0})
+  const [checkbox, setCheckbox] = useState({
+    store_status: 0,
+    verified_store: 0,
+  });
 
   /*start dynamic bank details fields*/
   const bankTemplate = {
@@ -85,9 +88,10 @@ export default function Add() {
     inputsV.append("description", inputs.description);
     inputsV.append("verified_store", inputs.verified_store);
     inputsV.append("whatsapp_no", inputs.whatsapp_no);
-    inputsV.append("store_status",checkbox.store_status);
-    inputsV.append("gstin_no",inputs.gstin_no);
-    inputsV.append("phone",inputs.phone);
+    inputsV.append("store_status", checkbox.store_status);
+    inputsV.append("gstin_no", inputs.gstin_no);
+    inputsV.append("phone", inputs.phone);
+    inputsV.append("password",inputs.password);
     inputsV.append("bank_details", JSON.stringify(bankDetails));
 
     http.post("shop-owner", inputsV).then((res) => {
@@ -125,7 +129,12 @@ export default function Add() {
                     <form onSubmit={(e) => submit(e)}>
                       <div className="form-row">
                         <div className="form-group col-md-4">
-                          <label>Business Name<span className="font-weight-bold text-danger">&nbsp;*</span></label>
+                          <label>
+                            Business Name
+                            <span className="font-weight-bold text-danger">
+                              &nbsp;*
+                            </span>
+                          </label>
                           <input
                             type="text"
                             name="business_name"
@@ -293,7 +302,7 @@ export default function Add() {
                       </div>
 
                       <div className="form-row">
-                        <div className="form-group col-md-4">
+                        <div className="form-group col-md-3">
                           <label>City</label>
                           <select
                             name="city"
@@ -311,7 +320,25 @@ export default function Add() {
                           </span>
                         </div>
 
-                        <div className="form-group col-md-4">
+                        <div className="form-group col-md-3">
+                          <label>State</label>
+                          <select
+                            name="state"
+                            onChange={handleInput}
+                            id="status"
+                            className="form-control"
+                          >
+                            <option value="">Select</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="noida">Noida</option>
+                          </select>
+                          <span className="text-muted text-size">
+                            <i class="fas fa-question-circle"></i>&nbsp;Please
+                            Select State
+                          </span>
+                        </div>
+
+                        <div className="form-group col-md-3">
                           <label>Pincode</label>
                           <input
                             type="number"
@@ -328,21 +355,20 @@ export default function Add() {
                           </span>
                         </div>
 
-                        <div className="form-group col-md-4">
-                          <label>State</label>
-                          <select
-                            name="state"
-                            onChange={handleInput}
-                            id="status"
+                        <div className="form-group col-md-3">
+                          <label>Password</label>
+                          <input
+                            type="password"
+                            name="password"
                             className="form-control"
-                          >
-                            <option value="">Select</option>
-                            <option value="delhi">Delhi</option>
-                            <option value="noida">Noida</option>
-                          </select>
+                            placeholder="Enter Password"
+                            onChange={handleInput}
+                            id="password"
+                            value={inputs.password}
+                          />
                           <span className="text-muted text-size">
                             <i class="fas fa-question-circle"></i>&nbsp;Please
-                            Select State
+                            enter Password here
                           </span>
                         </div>
                       </div>

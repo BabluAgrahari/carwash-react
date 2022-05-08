@@ -1,10 +1,20 @@
 import React, { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 function Auth(props) {
-  let Component = props.component;
+
   const navigate = useNavigate();
+  const userData = JSON.parse(sessionStorage.getItem("userData"))
+  let Component = props.component;
+  let roles = props.role;
+  let role = userData.user.role;
+console.log(role);
+  if (roles.indexOf(role) >= 0) {
+  } else {
+    navigate("/");
+  }
+
   useEffect(() => {
-    if (!localStorage.getItem("userData")) {
+    if (!sessionStorage.getItem("userData")) {
       navigate("/");
     }
   });

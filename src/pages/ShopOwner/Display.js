@@ -7,9 +7,11 @@ import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
 
 export default function Display() {
+  const [modalShow, setModalShow] = React.useState(false);
   const [owners, setOwner] = useState([]);
   const [services, service] = useState([]);
   const [checkboxes, setCheckbox] = useState([]);
+  const [ownerId, setOwnerId] = useState([]);
 
   //for show list of data
   useEffect(() => {
@@ -59,13 +61,46 @@ export default function Display() {
   const handleCheckbox = (e) => {
     e.persist();
     var isChecked = e.target.checked;
-    let checkedVal = isChecked ?e.target.value:'';
-    setCheckbox({ ...checkboxes, [e.target.name]:checkedVal});
+    let checkedVal = isChecked ? e.target.value : "";
+    setCheckbox({ ...checkboxes, [e.target.name]: checkedVal });
   };
+
+  function showModal(id) {
+    setOwnerId({ id });
+   $("#exampleModalCenter").modal("show");
+  }
+
+  //for Assign services to vendor
+  function assignService(e) {
+    e.preventDefault();
+    var id = ownerId.id;
+    const inputsV = new FormData();
+
+    const obj = Object.entries(checkboxes);
+    obj.forEach(([key, value]) =>
+      value ? inputsV.append("services[]", value) : ""
+    );
+
+    http.post("assign-services/" + id, inputsV).then((res) => {
+      let response = res.data;
+      Swal.fire(
+        `${response.status}`,
+        `${response.message}`,
+        `${response.status}`
+      );
+      if (response.status == "success") {
+        setTimeout(() => {
+          Swal.close();
+          $("#exampleModalCenter").modal("hide");
+        }, 1000);
+      }
+    });
+  }
+
 
   return (
     <>
-    {console.log(checkboxes)}
+      {console.log(checkboxes.length)}
       <Header></Header>
       <Menu></Menu>
       <div className="content-wrapper mt-2">
@@ -113,10 +148,9 @@ export default function Display() {
                                 href="javascript:void(0)"
                                 className="text-success mr-2"
                                 title="Assign Service"
-                                data-toggle="modal"
-                                data-target="#exampleModalCenter"
+                                _id={owner._id}
+                                onClick={() => showModal(owner._id)}
                               >
-                                {" "}
                                 <i class="fas fa-concierge-bell"></i>
                               </a>
                               <Link

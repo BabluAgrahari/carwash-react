@@ -15,7 +15,10 @@ export default function Edit(props) {
   const [logo, setLogo] = useState([]);
   const [coverPhoto, setCoverPhoto] = useState([]);
   const [{ alt, src }, setPreview] = useState(initialState);
-  const [checkbox,setCheckbox] = useState({store_status:0,verified_store:0})
+  const [checkbox, setCheckbox] = useState({
+    store_status: 0,
+    verified_store: 0,
+  });
 
   /*start dynamic bank details fields*/
   const bankTemplate = {
@@ -63,17 +66,15 @@ export default function Edit(props) {
     // );
   };
 
-   //for getting cover photo
+  //for getting cover photo
   const handleCoverPhoto = (e) => {
     setCoverPhoto({ cover_photo: e.target.files[0] });
     const { files } = e.target;
   };
 
-
   useEffect(() => {
     fetchCatgory();
   }, []);
-
 
   const fetchCatgory = () => {
     http.get("/shop-owner/" + id).then((res) => {
@@ -81,9 +82,9 @@ export default function Edit(props) {
       let response = res.data.data;
       setInputs({
         business_name: response.business_name,
-        business_email:response.business_email,
-        mobile:response.mobile,
-        city:response.city,
+        business_email: response.business_email,
+        mobile: response.mobile,
+        city: response.city,
         pincode: response.pincode,
         state: response.state,
         address: response.address,
@@ -91,8 +92,8 @@ export default function Edit(props) {
         store_status: response.store_status,
         verified_store: response.verified_store,
         whatsapp_no: response.whatsapp_no,
-        gstin_no:response.gstin_no,
-        phone:response.phone
+        gstin_no: response.gstin_no,
+        phone: response.phone,
       });
     });
   };
@@ -101,7 +102,7 @@ export default function Edit(props) {
   function submit(e) {
     e.preventDefault();
 
-     const inputsV = new FormData();
+    const inputsV = new FormData();
     inputsV.append("logo", logo.logo);
     inputsV.append("cover_photo", coverPhoto.cover_photo);
     inputsV.append("business_name", inputs.business_name);
@@ -116,10 +117,10 @@ export default function Edit(props) {
     inputsV.append("store_status", inputs.store_status);
     inputsV.append("verified_store", inputs.verified_store);
     inputsV.append("whatsapp_no", inputs.whatsapp_no);
-    inputsV.append("gstin_no",inputs.gstin_no);
-    inputsV.append("phone",inputs.phone);
+    inputsV.append("gstin_no", inputs.gstin_no);
+    inputsV.append("phone", inputs.phone);
     inputsV.append("bank_details", JSON.stringify(bankDetails));
-    inputsV.append('_method',"put");
+    inputsV.append("_method", "put");
 
     http.post("shop-owner/" + id, inputsV).then((res) => {
       let response = res.data;
@@ -128,11 +129,11 @@ export default function Edit(props) {
         `${response.message}`,
         `${response.status}`
       );
-      if(response.status=='success'){
-      setTimeout(() => {
-        Swal.close();
-        navigate("/shop-owner");
-      }, 1000);
+      if (response.status == "success") {
+        setTimeout(() => {
+          Swal.close();
+          navigate("/shop-owner");
+        }, 1000);
       }
     });
   }
@@ -141,7 +142,7 @@ export default function Edit(props) {
     <>
       <Header></Header>
       <Menu></Menu>
-        <div className="content-wrapper mt-2">
+      <div className="content-wrapper mt-2">
         <section className="content">
           <div className="container-fluid">
             <div className="row">
@@ -324,7 +325,7 @@ export default function Edit(props) {
                       </div>
 
                       <div className="form-row">
-                        <div className="form-group col-md-4">
+                        <div className="form-group col-md-3">
                           <label>City</label>
                           <select
                             name="city"
@@ -342,24 +343,7 @@ export default function Edit(props) {
                           </span>
                         </div>
 
-                        <div className="form-group col-md-4">
-                          <label>Pincode</label>
-                          <input
-                            type="number"
-                            name="pincode"
-                            className="form-control"
-                            placeholder="Enter Pincode"
-                            onChange={handleInput}
-                            id="pincode"
-                            value={inputs.pincode}
-                          />
-                          <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            enter Pincode
-                          </span>
-                        </div>
-
-                        <div className="form-group col-md-4">
+                        <div className="form-group col-md-3">
                           <label>State</label>
                           <select
                             name="state"
@@ -376,6 +360,24 @@ export default function Edit(props) {
                             Select State
                           </span>
                         </div>
+
+                        <div className="form-group col-md-3">
+                          <label>Pincode</label>
+                          <input
+                            type="number"
+                            name="pincode"
+                            className="form-control"
+                            placeholder="Enter Pincode"
+                            onChange={handleInput}
+                            id="pincode"
+                            value={inputs.pincode}
+                          />
+                          <span className="text-muted text-size">
+                            <i class="fas fa-question-circle"></i>&nbsp;Please
+                            enter Pincode
+                          </span>
+                        </div>
+
                       </div>
 
                       <div className="form-row">

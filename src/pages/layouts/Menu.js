@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { permission} from "../../Helper/Helper";
 
 export default class Menu extends Component {
   render() {
@@ -9,12 +10,14 @@ export default class Menu extends Component {
           {/* Brand Logo */}
           <a href="index3.html" className="brand-link nl-4">
             <img
-              src="http://www.theserv.in/assets/images/logo/logo.png"
+              src={`${process.env.PUBLIC_URL}/asset/logo/logo.png`}
               alt="carwash Logo"
               className="brand-image elevation-3"
               style={{ opacity: ".8" }}
             />
-            <span className="brand-text font-weight-light">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span className="brand-text font-weight-light">
+              &nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
           </a>
           {/* Sidebar */}
           <div className="sidebar">
@@ -36,62 +39,132 @@ export default class Menu extends Component {
                 role="menu"
                 data-accordion="false"
               >
-                {/* Add icons to the links using the .nav-icon class
-         with font-awesome or any other icon font library */}
-
-                <li className="nav-item">
-                  <NavLink
-                    to="/dashboard"
-                    className="nav-link"
-                    activeClassName="active"
-                  >
-                    <i class="nav-icon fas fa-tachometer-alt text-danger"></i>
-                    <p>Dashboard</p>
-                  </NavLink>
-                </li>
-
-                <li className="nav-item">
-                  <NavLink to="/category" className="nav-link" activeClassName="active" >
-                    <i class="nav-icon fas fa-band-aid"></i>
-                    <p>Category</p>
-                  </NavLink>
-                </li>
-
-                <li className="nav-item">
-                  <NavLink to="/vehicle-brand" className="nav-link" activeClassName="active">
-                    <i class="nav-icon fas fa-car-side"></i>
-                    <p>Vehicle Brand</p>
-                  </NavLink>
-                </li>
-
-                <li className="nav-item">
-                  <NavLink to="/vehicle-modal" className="nav-link" activeClassName="active">
-                    <i class="nav-icon fas fa-car-alt"></i>
-                    <p>Vehicle Modal</p>
-                  </NavLink>
-                </li>
-
-                <li className="nav-item">
-                 <NavLink to="/services" className="nav-link" activeClassName="active">
-                    <i class="nav-icon fas fa-concierge-bell"></i>
-                    <p>Services</p>
-                  </NavLink>
-                </li>
+                {permission(["admin", "vendor"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/dashboard"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i class="nav-icon fas fa-tachometer-alt text-danger"></i>
+                      <p>Dashboard</p>
+                    </NavLink>
+                  </li>
+                )}
 
 
-                 <li className="nav-item">
-                 <NavLink to="/shop-owner" className="nav-link" activeClassName="active">
-                    <i class="nav-icon fas fa-store-alt"></i>
-                    <p>Shop Owner</p>
-                  </NavLink>
-                </li>
+                 {permission(["admin", "vendor"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/profile"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i class="nav-icon fas fa-solid fa-id-badge"></i>
+                      <p>Profile</p>
+                    </NavLink>
+                  </li>
+                )}
 
-                 <li className="nav-item">
-                 <NavLink to="/booking" className="nav-link" activeClassName="active">
-                   <i class="nav-icon fab fa-first-order"></i>
-                    <p>Booking</p>
-                  </NavLink>
-                </li>
+
+                {permission(["admin"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/category"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i class="nav-icon fas fa-band-aid"></i>
+                      <p>Category</p>
+                    </NavLink>
+                  </li>
+                )}
+                {permission(["admin"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/vehicle-brand"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i class="nav-icon fas fa-car-side"></i>
+                      <p>Vehicle Brand</p>
+                    </NavLink>
+                  </li>
+                )}
+                {permission(["admin"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/vehicle-modal"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i class="nav-icon fas fa-car-alt"></i>
+                      <p>Vehicle Modal</p>
+                    </NavLink>
+                  </li>
+                )}
+                {permission(["admin"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/services"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i class="nav-icon fas fa-concierge-bell"></i>
+                      <p>Services</p>
+                    </NavLink>
+                  </li>
+                )}
+                {permission(["admin"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/shop-owner"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i class="nav-icon fas fa-store-alt"></i>
+                      <p>Shop Owner</p>
+                    </NavLink>
+                  </li>
+                )}
+                {permission(["admin"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/booking"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i class="nav-icon fab fa-first-order"></i>
+                      <p>Booking</p>
+                    </NavLink>
+                  </li>
+                )}
+
+                {permission(["vendor"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/driver"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i class="nav-icon fas fa-car-alt"></i>
+                      <p>Driver</p>
+                    </NavLink>
+                  </li>
+                )}
+
+                {permission(["vendor"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/vendor-services"
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i class="nav-icon fas fa-concierge-bell"></i>
+                      <p>Services</p>
+                    </NavLink>
+                  </li>
+                )}
 
                 {/* <li className="nav-item">
                   <a href="#" className="nav-link">
