@@ -6,6 +6,7 @@ import http from "../../http";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
+import { getToken } from "../../token";
 
 export default function Edit(props) {
   const [inputs, setInputs] = useState([]);
@@ -17,51 +18,65 @@ export default function Edit(props) {
   const navigate = useNavigate();
 
 
- useEffect(() => {
-   service();
-    vehicleBrancd();
-    vehicleModal();
-    category();
-  }, []);
+  useEffect(() => {
+    if (getToken() !== '') {
+      service();
+      vehicleBrancd();
+      vehicleModal();
+      category();
+    }
+  }, [getToken()]);
 
-//for vehical brand
+  //for vehical brand
   const vehicleBrancd = async () => {
-    await http.get("vehicle-brand").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("vehicle-brand", { headers }).then((res) => {
       setBrand(res.data.data);
     });
   };
 
   //for vehical modal
   const vehicleModal = async () => {
-    await http.get("vehicle-modal").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("vehicle-modal", { headers }).then((res) => {
       setModal(res.data.data);
     });
   };
 
   //for vehical modal
   const category = async () => {
-    await http.get("category").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("category", { headers }).then((res) => {
       setCategory(res.data.data);
     });
   }
 
 
   const service = () => {
-    http.get("/services/" + id).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    http.get("/services/" + id, { headers }).then((res) => {
       console.log(res.data.data);
-let response = res.data.data;
+      let response = res.data.data;
       setInputs({
         title: response.title,
-        sort_description:response.sort_description,
-        description:response.description,
-        category:response.category,
-        time_duration:response.time_duration,
-        discount:response.discount,
-        service_type:response.service_type,
-        vehicle_model:response.vehicle_model,
-        service_charge:response.service_charge,
-        gst_charges:response.gst_charges,
-        vehicle_brand:response.vehicle_brand,
+        sort_description: response.sort_description,
+        description: response.description,
+        category: response.category,
+        time_duration: response.time_duration,
+        discount: response.discount,
+        service_type: response.service_type,
+        vehicle_model: response.vehicle_model,
+        service_charge: response.service_charge,
+        gst_charges: response.gst_charges,
+        vehicle_brand: response.vehicle_brand,
         status: response.status,
       });
     });
@@ -77,18 +92,21 @@ let response = res.data.data;
   //for submit data in collection
   function submit(e) {
     e.preventDefault();
-    http.put("services/" + id, inputs).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    http.put("services/" + id, inputs, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
         `${response.message}`,
         `${response.status}`
       );
-      if(response.status=='success'){
-      setTimeout(() => {
-        Swal.close();
-        navigate("/services");
-      }, 1000);
+      if (response.status == 'success') {
+        setTimeout(() => {
+          Swal.close();
+          navigate("/services");
+        }, 1000);
       }
     });
   }
@@ -319,7 +337,7 @@ let response = res.data.data;
                                   name="service_charge"
                                   placeholder="Service Charges"
                                   onChange={handleChange}
-                                    value={inputs.service_charge}
+                                  value={inputs.service_charge}
                                 />
                               </div>
 

@@ -3,21 +3,27 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
+import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
 
 export default function Profile() {
   const [services, service] = useState([]);
-  const [serviceData, setServiceData] = useState({id:"",charge:""});
-  const [discoutnData, setDiscountCharge] = useState({discount_by_vendor:"",actual_charge:""});
+  const [serviceData, setServiceData] = useState({ id: "", charge: "" });
+  const [discoutnData, setDiscountCharge] = useState({ discount_by_vendor: "", actual_charge: "" });
 
   //for show list of data
   useEffect(() => {
-    ServiceList();
-  }, []);
+    if (getToken() !== '') {
+      ServiceList();
+    }
+  }, [getToken()]);
   const ServiceList = async () => {
-    await http.get("vendor-services").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("vendor-services", { headers }).then((res) => {
       service(res.data.data);
     });
   };
@@ -27,20 +33,23 @@ export default function Profile() {
     $("#exampleModalCenter").modal("show");
   }
 
-function discount(val){
-  let charge = (val*serviceData.charge)/100;
-  let discount_charge = Math.round(serviceData.charge - charge);
-setDiscountCharge({'discount_by_vendor':val,'actual_charge':discount_charge});
+  function discount(val) {
+    let charge = (val * serviceData.charge) / 100;
+    let discount_charge = Math.round(serviceData.charge - charge);
+    setDiscountCharge({ 'discount_by_vendor': val, 'actual_charge': discount_charge });
 
-}
+  }
   //for Assign services to vendor
   function updatePrice(e) {
     e.preventDefault();
     var id = serviceData.id;
     const inputsV = new FormData();
- inputsV.append("discount_by_vendor", discoutnData.discount_by_vendor);
-  inputsV.append("actual_charge", discoutnData.actual_charge);
-    http.post("update-price/" + id, inputsV).then((res) => {
+    inputsV.append("discount_by_vendor", discoutnData.discount_by_vendor);
+    inputsV.append("actual_charge", discoutnData.actual_charge);
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    http.post("update-price/" + id, inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
@@ -58,7 +67,7 @@ setDiscountCharge({'discount_by_vendor':val,'actual_charge':discount_charge});
 
   return (
     <>
-    { console.log(discoutnData)}
+      {console.log(discoutnData)}
       <Header></Header>
       <Menu></Menu>
       <div className="content-wrapper mt-2">

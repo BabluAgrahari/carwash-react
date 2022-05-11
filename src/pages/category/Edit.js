@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
+import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
@@ -32,19 +33,24 @@ export default function Edit(props) {
     setPreview(
       files.length
         ? {
-            src: URL.createObjectURL(files[0]),
-            alt: files[0].name,
-          }
+          src: URL.createObjectURL(files[0]),
+          alt: files[0].name,
+        }
         : initialState
     );
   };
 
   useEffect(() => {
-    fetchCatgory();
-  }, []);
+    if (getToken() !== '') {
+      fetchCatgory();
+    }
+  }, [getToken()]);
 
   const fetchCatgory = () => {
-    http.get("/category/" + id).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    http.get("/category/" + id, { headers }).then((res) => {
       // console.log(res.data.data);
       let response = res.data.data;
       setInputs({
@@ -52,8 +58,8 @@ export default function Edit(props) {
         status: response.status,
       });
       setPreview({
-            src: response.icon?response.icon:process.env.PUBLIC_URL + "asset/img/noimage.jpg",
-            alt:'',
+        src: response.icon ? response.icon : process.env.PUBLIC_URL + "asset/img/noimage.jpg",
+        alt: '',
       })
     });
   };
@@ -65,9 +71,13 @@ export default function Edit(props) {
     inputsV.append("icon", icons.icon);
     inputsV.append("name", inputs.name);
     inputsV.append("status", inputs.status);
-    inputsV.append('_method',"put");
+    inputsV.append('_method', "put");
 
-    http.post("category/" + id, inputsV).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+
+    http.post("category/" + id, inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
@@ -99,7 +109,7 @@ export default function Edit(props) {
                   </div>
 
                   <div className="card-body">
-                    <form onSubmit={(e) => submit(e)}  encType="multipart/form-data">
+                    <form onSubmit={(e) => submit(e)} encType="multipart/form-data">
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-group">

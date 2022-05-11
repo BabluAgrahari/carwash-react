@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
+import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
@@ -12,10 +13,15 @@ export default function Display() {
 
   //for show list of data
   useEffect(() => {
-    driverList();
-  }, []);
+    if (getToken() !== '') {
+      driverList();
+    }
+  }, [getToken()]);
   const driverList = async () => {
-    await http.get("driver").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("driver", { headers }).then((res) => {
       setDriver(res.data.data);
     });
   };
@@ -31,9 +37,12 @@ export default function Display() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        http.delete("driver/" + id).then((res) => {
-            let response = res.data;
-          Swal.fire("Deleted!",`${response.message}`, `${response.status}`);
+        const headers = {
+          Authorization: `Bearer ${getToken()}`
+        }
+        http.delete("driver/" + id, { headers }).then((res) => {
+          let response = res.data;
+          Swal.fire("Deleted!", `${response.message}`, `${response.status}`);
           categoryList();
           if (response.status == "success") {
             setTimeout(() => {
@@ -85,7 +94,7 @@ export default function Display() {
 
                           <tr>
                             <td>{++index}</td>
-                            <td>{<img src={driver.image?driver.image:process.env.PUBLIC_URL +"asset/img/noimage.jpg"} className="custom-img-size" />}</td>
+                            <td>{<img src={driver.image ? driver.image : process.env.PUBLIC_URL + "asset/img/noimage.jpg"} className="custom-img-size" />}</td>
                             <td>{driver.name}</td>
                             <td>{driver.email}</td>
                             <td>{driver.phone}</td>

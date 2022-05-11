@@ -1,6 +1,7 @@
 import { isDisabled } from "@testing-library/user-event/dist/utils";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { setToken } from "../token";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -14,12 +15,12 @@ function Login() {
     if (sessionStorage.getItem("userData")) {
       navigate("/dashboard");
     }
-  });
+  }, []);
 
   // var url = "http://127.0.0.1:8000/api/login";
   var url = "https://crm.quarainfotech.com/api/public/api/login";
   async function login() {
-   setLoader(true);
+    setLoader(true);
     let item = { email, password };
     let result = await fetch(url, {
       method: "POST",
@@ -29,8 +30,9 @@ function Login() {
       body: JSON.stringify(item),
     });
     result = await result.json();
-   setLoader(false);
+    setLoader(false);
     if (result.status) {
+      setToken(result.access_token)
       sessionStorage.setItem(
         "userData",
         JSON.stringify({
@@ -96,7 +98,7 @@ function Login() {
             <div className="row">
               <div className="col-12">
                 <button
-                disabled={loader && true||false}
+                  disabled={loader && true || false}
                   type="button"
                   onClick={login}
                   className="btn btn-block sign-in"
@@ -107,7 +109,7 @@ function Login() {
                       role="status"
                       aria-hidden="true"
                     ></span>
-                  ) ||  'Sign In'}
+                  ) || 'Sign In'}
 
                 </button>
               </div>

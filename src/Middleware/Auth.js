@@ -6,8 +6,8 @@ function Auth(props) {
   const userData = JSON.parse(sessionStorage.getItem("userData"))
   let Component = props.component;
   let roles = props.role;
-  let role = userData.user.role;
-console.log(role);
+  let role = userData !== null ? userData.user.role : 0;
+  console.log(role);
   if (roles.indexOf(role) >= 0) {
   } else {
     navigate("/");
@@ -17,7 +17,7 @@ console.log(role);
     if (!sessionStorage.getItem("userData")) {
       navigate("/");
     }
-  });
+  }, []);
   return (
     <>
       <Component />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
+import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
@@ -13,11 +14,16 @@ export default function Add() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    vehicleBranchs();
-  },[]);
+    if (getToken() !== '') {
+      vehicleBranchs();
+    }
+  }, [getToken()]);
 
   const vehicleBranchs = async () => {
-    await http.get("vehicle-brand").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("vehicle-brand", { headers }).then((res) => {
       setBrand(res.data.data);
     });
   };
@@ -31,7 +37,10 @@ export default function Add() {
   //for submit data in collection
   function submit(e) {
     e.preventDefault();
-    http.post("vehicle-modal", inputs).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    http.post("vehicle-modal", inputs, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
@@ -104,9 +113,9 @@ export default function Add() {
                               className="form-control"
                             >
                               <option value="">Select</option>
-                            {vehicleBrands && vehicleBrands.map((v_brand, index) => (
-                              <option value={v_brand._id}>{v_brand.name}</option>
-                            ))}
+                              {vehicleBrands && vehicleBrands.map((v_brand, index) => (
+                                <option value={v_brand._id}>{v_brand.name}</option>
+                              ))}
                             </select>
                           </div>
                         </div>

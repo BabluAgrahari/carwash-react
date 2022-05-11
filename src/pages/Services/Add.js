@@ -37,30 +37,43 @@ export default function Add() {
   const [vehicleBrands, setBrand] = useState([]);
   const [vehicleModals, setModal] = useState([]);
   const [categories, setCategory] = useState([]);
+  const [token, setToken] = useState('')
 
   useEffect(() => {
-    vehicleBrancd();
-    vehicleModal();
-    category();
-  }, []);
+    if (typeof sessionStorage.getItem('userData') !== 'undefined') {
+      setToken(JSON.parse(sessionStorage.getItem('userData')).token)
+      vehicleBrancd();
+      vehicleModal();
+      category();
+    }
+  }, [token]);
 
   //for vehical brand
   const vehicleBrancd = async () => {
-    await http.get("vehicle-brand").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
+    await http.get("vehicle-brand", { headers }).then((res) => {
       setBrand(res.data.data);
     });
   };
 
   //for vehical modal
   const vehicleModal = async () => {
-    await http.get("vehicle-modal").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
+    await http.get("vehicle-modal", { headers }).then((res) => {
       setModal(res.data.data);
     });
   };
 
   //for vehical modal
   const category = async () => {
-    await http.get("category").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
+    await http.get("category", { headers }).then((res) => {
       setCategory(res.data.data);
     });
   };
@@ -70,7 +83,7 @@ export default function Add() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  const handleVideo = (e) => {};
+  const handleVideo = (e) => { };
 
   const handleIcon = (e) => {
     setIcon({ icon: e.target.files[0] });
@@ -78,9 +91,9 @@ export default function Add() {
     setPreview(
       files.length
         ? {
-            src: URL.createObjectURL(files[0]),
-            alt: files[0].name,
-          }
+          src: URL.createObjectURL(files[0]),
+          alt: files[0].name,
+        }
         : initialState
     );
   };
@@ -109,7 +122,11 @@ export default function Add() {
     inputsV.append("service_type", inputs.service_type);
     inputsV.append("status", inputs.status);
 
-    http.post("services", inputsV).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
+
+    http.post("services", inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,

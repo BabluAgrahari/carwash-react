@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
+import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
@@ -91,10 +92,14 @@ export default function Add() {
     inputsV.append("store_status", checkbox.store_status);
     inputsV.append("gstin_no", inputs.gstin_no);
     inputsV.append("phone", inputs.phone);
-    inputsV.append("password",inputs.password);
+    inputsV.append("password", inputs.password);
     inputsV.append("bank_details", JSON.stringify(bankDetails));
 
-    http.post("shop-owner", inputsV).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+
+    http.post("shop-owner", inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,

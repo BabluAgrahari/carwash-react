@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
+import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
@@ -14,20 +15,20 @@ export default function Add() {
   const [icons, setIcon] = useState([]);
   const [{ alt, src }, setPreview] = useState(initialState);
 
- const handleInput = (e) => {
+  const handleInput = (e) => {
     e.persist();
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-   const handleImage = (e) => {
+  const handleImage = (e) => {
     setIcon({ icon: e.target.files[0] });
     const { files } = e.target;
     setPreview(
       files.length
         ? {
-            src: URL.createObjectURL(files[0]),
-            alt: files[0].name,
-          }
+          src: URL.createObjectURL(files[0]),
+          alt: files[0].name,
+        }
         : initialState
     );
   };
@@ -40,18 +41,22 @@ export default function Add() {
     inputsV.append("name", inputs.name);
     inputsV.append("status", inputs.status);
 
-    http.post("vehicle-brand", inputsV).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+
+    http.post("vehicle-brand", inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
         `${response.message}`,
         `${response.status}`
       );
-      if(response.status=='success'){
-      setTimeout(() => {
-        Swal.close();
-        navigate("/vehicle-brand");
-      }, 1000);
+      if (response.status == 'success') {
+        setTimeout(() => {
+          Swal.close();
+          navigate("/vehicle-brand");
+        }, 1000);
       }
     });
   }
@@ -82,9 +87,9 @@ export default function Add() {
                               name="name"
                               className="form-control"
                               placeholder="Enter Name"
-                               onChange={handleInput}
-                      id="name"
-                      value={inputs.name}
+                              onChange={handleInput}
+                              id="name"
+                              value={inputs.name}
                             />
                           </div>
 
@@ -124,7 +129,7 @@ export default function Add() {
                         </div>
 
                         <div className="col-md-3">
-                           {src && <img className="preview" src={src} alt={alt} />}
+                          {src && <img className="preview" src={src} alt={alt} />}
                         </div>
 
                         <div className="col-md-12">

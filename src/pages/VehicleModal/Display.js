@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
+import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
@@ -12,10 +13,15 @@ export default function Display() {
 
   //for show list of data
   useEffect(() => {
-    VehicleList();
-  }, []);
+    if (getToken() !== '') {
+      VehicleList();
+    }
+  }, [getToken()]);
   const VehicleList = async () => {
-    await http.get("vehicle-modal").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("vehicle-modal", { headers }).then((res) => {
       setModal(res.data.data);
     });
   };
@@ -31,9 +37,12 @@ export default function Display() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        http.delete("vehicle-modal/" + id).then((res) => {
-            let response = res.data;
-          Swal.fire("Deleted!",`${response.message}`, `${response.status}`);
+        const headers = {
+          Authorization: `Bearer ${getToken()}`
+        }
+        http.delete("vehicle-modal/" + id, { headers }).then((res) => {
+          let response = res.data;
+          Swal.fire("Deleted!", `${response.message}`, `${response.status}`);
           VehicleList();
           if (response.status == "success") {
             setTimeout(() => {

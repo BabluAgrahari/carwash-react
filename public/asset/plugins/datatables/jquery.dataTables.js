@@ -10282,7 +10282,7 @@
 		 *   $('#example').dataTable( {
 		 *     "ajax": function (data, callback, settings) {
 		 *       callback(
-		 *         JSON.parse( localStorage.getItem('dataTablesData') )
+		 *         JSON.parse( sessionStorage.getItem('dataTablesData') )
 		 *       );
 		 *     }
 		 *   } );

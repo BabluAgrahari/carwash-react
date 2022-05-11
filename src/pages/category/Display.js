@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
+import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
@@ -12,10 +13,15 @@ export default function Display() {
 
   //for show list of data
   useEffect(() => {
-    categoryList();
-  }, []);
+    if (getToken() !== '') {
+      categoryList();
+    }
+  }, [getToken()]);
   const categoryList = async () => {
-    await http.get("category").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("category", { headers }).then((res) => {
       setCategory(res.data.data);
     });
   };
@@ -31,9 +37,12 @@ export default function Display() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        http.delete("category/" + id).then((res) => {
-            let response = res.data;
-          Swal.fire("Deleted!",`${response.message}`, `${response.status}`);
+        const headers = {
+          Authorization: `Bearer ${getToken()}`
+        }
+        http.delete("category/" + id, { headers }).then((res) => {
+          let response = res.data;
+          Swal.fire("Deleted!", `${response.message}`, `${response.status}`);
           categoryList();
           if (response.status == "success") {
             setTimeout(() => {
@@ -62,7 +71,7 @@ export default function Display() {
                         to="/category/add"
                         className="btn btn-success btn-sm"
                       >
-                        <i class="fas fa-plus"></i>&nbsp;Add
+                        <i className="fas fa-plus"></i>&nbsp;Add
                       </Link>
                     </div>
                   </div>
@@ -82,10 +91,10 @@ export default function Display() {
 
                           <tr>
                             <td>{++index}</td>
-                            <td>{<img src={category.icon?category.icon:process.env.PUBLIC_URL +"asset/img/noimage.jpg"} className="custom-img-size" />}</td>
+                            <td>{<img src={category.icon ? category.icon : process.env.PUBLIC_URL + "asset/img/noimage.jpg"} className="custom-img-size" />}</td>
                             {/* <td>{category.icon?'':<img className="custom-img-size" src={process.env.PUBLIC_URL +"asset/img/noimage.jpg"}/>}</td> */}
                             <td>{category.name}</td>
-                            <td>{category.status ?'Active':'Inactive'}</td>
+                            <td>{category.status ? 'Active' : 'Inactive'}</td>
                             <td>{category.created}</td>
                             <td>
                               <Link
@@ -101,7 +110,7 @@ export default function Display() {
                                 onClick={() => remove(category._id)}
                                 className="text-danger"
                               >
-                                <i class="fas fa-trash-alt"></i>
+                                <i className="fas fa-trash-alt"></i>
                               </a>
                             </td>
                           </tr>

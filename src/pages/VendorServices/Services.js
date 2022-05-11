@@ -3,21 +3,26 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
+import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
 
 export default function VendorServices() {
   const [services, service] = useState([]);
-  const [serviceData, setServiceData] = useState({id:"",charge:""});
-  const [discoutnData, setDiscountCharge] = useState({discount_by_vendor:"",actual_charge:""});
-
+  const [serviceData, setServiceData] = useState({ id: "", charge: "" });
+  const [discoutnData, setDiscountCharge] = useState({ discount_by_vendor: "", actual_charge: "" });
   //for show list of data
   useEffect(() => {
-    ServiceList();
-  }, []);
+    if (getToken() !== '') {
+      ServiceList();
+    }
+  }, [getToken()]);
   const ServiceList = async () => {
-    await http.get("vendor-services").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("vendor-services", { headers }).then((res) => {
       service(res.data.data);
     });
   };
@@ -27,20 +32,23 @@ export default function VendorServices() {
     $("#exampleModalCenter").modal("show");
   }
 
-function discount(val){
-  let charge = (val*serviceData.charge)/100;
-  let discount_charge = Math.round(serviceData.charge - charge);
-setDiscountCharge({'discount_by_vendor':val,'actual_charge':discount_charge});
+  function discount(val) {
+    let charge = (val * serviceData.charge) / 100;
+    let discount_charge = Math.round(serviceData.charge - charge);
+    setDiscountCharge({ 'discount_by_vendor': val, 'actual_charge': discount_charge });
 
-}
+  }
   //for Assign services to vendor
   function updatePrice(e) {
     e.preventDefault();
     var id = serviceData.id;
     const inputsV = new FormData();
- inputsV.append("discount_by_vendor", discoutnData.discount_by_vendor);
-  inputsV.append("actual_charge", discoutnData.actual_charge);
-    http.post("update-price/" + id, inputsV).then((res) => {
+    inputsV.append("discount_by_vendor", discoutnData.discount_by_vendor);
+    inputsV.append("actual_charge", discoutnData.actual_charge);
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    http.post("update-price/" + id, inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
@@ -58,7 +66,7 @@ setDiscountCharge({'discount_by_vendor':val,'actual_charge':discount_charge});
 
   return (
     <>
-    { console.log(discoutnData)}
+      {console.log(discoutnData)}
       <Header></Header>
       <Menu></Menu>
       <div className="content-wrapper mt-2">
@@ -103,7 +111,7 @@ setDiscountCharge({'discount_by_vendor':val,'actual_charge':discount_charge});
                                     service.icon
                                       ? service.icon
                                       : process.env.PUBLIC_URL +
-                                        "asset/img/noimage.jpg"
+                                      "asset/img/noimage.jpg"
                                   }
                                   className="custom-img-size"
                                 />
@@ -121,7 +129,7 @@ setDiscountCharge({'discount_by_vendor':val,'actual_charge':discount_charge});
                                 className="text-success mr-2"
                                 title="Assign Service"
                                 _id={service._id}
-                                onClick={() => showModal({'id':service._id,'charge':service.service_charge})}
+                                onClick={() => showModal({ 'id': service._id, 'charge': service.service_charge })}
                               >
                                 <i class="fas fa-concierge-bell"></i>
                               </a>
@@ -166,19 +174,19 @@ setDiscountCharge({'discount_by_vendor':val,'actual_charge':discount_charge});
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label>Discount</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="discount_by_vendor"
-                  id="discount_by_vendor"
-                  placeholder="Discount in %"
-                  onChange={ (e) => discount(e.target.value) }
-                />
-                </div>
-                <div className="form-group col-md-6">
-                  <label>Actual Service Charge</label>
-                  <input type="text" readOnly={true} value={discoutnData.actual_charge} className="form-control" id="actual_Charges" name="actual_charge" />
-                </div>
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="discount_by_vendor"
+                      id="discount_by_vendor"
+                      placeholder="Discount in %"
+                      onChange={(e) => discount(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <label>Actual Service Charge</label>
+                    <input type="text" readOnly={true} value={discoutnData.actual_charge} className="form-control" id="actual_Charges" name="actual_charge" />
+                  </div>
                 </div>
                 <div className="form-group text-center">
                   <input

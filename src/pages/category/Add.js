@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -6,6 +6,7 @@ import http from "../../http";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
+import { getToken } from "../../token";
 
 export default function Add() {
   const initialState = { alt: "", src: "" };
@@ -26,9 +27,9 @@ export default function Add() {
     setPreview(
       files.length
         ? {
-            src: URL.createObjectURL(files[0]),
-            alt: files[0].name,
-          }
+          src: URL.createObjectURL(files[0]),
+          alt: files[0].name,
+        }
         : initialState
     );
   };
@@ -41,7 +42,11 @@ export default function Add() {
     inputsV.append("name", inputs.name);
     inputsV.append("status", inputs.status);
 
-    http.post("category", inputsV).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+
+    http.post("category", inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
@@ -130,7 +135,7 @@ export default function Add() {
 
                         <div className="col-md-3">
 
-                           {src && <img className="preview" src={src} alt={alt} />}
+                          {src && <img className="preview" src={src} alt={alt} />}
                         </div>
 
                         <div className="col-md-12">

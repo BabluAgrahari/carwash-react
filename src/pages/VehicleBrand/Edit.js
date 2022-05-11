@@ -6,9 +6,10 @@ import http from "../../http";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
+import { getToken } from "../../token";
 
 export default function Edit(props) {
-   const initialState = {
+  const initialState = {
     alt: "",
     src: process.env.PUBLIC_URL + "asset/img/noimage.jpg",
   };
@@ -33,26 +34,31 @@ export default function Edit(props) {
     setPreview(
       files.length
         ? {
-            src: URL.createObjectURL(files[0]),
-            alt: files[0].name,
-          }
+          src: URL.createObjectURL(files[0]),
+          alt: files[0].name,
+        }
         : initialState
     );
   };
   useEffect(() => {
-    fetchVehicle();
-  }, []);
+    if (getToken() !== '') {
+      fetchVehicle();
+    }
+  }, [getToken()]);
 
-  const fetchVehicle= () => {
-    http.get("/vehicle-brand/" + id).then((res) => {
-       let response = res.data.data;
+  const fetchVehicle = () => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    http.get("/vehicle-brand/" + id, { headers }).then((res) => {
+      let response = res.data.data;
       setInputs({
         name: response.name,
         status: response.status,
       });
-        setPreview({
-            src: response.icon?response.icon:process.env.PUBLIC_URL + "asset/img/noimage.jpg",
-            alt:'',
+      setPreview({
+        src: response.icon ? response.icon : process.env.PUBLIC_URL + "asset/img/noimage.jpg",
+        alt: '',
       })
     });
   };
@@ -60,24 +66,28 @@ export default function Edit(props) {
   //for submit data in collection
   function submit(e) {
     e.preventDefault();
-     const inputsV = new FormData();
+    const inputsV = new FormData();
     inputsV.append("icon", icons.icon);
     inputsV.append("name", inputs.name);
     inputsV.append("status", inputs.status);
-    inputsV.append('_method',"put");
+    inputsV.append('_method', "put");
 
-    http.post("vehicle-brand/" + id, inputsV).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+
+    http.post("vehicle-brand/" + id, inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
         `${response.message}`,
         `${response.status}`
       );
-      if(response.status=='success'){
-      setTimeout(() => {
-        Swal.close();
-        navigate("/vehicle-brand");
-      }, 1000);
+      if (response.status == 'success') {
+        setTimeout(() => {
+          Swal.close();
+          navigate("/vehicle-brand");
+        }, 1000);
       }
     });
   }
@@ -98,7 +108,7 @@ export default function Edit(props) {
                   </div>
 
                   <div className="card-body">
-                    <form onSubmit={(e) => submit(e)}  encType="multipart/form-data">
+                    <form onSubmit={(e) => submit(e)} encType="multipart/form-data">
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-group">
@@ -149,7 +159,7 @@ export default function Edit(props) {
                           </div>
                         </div>
 
-                         <div className="col-md-3">
+                        <div className="col-md-3">
                           <img
                             className="preview"
                             src={src}

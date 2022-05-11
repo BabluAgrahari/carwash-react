@@ -69876,12 +69876,12 @@ module.exports = deprecate;
  * Mark that a method should not be used.
  * Returns a modified function which warns once by default.
  *
- * If `localStorage.noDeprecation = true` is set, then it is a no-op.
+ * If `sessionStorage.noDeprecation = true` is set, then it is a no-op.
  *
- * If `localStorage.throwDeprecation = true` is set, then deprecated functions
+ * If `sessionStorage.throwDeprecation = true` is set, then deprecated functions
  * will throw an Error when invoked.
  *
- * If `localStorage.traceDeprecation = true` is set, then deprecated functions
+ * If `sessionStorage.traceDeprecation = true` is set, then deprecated functions
  * will invoke `console.trace()` instead of `console.error()`.
  *
  * @param {Function} fn - the function to deprecate

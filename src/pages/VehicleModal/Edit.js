@@ -6,6 +6,7 @@ import http from "../../http";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
+import { getToken } from "../../token";
 
 export default function Edit(props) {
   const [inputs, setInputs] = useState([]);
@@ -16,23 +17,31 @@ export default function Edit(props) {
 
 
   useEffect(() => {
-    fetchCatgory();
+    if (getToken() !== '') {
+      fetchCatgory();
       vehicleBranchs();
-  }, []);
+    }
+  }, [getToken()]);
 
   const vehicleBranchs = async () => {
-    await http.get("vehicle-brand").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("vehicle-brand", { headers }).then((res) => {
       setBrand(res.data.data);
     });
   };
 
 
   const fetchCatgory = () => {
-    http.get("/vehicle-modal/" + id).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    http.get("/vehicle-modal/" + id, { headers }).then((res) => {
       // console.log(res.data.data);
       setInputs({
         name: res.data.data.name,
-        vehicle_brand:res.data.data.vehicle_brand,
+        vehicle_brand: res.data.data.vehicle_brand,
         status: res.data.data.status,
       });
     });
@@ -48,18 +57,21 @@ export default function Edit(props) {
   //for submit data in collection
   function submit(e) {
     e.preventDefault();
-    http.put("vehicle-modal/" + id, inputs).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    http.put("vehicle-modal/" + id, inputs, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
         `${response.message}`,
         `${response.status}`
       );
-      if(response.status=='success'){
-      setTimeout(() => {
-        Swal.close();
-        navigate("/vehicle-modal");
-      }, 1000);
+      if (response.status == 'success') {
+        setTimeout(() => {
+          Swal.close();
+          navigate("/vehicle-modal");
+        }, 1000);
       }
     });
   }
@@ -120,9 +132,9 @@ export default function Edit(props) {
                               className="form-control"
                             >
                               <option value="">Select</option>
-                            {vehicleBrands && vehicleBrands.map((v_brand, index) => (
-                              <option value={v_brand._id}>{v_brand.name}</option>
-                            ))}
+                              {vehicleBrands && vehicleBrands.map((v_brand, index) => (
+                                <option value={v_brand._id}>{v_brand.name}</option>
+                              ))}
                             </select>
                           </div>
                         </div>

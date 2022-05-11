@@ -6,6 +6,7 @@ import http from "../../http";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
+import { getToken } from "../../token";
 
 export default function Edit(props) {
   const initialState = {
@@ -33,18 +34,23 @@ export default function Edit(props) {
     setPreview(
       files.length
         ? {
-            src: URL.createObjectURL(files[0]),
-            alt: files[0].name,
-          }
+          src: URL.createObjectURL(files[0]),
+          alt: files[0].name,
+        }
         : initialState
     );
   };
   useEffect(() => {
-    fetchVehicle();
-  }, []);
+    if (getToken() !== '') {
+      fetchVehicle();
+    }
+  }, [getToken()]);
 
   const fetchVehicle = () => {
-    http.get("/driver/" + id).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    http.get("/driver/" + id, { headers }).then((res) => {
       let response = res.data.data;
       setInputs({
         name: response.name,
@@ -80,7 +86,11 @@ export default function Edit(props) {
     inputsV.append("status", inputs.status);
     inputsV.append("_method", "put");
 
-    http.post("driver/" + id, inputsV).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+
+    http.post("driver/" + id, inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
@@ -187,7 +197,7 @@ export default function Edit(props) {
                               </span>
                             </div>
 
-                             {/* <div className="col-md-6"></div> */}
+                            {/* <div className="col-md-6"></div> */}
 
                             <div className="form-group col-md-6">
                               <label>Image</label>

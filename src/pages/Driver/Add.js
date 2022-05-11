@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
+import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
@@ -14,6 +15,7 @@ export default function Add() {
   const [images, setImage] = useState([]);
   const [{ alt, src }, setPreview] = useState(initialState);
 
+
   const handleInput = (e) => {
     e.persist();
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -25,9 +27,9 @@ export default function Add() {
     setPreview(
       files.length
         ? {
-            src: URL.createObjectURL(files[0]),
-            alt: files[0].name,
-          }
+          src: URL.createObjectURL(files[0]),
+          alt: files[0].name,
+        }
         : initialState
     );
   };
@@ -47,7 +49,11 @@ export default function Add() {
     inputsV.append("password", inputs.password);
     inputsV.append("status", inputs.status);
 
-    http.post("driver", inputsV).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+
+    http.post("driver", inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
@@ -269,9 +275,9 @@ export default function Add() {
                               ></textarea>
                             </div>
                             <span className="text-muted text-size">
-                                <i class="fas fa-question-circle"></i>
-                                &nbsp;Please Enter Address
-                              </span>
+                              <i class="fas fa-question-circle"></i>
+                              &nbsp;Please Enter Address
+                            </span>
                           </div>
                         </div>
 

@@ -6,6 +6,7 @@ import http from "../../http";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
+import { getToken } from "../../token";
 
 export default function Edit(props) {
   const { id } = useParams();
@@ -73,11 +74,16 @@ export default function Edit(props) {
   };
 
   useEffect(() => {
-    fetchCatgory();
-  }, []);
+    if (getToken() !== '') {
+      fetchCatgory();
+    }
+  }, [getToken()]);
 
   const fetchCatgory = () => {
-    http.get("/shop-owner/" + id).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    http.get("/shop-owner/" + id, { headers }).then((res) => {
       // console.log(res.data.data);
       let response = res.data.data;
       setInputs({
@@ -122,7 +128,11 @@ export default function Edit(props) {
     inputsV.append("bank_details", JSON.stringify(bankDetails));
     inputsV.append("_method", "put");
 
-    http.post("shop-owner/" + id, inputsV).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+
+    http.post("shop-owner/" + id, inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,

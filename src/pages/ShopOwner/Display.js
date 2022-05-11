@@ -2,9 +2,32 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
+import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
+import Modal from 'react-modal';
+
+// react modal
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    width: '30vw',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    transection: 'all 1s ease-in-out',
+    background: 'transection',
+    padding: 0,
+    border: 'none',
+  },
+  overlay: {
+    background: 'rgba(0, 0, 0, 0.295)'
+  }
+}
 
 export default function Display() {
   const [modalShow, setModalShow] = React.useState(false);
@@ -12,16 +35,33 @@ export default function Display() {
   const [services, service] = useState([]);
   const [checkboxes, setCheckbox] = useState([]);
   const [ownerId, setOwnerId] = useState([]);
+  const [modalIsOpen, setIsOpen] = useState(false)
 
   //for show list of data
   useEffect(() => {
-    OwnerList();
-  }, []);
+    if (getToken() !== '') {
+      OwnerList();
+      ServiceList();
+    }
+  }, [getToken()]);
   const OwnerList = async () => {
-    await http.get("shop-owner").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("shop-owner", { headers }).then((res) => {
       setOwner(res.data.data);
     });
   };
+
+  // for modal
+
+  function openModal() {
+    setIsOpen(true)
+  }
+
+  function closeModal() {
+    setIsOpen(false)
+  }
 
   const remove = (id) => {
     Swal.fire({
@@ -34,7 +74,10 @@ export default function Display() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        http.delete("shop-owner/" + id).then((res) => {
+        const headers = {
+          Authorization: `Bearer ${getToken()}`
+        }
+        http.delete("shop-owner/" + id, { headers }).then((res) => {
           let response = res.data;
           Swal.fire("Deleted!", `${response.message}`, `${response.status}`);
           OwnerList();
@@ -47,13 +90,11 @@ export default function Display() {
       }
     });
   };
-
-  //for show list of data
-  useEffect(() => {
-    ServiceList();
-  }, []);
   const ServiceList = async () => {
-    await http.get("services").then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+    await http.get("services", { headers }).then((res) => {
       service(res.data.data);
     });
   };
@@ -67,7 +108,8 @@ export default function Display() {
 
   function showModal(id) {
     setOwnerId({ id });
-   $("#exampleModalCenter").modal("show");
+    // $("#exampleModalCenter").modal("show");
+    openModal()
   }
 
   //for Assign services to vendor
@@ -81,7 +123,11 @@ export default function Display() {
       value ? inputsV.append("services[]", value) : ""
     );
 
-    http.post("assign-services/" + id, inputsV).then((res) => {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`
+    }
+
+    http.post("assign-services/" + id, inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
@@ -239,6 +285,60 @@ export default function Display() {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="servicemodal"
+      >
+        <div className="card">
+          <div className="card-header">
+            <h3 className="card-title">Service List</h3>
+            <div className="card-tool">
+              <button
+                type="button"
+                className="close"
+                onClick={() => closeModal()}
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+          </div>
+          <div className="card-body">
+            <form onSubmit={(e) => assignService(e)}>
+              <table className="table table-sm w-100">
+                <tr>
+                  <th>Service</th>
+                  <th>Action</th>
+                </tr>
+                {services &&
+                  services.map((service, index) => (
+                    <tr>
+                      <td>{service.title}</td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          name={index}
+                          id=""
+                          value={service._id}
+                          onClick={handleCheckbox}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+              </table>
+              <div className="form-group text-center">
+                <input
+                  type="submit"
+                  className="btn btn-success btn-sm"
+                  value="Submit"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </Modal>
 
       <Footer></Footer>
     </>
