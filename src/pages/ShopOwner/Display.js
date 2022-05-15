@@ -44,6 +44,7 @@ export default function Display() {
       ServiceList();
     }
   }, [getToken()]);
+
   const OwnerList = async () => {
     const headers = {
       Authorization: `Bearer ${getToken()}`
