@@ -16,15 +16,25 @@ export default function Profile() {
     actual_charge: "",
   });
 
-  const [addNew, setNew] = useState(false);
+  const [noService, setNoService] = useState([]);
 
-  function addMore() {
-    setNew(true);
-  }
+  const inputfield = (e) => {
+    e.persist();
+    setNoService({ [e.target.name]: e.target.value });
+  };
 
-  function hideAdd() {
-    setNew(false);
-  }
+  const [counter, setCounter] = useState({});
+  const incrementCounter = (index) => {
+    console.log(counter);
+    setCounter({ ...counter, [index]: counter[index] + 1 });
+    // console.log(counter)
+  };
+  let decrementCounter = (index) => {
+    setCounter({ ...counter, [index]: counter[index] - 1 });
+  };
+  // if (counter == '') {
+  //   decrementCounter = () => setCounter({ ...counter, [0]: 1 });
+  // }
   //for show list of data
   useEffect(() => {
     if (getToken() !== "") {
@@ -43,7 +53,6 @@ export default function Profile() {
 
   return (
     <>
-      {console.log(timeSlaps)}
       <Header></Header>
       <Menu></Menu>
       <div className="content-wrapper mt-2">
@@ -67,21 +76,13 @@ export default function Profile() {
                   <div className="card-body">
                     <div className="row">
                       {timeSlaps &&
-                        timeSlaps.map((time, indes) => (
-                          <div className="col-md-6 card py-2">
+                        timeSlaps.map((slap, index) => (
+                          <div className="col-md-6 card py-2" index={index}>
                             <div className="row">
                               <div className="col-md-6">
-                                <b>{time.day}</b>
+                                <b>{slap.day}</b>
                               </div>
-                              <div className="col-md-6 text-right">
-                                <a
-                                  onClick={(e) => addMore()}
-                                  href="javascript:void(0)"
-                                  className="text-danger"
-                                >
-                                <i class="fas fa-plus"></i>&nbsp;<b>Add</b>
-                                </a>
-                              </div>
+                              <div className="col-md-6 text-right"></div>
                             </div>
 
                             <div className="row mt-2">
@@ -92,73 +93,49 @@ export default function Profile() {
                                     <td>Start Time</td>
                                     <td>End Time</td>
                                     <td>No of Service</td>
+                                    <td></td>
                                   </tr>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>10:00</td>
-                                    <td>11:00</td>
-                                    <td>3</td>
-                                  </tr>
+
+                                  {slap.slaps.map((Cslap, ind) => (
+                                    <tr>
+                                      <td>{ind}</td>
+                                      <td>{Cslap.start_time}</td>
+                                      <td>{Cslap.end_time}</td>
+                                      <td className="w-25">
+                                        <div className="form-group">
+                                          <button
+                                            onClick={(e) => {incrementCounter(ind)}}
+                                          >
+                                            +
+                                          </button>
+
+                                          <input
+                                            type="number"
+                                            // onChange={inputfield}
+                                            value={
+                                              counter[ind]
+                                                ? counter[ind]
+                                                : Cslap.no_of_services
+                                            }
+                                            className="form-control form-control-sm"
+                                            placeholder="No of Services"
+                                            name="no_of_services"
+                                          />
+                                          <button
+                                            onClick={(e) =>
+                                              decrementCounter(ind)
+                                            }
+                                          >
+                                            -
+                                          </button>
+                                        </div>
+                                      </td>
+                                      <td>Save</td>
+                                    </tr>
+                                  ))}
                                 </table>
                               </div>
                             </div>
-
-                            {addNew && (
-                              <div className="row">
-                                <div className="col-md-12">
-                                  <form method="post">
-                                    <div className="form-row">
-                                      <div className="form-group col-md-3">
-                                        <label>Start Time</label>
-                                        <input
-                                          type="time"
-                                          className="form-control form-control-sm"
-                                          palceholder="Start Time"
-                                          name="start_time"
-                                        />
-                                      </div>
-
-                                      <div className="form-group col-md-3">
-                                        <label>End Time</label>
-                                        <input
-                                          type="time"
-                                          className="form-control form-control-sm"
-                                          palceholder="End Time"
-                                          name="end_time"
-                                        />
-                                      </div>
-
-                                      <div className="form-group col-md-3">
-                                        <label>No of Services</label>
-                                        <input
-                                          type="number"
-                                          className="form-control form-control-sm"
-                                          placeholder="No of Services"
-                                          name="no_of_services"
-                                        />
-                                      </div>
-
-                                      <div className="form-group col-md-1 mt-4">
-                                        <input
-                                          type="submit"
-                                          value="save"
-                                          className="btn btn-success btn-sm"
-                                        />
-                                      </div>
-                                      <div className="form-group col-md-1 mt-4">
-                                        <a
-                                          href="javascript:void(0);"
-                                          className="btn btn-sm btn-danger"
-                                          onClick={(e) => hideAdd()}
-                                        >
-                                          Cancel
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                            )}
                           </div>
                         ))}
                     </div>
