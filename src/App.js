@@ -39,6 +39,9 @@ import VendorServices from "./pages/VendorServices/Services";
 //for vendor profile
 import Profile from "./pages/VendorProfile/Profile";
 
+//for Booking
+import BookingDisplay from "./pages/Booking/Display";
+
 function App() {
   return (
     <div className="wrapper">
@@ -141,14 +144,24 @@ function App() {
           {/* for Vendor Profile */}
           <Route
             path="/profile"
-            element={<Auth component={Profile} role={["vendor","admin"]} />}
+            element={<Auth component={Profile} role={["vendor", "admin"]} />}
           ></Route>
 
+          {/* for booking */}
+          <Route
+            path="/booking"
+            element={<Auth component={BookingDisplay} role={["vendor", "admin"]} />}
+          ></Route>
 
           {/* for location */}
           <Route
             path="/location"
-            element={<Auth component={LocationSearchInput} role={["vendor","admin"]} />}
+            element={
+              <Auth
+                component={LocationSearchInput}
+                role={["vendor", "admin"]}
+              />
+            }
           ></Route>
 
           <Route path="/" element={<Login />}></Route>
