@@ -39,6 +39,12 @@ export default function Add() {
     );
     setBankDetail(updatedBanks);
   };
+
+  const removeBankDetail = (index) => {
+    const bankDetail = [...bankDetails];
+    bankDetail.splice(index, 1);
+    setBankDetail(bankDetail);
+  };
   /*end dunamic bank details fields*/
 
   const handleInput = (e) => {
@@ -48,7 +54,8 @@ export default function Add() {
 
   const handleCheckbox = (e) => {
     e.persist();
-    setCheckbox({ ...inputs, [e.target.name]: e.target.value });
+    let val = e.target.checked ? 1 : 0;
+    setCheckbox({ ...checkbox, [e.target.name]: val });
   };
 
   //for getting img
@@ -96,8 +103,8 @@ export default function Add() {
     inputsV.append("bank_details", JSON.stringify(bankDetails));
 
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
 
     http.post("shop-owner", inputsV, { headers }).then((res) => {
       let response = res.data;
@@ -150,8 +157,8 @@ export default function Add() {
                             value={inputs.business_name}
                           />
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Enter
-                            Store Name
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Enter Store Name
                           </span>
                         </div>
 
@@ -173,8 +180,8 @@ export default function Add() {
                             </label>
                           </div>
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Select
-                            Store Logo
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Select Store Logo
                           </span>
                         </div>
 
@@ -196,8 +203,9 @@ export default function Add() {
                             </label>
                           </div>
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;*Tt Will
-                            Display on your store page.*Recommanded size is:
+                            <i className="fas fa-question-circle"></i>&nbsp;*Tt
+                            Will Display on your store page.*Recommanded size
+                            is:
                             <b>1500*440 px</b>
                           </span>
                         </div>
@@ -216,8 +224,8 @@ export default function Add() {
                             value={inputs.business_email}
                           />
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            Enter Business Name
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please Enter Business Name
                           </span>
                         </div>
 
@@ -233,8 +241,8 @@ export default function Add() {
                             value={inputs.gstin_no}
                           />
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            Enter GSTIN/VAT No
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please Enter GSTIN/VAT No
                           </span>
                         </div>
 
@@ -250,8 +258,8 @@ export default function Add() {
                             value={inputs.phone}
                           />
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            Enter Phone no
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please Enter Phone no
                           </span>
                         </div>
                       </div>
@@ -269,8 +277,8 @@ export default function Add() {
                             value={inputs.mobile}
                           />
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            Enter Mobile No
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please Enter Mobile No
                           </span>
                         </div>
 
@@ -286,8 +294,8 @@ export default function Add() {
                             value={inputs.whatsapp_no}
                           />
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            Enter Whatsapp No
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please Enter Whatsapp No
                           </span>
                         </div>
 
@@ -309,19 +317,16 @@ export default function Add() {
                       <div className="form-row">
                         <div className="form-group col-md-3">
                           <label>City</label>
-                          <select
+                          <input
                             name="city"
                             onChange={handleInput}
                             id="city"
                             className="form-control"
-                          >
-                            <option value="">Select</option>
-                            <option value="delhi">Delhi</option>
-                            <option value="noida">Noida</option>
-                          </select>
+                            placeholder="Enter City"
+                          />
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            Select City
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please Enter City
                           </span>
                         </div>
 
@@ -334,12 +339,59 @@ export default function Add() {
                             className="form-control"
                           >
                             <option value="">Select</option>
-                            <option value="delhi">Delhi</option>
-                            <option value="noida">Noida</option>
+                            <option value="Andhra Pradesh">
+                              Andhra Pradesh
+                            </option>
+                            <option value="Arunachal Pradesh">
+                              Arunachal Pradesh
+                            </option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">
+                              Himachal Pradesh
+                            </option>
+                            <option value="Jammu and Kashmir">
+                              Jammu and Kashmir
+                            </option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">
+                              Madhya Pradesh
+                            </option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                            <option value="Andaman and Nicobar Islands">
+                              Andaman and Nicobar Islands
+                            </option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Dadra and Nagar Haveli">
+                              Dadra and Nagar Haveli
+                            </option>
+                            <option value="Daman and Diu">Daman and Diu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Puducherry">Puducherry</option>
                           </select>
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            Select State
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please Select State
                           </span>
                         </div>
 
@@ -355,8 +407,8 @@ export default function Add() {
                             value={inputs.pincode}
                           />
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            enter Pincode
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please enter Pincode
                           </span>
                         </div>
 
@@ -372,8 +424,8 @@ export default function Add() {
                             value={inputs.password}
                           />
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            enter Password here
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please enter Password here
                           </span>
                         </div>
                       </div>
@@ -393,8 +445,8 @@ export default function Add() {
                             {inputs.address}
                           </textarea>
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            Enter Store Address
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please Enter Store Address
                           </span>
                         </div>
 
@@ -412,8 +464,8 @@ export default function Add() {
                             {inputs.address}
                           </textarea>
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Please
-                            Enter Store Description
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please Enter Store Description
                           </span>
                         </div>
                       </div>
@@ -436,8 +488,8 @@ export default function Add() {
                             ></label>
                           </div>
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;Toogle
-                            the Store status
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Toogle the Store status
                           </span>
                         </div>
 
@@ -458,10 +510,10 @@ export default function Add() {
                             ></label>
                           </div>
                           <span className="text-muted text-size">
-                            <i class="fas fa-question-circle"></i>&nbsp;(On the
-                            product Detail page if store is verified then it
+                            <i className="fas fa-question-circle"></i>&nbsp;(On
+                            the product Detail page if store is verified then it
                             will add{" "}
-                            <i class="fas fa-check-circle text-success"></i>{" "}
+                            <i className="fas fa-check-circle text-success"></i>{" "}
                             symbol next to store name.)
                           </span>
                         </div>
@@ -527,8 +579,11 @@ export default function Add() {
                                 </div>
 
                                 <div className="col-md-1 mt-4">
-                                  <a href="javascript:void(0);">
-                                    <i class="fas fa-minus-circle fa-2x text-danger"></i>
+                                  <a
+                                    href="javascript:void(0);"
+                                    onClick={() => removeBankDetail(index)}
+                                  >
+                                    <i className="fas fa-minus-circle fa-2x text-danger"></i>
                                   </a>
                                 </div>
                               </div>
@@ -539,7 +594,7 @@ export default function Add() {
                               className="btn btn-success btn-sm"
                               onClick={addBankDetail}
                             >
-                              <i class="fas fa-plus"></i>&nbsp;Add
+                              <i className="fas fa-plus"></i>&nbsp;Add
                             </button>
                           </div>
                         </div>
@@ -552,7 +607,7 @@ export default function Add() {
                           className="btn btn-success"
                         />
                         <Link to="/shop-owner" className="ml-2 btn btn-warning">
-                          <i class="far fa-hand-point-left"></i>&nbsp;Back
+                          <i className="far fa-hand-point-left"></i>&nbsp;Back
                         </Link>
                       </div>
                     </form>

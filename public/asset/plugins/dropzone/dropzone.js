@@ -6688,7 +6688,7 @@ $({ global: true, forced: !USE_NATIVE_URL, sham: !DESCRIPTORS }, {
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -6701,14 +6701,14 @@ $({ global: true, forced: !USE_NATIVE_URL, sham: !DESCRIPTORS }, {
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	!function() {
@@ -6721,7 +6721,7 @@ $({ global: true, forced: !USE_NATIVE_URL, sham: !DESCRIPTORS }, {
 /******/ 			}
 /******/ 		};
 /******/ 	}();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/global */
 /******/ 	!function() {
 /******/ 		__webpack_require__.g = (function() {
@@ -6733,12 +6733,12 @@ $({ global: true, forced: !USE_NATIVE_URL, sham: !DESCRIPTORS }, {
 /******/ 			}
 /******/ 		})();
 /******/ 	}();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	!function() {
 /******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
 /******/ 	}();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	!function() {
 /******/ 		// define __esModule on exports
@@ -6749,7 +6749,7 @@ $({ global: true, forced: !USE_NATIVE_URL, sham: !DESCRIPTORS }, {
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	}();
-/******/ 	
+/******/
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
@@ -7448,7 +7448,7 @@ var defaultOptions = {
     }
 
     if (!messageElement) {
-      messageElement = Dropzone.createElement('<div class="dz-message"><span></span></div>');
+      messageElement = Dropzone.createElement('<div className="dz-message"><span></span></div>');
       this.element.appendChild(messageElement);
     }
 
@@ -8333,7 +8333,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
         return existingFallback;
       }
 
-      var fieldsString = '<div class="dz-fallback">';
+      var fieldsString = '<div className="dz-fallback">';
 
       if (this.options.dictFallbackText) {
         fieldsString += "<p>".concat(this.options.dictFallbackText, "</p>");
@@ -9744,7 +9744,7 @@ Dropzone.version = "5.9.2"; // This is a map of options for your different dropz
 //
 // And in html:
 //
-//     <form action="/upload" id="my-dropzone-element-id" class="dropzone"></form>
+//     <form action="/upload" id="my-dropzone-element-id" className="dropzone"></form>
 
 Dropzone.options = {}; // Returns the options for an element or undefined if none available.
 

@@ -65,7 +65,7 @@
 
       context.memo('button.specialchars', function() {
         return ui.button({
-          contents: '<i class="fa fa-font fa-flip-vertical">',
+          contents: '<i className="fa fa-font fa-flip-vertical">',
           tooltip: lang.specialChar.specialChar,
           click: function() {
             self.show();
@@ -116,7 +116,7 @@
       this.initialize = function() {
         var $container = options.dialogsInBody ? $(document.body) : $editor;
 
-        var body = '<div class="form-group row-fluid">' + this.makeSpecialCharSetTable()[0].outerHTML + '</div>';
+        var body = '<div className="form-group row-fluid">' + this.makeSpecialCharSetTable()[0].outerHTML + '</div>';
 
         this.$dialog = ui.dialog({
           title: lang.specialChar.select,

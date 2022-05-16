@@ -98,19 +98,19 @@ class Layout extends React.Component {
               </ul>
             </nav>
 
-            <aside class="main-sidebar sidebar-dark-primary elevation-4 bg-custom-sidebar">
-              <div class="sidebar">
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                  <div class="image">
+            <aside className="main-sidebar sidebar-dark-primary elevation-4 bg-custom-sidebar">
+              <div className="sidebar">
+                <div className="user-panel mt-3 pb-3 mb-3 d-flex">
+                  <div className="image">
                     <img
                       src="{{ asset('assets') }}/profile/37.jpg"
-                      class="img-circle elevation-2"
+                      className="img-circle elevation-2"
                       alt="User Image"
                     />
                   </div>
 
-                  <div class="info">
-                    <a href="javascript:void(0);" class="d-block"></a>
+                  <div className="info">
+                    <a href="javascript:void(0);" className="d-block"></a>
                   </div>
                 </div>
  <RSidebar></RSidebar>
@@ -118,9 +118,9 @@ class Layout extends React.Component {
             </aside>
 
 
-            <div class="content-wrapper">
-              <section class="content bg-white">
-                <div class="container-fluid">
+            <div className="content-wrapper">
+              <section className="content bg-white">
+                <div className="container-fluid">
                   <Dashboard></Dashboard>
                 </div>
               </section>

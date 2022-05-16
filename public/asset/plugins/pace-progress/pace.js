@@ -246,7 +246,7 @@
         this.el.classList.add('pace-active');
         document.body.classList.remove('pace-done');
         document.body.classList.add('pace-running');
-        this.el.innerHTML = '<div class="pace-progress">\n  <div class="pace-progress-inner"></div>\n</div>\n<div class="pace-activity"></div>';
+        this.el.innerHTML = '<div className="pace-progress">\n  <div className="pace-progress-inner"></div>\n</div>\n<div className="pace-activity"></div>';
         if (targetElement.firstChild != null) {
           targetElement.insertBefore(this.el, targetElement.firstChild);
         } else {

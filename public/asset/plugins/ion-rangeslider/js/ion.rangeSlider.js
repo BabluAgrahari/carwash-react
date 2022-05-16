@@ -120,27 +120,27 @@
     // Template
 
     var base_html =
-        '<span class="irs">' +
-        '<span class="irs-line" tabindex="0"></span>' +
-        '<span class="irs-min">0</span><span class="irs-max">1</span>' +
-        '<span class="irs-from">0</span><span class="irs-to">0</span><span class="irs-single">0</span>' +
+        '<span className="irs">' +
+        '<span className="irs-line" tabindex="0"></span>' +
+        '<span className="irs-min">0</span><span className="irs-max">1</span>' +
+        '<span className="irs-from">0</span><span className="irs-to">0</span><span className="irs-single">0</span>' +
         '</span>' +
-        '<span class="irs-grid"></span>';
+        '<span className="irs-grid"></span>';
 
     var single_html =
-        '<span class="irs-bar irs-bar--single"></span>' +
-        '<span class="irs-shadow shadow-single"></span>' +
-        '<span class="irs-handle single"><i></i><i></i><i></i></span>';
+        '<span className="irs-bar irs-bar--single"></span>' +
+        '<span className="irs-shadow shadow-single"></span>' +
+        '<span className="irs-handle single"><i></i><i></i><i></i></span>';
 
     var double_html =
-        '<span class="irs-bar"></span>' +
-        '<span class="irs-shadow shadow-from"></span>' +
-        '<span class="irs-shadow shadow-to"></span>' +
-        '<span class="irs-handle from"><i></i><i></i><i></i></span>' +
-        '<span class="irs-handle to"><i></i><i></i><i></i></span>';
+        '<span className="irs-bar"></span>' +
+        '<span className="irs-shadow shadow-from"></span>' +
+        '<span className="irs-shadow shadow-to"></span>' +
+        '<span className="irs-handle from"><i></i><i></i><i></i></span>' +
+        '<span className="irs-handle to"><i></i><i></i><i></i></span>';
 
     var disable_html =
-        '<span class="irs-disable-mask"></span>';
+        '<span className="irs-disable-mask"></span>';
 
 
 
@@ -505,7 +505,7 @@
          * Appends slider template to a DOM
          */
         append: function () {
-            var container_html = '<span class="irs irs--' + this.options.skin + ' js-irs-' + this.plugin_count + ' ' + this.options.extra_classes + '"></span>';
+            var container_html = '<span className="irs irs--' + this.options.skin + ' js-irs-' + this.plugin_count + ' ' + this.options.extra_classes + '"></span>';
             this.$cache.input.before(container_html);
             this.$cache.input.prop("readonly", true);
             this.$cache.cont = this.$cache.input.prev();
@@ -2233,10 +2233,10 @@
 
                     small_w = this.toFixed(big_w - (small_p * z));
 
-                    html += '<span class="irs-grid-pol small" style="left: ' + small_w + '%"></span>';
+                    html += '<span className="irs-grid-pol small" style="left: ' + small_w + '%"></span>';
                 }
 
-                html += '<span class="irs-grid-pol" style="left: ' + big_w + '%"></span>';
+                html += '<span className="irs-grid-pol" style="left: ' + big_w + '%"></span>';
 
                 result = this.convertToValue(big_w);
                 if (o.values.length) {
@@ -2245,7 +2245,7 @@
                     result = this._prettify(result);
                 }
 
-                html += '<span class="irs-grid-text js-grid-text-' + i + '" style="left: ' + big_w + '%">' + result + '</span>';
+                html += '<span className="irs-grid-text js-grid-text-' + i + '" style="left: ' + big_w + '%">' + result + '</span>';
             }
             this.coords.big_num = Math.ceil(big_num + 1);
 

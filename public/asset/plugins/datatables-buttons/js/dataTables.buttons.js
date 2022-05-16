@@ -65,7 +65,7 @@ function _fadeOut(el, duration, fn) {
 	}
 	else {
 		el.css('display', 'none');
-		
+
 		if (fn) {
 			fn.call(el);
 		}
@@ -90,9 +90,9 @@ var Buttons = function( dt, config )
 
 	// If there is no config set it to an empty object
 	if ( typeof( config ) === 'undefined' ) {
-		config = {};	
+		config = {};
 	}
-	
+
 	// Allow a boolean true for defaults
 	if ( config === true ) {
 		config = {};
@@ -241,7 +241,7 @@ $.extend( Buttons.prototype, {
 		// needed). Take a copy as the array is modified by `remove`
 		var buttons = this.s.buttons.slice();
 		var i, ien;
-		
+
 		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
 			this.remove( buttons[i].node );
 		}
@@ -594,7 +594,7 @@ $.extend( Buttons.prototype, {
 			config.action.call( dt.button( button ), e, dt, button, config );
 
 			$(dt.table().node()).triggerHandler( 'buttons-action.dt', [
-				dt.button( button ), dt, button, config 
+				dt.button( button ), dt, button, config
 			] );
 		};
 
@@ -1026,7 +1026,7 @@ $.extend( Buttons.prototype, {
 		}
 
 		if ( options.collectionTitle ) {
-			display.prepend('<div class="dt-button-collection-title">'+options.collectionTitle+'</div>');
+			display.prepend('<div className="dt-button-collection-title">'+options.collectionTitle+'</div>');
 		}
 
 		_fadeIn( display.insertAfter( hostNode ), options.fade );
@@ -1100,9 +1100,9 @@ $.extend( Buttons.prototype, {
 					if(tableLeft > (popoverLeft + popoverShuffle)){
 						var leftGap = tableLeft - (popoverLeft + popoverShuffle);
 						var rightGap = tableRight - (popoverRight + popoverShuffle);
-		
+
 						if(leftGap > rightGap){
-							popoverShuffle += rightGap; 
+							popoverShuffle += rightGap;
 						}
 						else {
 							popoverShuffle += leftGap;
@@ -1113,21 +1113,21 @@ $.extend( Buttons.prototype, {
 				//  then move it back, but not so much that it goes past the left of the table container
 				else {
 					popoverShuffle = tableLeft - popoverLeft;
-	
+
 					if(tableRight < (popoverRight + popoverShuffle)){
 						var leftGap = tableLeft - (popoverLeft + popoverShuffle);
 						var rightGap = tableRight - (popoverRight + popoverShuffle);
-	
+
 						if(leftGap > rightGap ){
 							popoverShuffle += rightGap;
 						}
 						else {
 							popoverShuffle += leftGap;
 						}
-	
+
 					}
 				}
-	
+
 				display.css('left', display.position().left + popoverShuffle);
 			}
 			else {
@@ -1140,8 +1140,8 @@ $.extend( Buttons.prototype, {
 
 				display.css('left', display.position().left + popoverShuffle);
 			}
-			
-			
+
+
 		}
 		else {
 			// Fix position - centre on screen
@@ -1203,7 +1203,7 @@ $.extend( Buttons.prototype, {
 /**
  * Show / hide a background layer behind a collection
  * @param  {boolean} Flag to indicate if the background should be shown or
- *   hidden 
+ *   hidden
  * @param  {string} Class to assign to the background
  * @static
  */
@@ -1289,7 +1289,7 @@ Buttons.instanceSelector = function ( group, buttons )
 			ret.push( buttons[ input ].inst );
 		}
 	};
-	
+
 	process( group );
 
 	return ret;
@@ -1847,7 +1847,7 @@ DataTable.Api.register( 'buttons.info()', function ( title, message, time ) {
 	title = title ? '<h2>'+title+'</h2>' : '';
 
 	_fadeIn(
-		$('<div id="datatables_buttons_info" class="dt-button-info"/>')
+		$('<div id="datatables_buttons_info" className="dt-button-info"/>')
 			.html( title )
 			.append( $('<div/>')[ typeof message === 'string' ? 'html' : 'append' ]( message ) )
 			.css( 'display', 'none' )
@@ -2025,7 +2025,7 @@ var _exportData = function ( dt, inOpts )
 			return config.format.footer( el ? el.innerHTML : '', idx, el );
 		} ).toArray() :
 		null;
-	
+
 	// If Select is available on this table, and any rows are selected, limit the export
 	// to the selected rows. If no rows are selected, all rows will be exported. Specify
 	// a `selected` modifier to control directly.

@@ -82,7 +82,7 @@ export default function VendorServices() {
                         to="/services/add"
                         className="btn btn-success btn-sm"
                       >
-                        <i class="fas fa-plus"></i>&nbsp;Add
+                        <i className="fas fa-plus"></i>&nbsp;Add
                       </Link>
                     </div>
                   </div>
@@ -131,7 +131,7 @@ export default function VendorServices() {
                                 _id={service._id}
                                 onClick={() => showModal({ 'id': service._id, 'charge': service.service_charge })}
                               >
-                                <i class="fas fa-concierge-bell"></i>
+                                <i className="fas fa-concierge-bell"></i>
                               </a>
                             </td>
                           </tr>

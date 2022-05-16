@@ -26,7 +26,7 @@ var Lightbox = (function ($) {
 		wrapping: true, //if true, gallery loops infinitely
 		type: null, //force the lightbox into image / youtube mode. if null, or not image|youtube|vimeo; detect it
 		alwaysShowClose: false, //always show the close button, even if there is no title
-		loadingMessage: '<div class="ekko-lightbox-loader"><div><div></div><div></div></div></div>', // http://tobiasahlin.com/spinkit/
+		loadingMessage: '<div className="ekko-lightbox-loader"><div><div></div><div></div></div></div>', // http://tobiasahlin.com/spinkit/
 		leftArrow: '<span>&#10094;</span>',
 		rightArrow: '<span>&#10095;</span>',
 		strings: {
@@ -96,14 +96,14 @@ var Lightbox = (function ($) {
 
 			this._isBootstrap3 = $.fn.modal.Constructor.VERSION[0] == 3;
 
-			var h4 = '<h4 class="modal-title">' + (this._config.title || "&nbsp;") + '</h4>';
-			var btn = '<button type="button" class="close" data-dismiss="modal" aria-label="' + this._config.strings.close + '"><span aria-hidden="true">&times;</span></button>';
+			var h4 = '<h4 className="modal-title">' + (this._config.title || "&nbsp;") + '</h4>';
+			var btn = '<button type="button" className="close" data-dismiss="modal" aria-label="' + this._config.strings.close + '"><span aria-hidden="true">&times;</span></button>';
 
-			var header = '<div class="modal-header' + (this._config.title || this._config.alwaysShowClose ? '' : ' hide') + '">' + (this._isBootstrap3 ? btn + h4 : h4 + btn) + '</div>';
-			var footer = '<div class="modal-footer' + (this._config.footer ? '' : ' hide') + '">' + (this._config.footer || "&nbsp;") + '</div>';
-			var body = '<div class="modal-body"><div class="ekko-lightbox-container"><div class="ekko-lightbox-item fade in show"></div><div class="ekko-lightbox-item fade"></div></div></div>';
-			var dialog = '<div class="modal-dialog" role="document"><div class="modal-content">' + header + body + footer + '</div></div>';
-			$(this._config.doc.body).append('<div id="' + this._modalId + '" class="ekko-lightbox modal fade" tabindex="-1" tabindex="-1" role="dialog" aria-hidden="true">' + dialog + '</div>');
+			var header = '<div className="modal-header' + (this._config.title || this._config.alwaysShowClose ? '' : ' hide') + '">' + (this._isBootstrap3 ? btn + h4 : h4 + btn) + '</div>';
+			var footer = '<div className="modal-footer' + (this._config.footer ? '' : ' hide') + '">' + (this._config.footer || "&nbsp;") + '</div>';
+			var body = '<div className="modal-body"><div className="ekko-lightbox-container"><div className="ekko-lightbox-item fade in show"></div><div className="ekko-lightbox-item fade"></div></div></div>';
+			var dialog = '<div className="modal-dialog" role="document"><div className="modal-content">' + header + body + footer + '</div></div>';
+			$(this._config.doc.body).append('<div id="' + this._modalId + '" className="ekko-lightbox modal fade" tabindex="-1" tabindex="-1" role="dialog" aria-hidden="true">' + dialog + '</div>');
 
 			this._$modal = $('#' + this._modalId, this._config.doc);
 			this._$modalDialog = this._$modal.find('.modal-dialog').first();
@@ -127,7 +127,7 @@ var Lightbox = (function ($) {
 
 				// add the directional arrows to the modal
 				if (this._config.showArrows && this._$galleryItems.length > 1) {
-					this._$lightboxContainer.append('<div class="ekko-lightbox-nav-overlay"><a href="#">' + this._config.leftArrow + '</a><a href="#">' + this._config.rightArrow + '</a></div>');
+					this._$lightboxContainer.append('<div className="ekko-lightbox-nav-overlay"><a href="#">' + this._config.leftArrow + '</a><a href="#">' + this._config.rightArrow + '</a></div>');
 					this._$modalArrows = this._$lightboxContainer.find('div.ekko-lightbox-nav-overlay').first();
 					this._$lightboxContainer.on('click', 'a:first-child', function (event) {
 						event.preventDefault();
@@ -441,7 +441,7 @@ var Lightbox = (function ($) {
 			value: function _showVideoIframe(url, width, height, $containerForElement) {
 				// should be used for videos only. for remote content use loadRemoteContent (data-type=url)
 				height = height || width; // default to square
-				$containerForElement.html('<div class="embed-responsive embed-responsive-16by9"><iframe width="' + width + '" height="' + height + '" src="' + url + '" frameborder="0" allowfullscreen class="embed-responsive-item"></iframe></div>');
+				$containerForElement.html('<div className="embed-responsive embed-responsive-16by9"><iframe width="' + width + '" height="' + height + '" src="' + url + '" frameborder="0" allowfullscreen className="embed-responsive-item"></iframe></div>');
 				this._resize(width, height);
 				this._config.onContentLoaded.call(this);
 				if (this._$modalArrows) this._$modalArrows.css('display', 'none'); //hide the arrows when showing video
@@ -454,7 +454,7 @@ var Lightbox = (function ($) {
 				// should be used for videos only. for remote content use loadRemoteContent (data-type=url)
 				var width = this._$element.data('width') || 560;
 				var height = this._$element.data('height') || width / (560 / 315);
-				$containerForElement.html('<div class="embed-responsive embed-responsive-16by9"><video width="' + width + '" height="' + height + '" src="' + url + '" preload="auto" autoplay controls class="embed-responsive-item"></video></div>');
+				$containerForElement.html('<div className="embed-responsive embed-responsive-16by9"><video width="' + width + '" height="' + height + '" src="' + url + '" preload="auto" autoplay controls className="embed-responsive-item"></video></div>');
 				this._resize(width, height);
 				this._config.onContentLoaded.call(this);
 				if (this._$modalArrows) this._$modalArrows.css('display', 'none'); //hide the arrows when showing video

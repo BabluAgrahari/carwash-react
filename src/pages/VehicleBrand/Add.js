@@ -13,6 +13,7 @@ export default function Add() {
 
   const [inputs, setInputs] = useState([]);
   const [icons, setIcon] = useState([]);
+  const [inputsError, setError] = useState([]);
   const [{ alt, src }, setPreview] = useState(initialState);
 
   const handleInput = (e) => {
@@ -26,9 +27,9 @@ export default function Add() {
     setPreview(
       files.length
         ? {
-          src: URL.createObjectURL(files[0]),
-          alt: files[0].name,
-        }
+            src: URL.createObjectURL(files[0]),
+            alt: files[0].name,
+          }
         : initialState
     );
   };
@@ -37,22 +38,30 @@ export default function Add() {
   function submit(e) {
     e.preventDefault();
     const inputsV = new FormData();
-    inputsV.append("icon", icons.icon);
-    inputsV.append("name", inputs.name);
-    inputsV.append("status", inputs.status);
+    inputsV.append("icon", icons.icon ? icons.icon : "");
+    inputsV.append("name", inputs.name ? inputs.name : "");
+    inputsV.append("status", inputs.status ? inputs.status : "");
 
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
 
     http.post("vehicle-brand", inputsV, { headers }).then((res) => {
       let response = res.data;
+
+      if (response.type == "validation") {
+        let errors = response.message;
+        Object.keys(errors).map((error, index) =>
+          setError({ ...inputsError, [error]: errors[error][0] })
+        );
+        return false;
+      }
       Swal.fire(
         `${response.status}`,
         `${response.message}`,
         `${response.status}`
       );
-      if (response.status == 'success') {
+      if (response.status == "success") {
         setTimeout(() => {
           Swal.close();
           navigate("/vehicle-brand");
@@ -91,6 +100,9 @@ export default function Add() {
                               id="name"
                               value={inputs.name}
                             />
+                            <span className="text-danger">
+                              {inputsError.name}
+                            </span>
                           </div>
 
                           <div className="form-group">
@@ -104,6 +116,9 @@ export default function Add() {
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
+                            <span className="text-danger">
+                              {inputsError.status}
+                            </span>
                           </div>
                         </div>
 
@@ -125,11 +140,16 @@ export default function Add() {
                                 Choose file
                               </label>
                             </div>
+                            <span className="text-danger">
+                              {inputsError.icon}
+                            </span>
                           </div>
                         </div>
 
                         <div className="col-md-3">
-                          {src && <img className="preview" src={src} alt={alt} />}
+                          {src && (
+                            <img className="preview" src={src} alt={alt} />
+                          )}
                         </div>
 
                         <div className="col-md-12">
@@ -143,7 +163,7 @@ export default function Add() {
                               to="/vehicle-brand"
                               className="ml-2 btn btn-warning"
                             >
-                              <i class="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>&nbsp;Back
                             </Link>
                           </div>
                         </div>

@@ -88,7 +88,7 @@
                     .attr('disabled', 'true')
                     .addClass(this.classes.paneButton)
                     .addClass(this.classes.clearButton),
-                collapseButton: $('<button type="button"><span class="dtsp-caret">&#x5e;</span></button>')
+                collapseButton: $('<button type="button"><span className="dtsp-caret">&#x5e;</span></button>')
                     .addClass(this.classes.paneButton)
                     .addClass(this.classes.collapseButton),
                 container: $('<div/>')
@@ -108,7 +108,7 @@
                     .addClass(this.classes.nameButton),
                 panesContainer: panesContainer,
                 searchBox: $('<input/>').addClass(this.classes.paneInputButton).addClass(this.classes.search),
-                searchButton: $('<button type = "button" class="' + this.classes.searchIcon + '"></button>')
+                searchButton: $('<button type = "button" className="' + this.classes.searchIcon + '"></button>')
                     .addClass(this.classes.paneButton),
                 searchCont: $('<div/>').addClass(this.classes.searchCont),
                 searchLabelCont: $('<div/>').addClass(this.classes.searchLabelCont),
@@ -908,7 +908,7 @@
                             // We are displaying the count in the same columne as the name of the search option.
                             // This is so that there is not need to call columns.adjust()
                             //  which in turn speeds up the code
-                            var pill = '<span class="' + _this.classes.pill + '">' + message + '</span>';
+                            var pill = '<span className="' + _this.classes.pill + '">' + message + '</span>';
                             if (!_this.c.viewCount || !colOpts.viewCount) {
                                 pill = '';
                             }
@@ -917,11 +917,11 @@
                                     data.replace(/<[^>]*>/g, '') :
                                     data;
                             }
-                            return '<div class="' + _this.classes.nameCont + '"><span title="' +
+                            return '<div className="' + _this.classes.nameCont + '"><span title="' +
                                 (typeof data === 'string' && data.match(/<[^>]*>/) !== null ?
                                     data.replace(/<[^>]*>/g, '') :
                                     data) +
-                                '" class="' + _this.classes.name + '">' +
+                                '" className="' + _this.classes.name + '">' +
                                 data + '</span>' +
                                 pill + '</div>';
                         },

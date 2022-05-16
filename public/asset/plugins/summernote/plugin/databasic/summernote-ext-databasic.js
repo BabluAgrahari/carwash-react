@@ -20,7 +20,7 @@
     var options = context.options;
     var lang = options.langInfo;
 
-    self.icon = '<i class="fa fa-object-group"/>';
+    self.icon = '<i className="fa fa-object-group"/>';
 
     // add context menu button for dialog
     context.memo('button.databasic', function() {
@@ -43,21 +43,21 @@
     //  add popover size buttons
     context.memo('button.databasicSize100', function() {
       return ui.button({
-        contents: '<span class="note-fontsize-10">100%</span>',
+        contents: '<span className="note-fontsize-10">100%</span>',
         tooltip: lang.image.resizeFull,
         click: context.createInvokeHandler('editor.resize', '1'),
       }).render();
     });
     context.memo('button.databasicSize50', function() {
       return ui.button({
-        contents: '<span class="note-fontsize-10">50%</span>',
+        contents: '<span className="note-fontsize-10">50%</span>',
         tooltip: lang.image.resizeHalf,
         click: context.createInvokeHandler('editor.resize', '0.5'),
       }).render();
     });
     context.memo('button.databasicSize25', function() {
       return ui.button({
-        contents: '<span class="note-fontsize-10">25%</span>',
+        contents: '<span className="note-fontsize-10">25%</span>',
         tooltip: lang.image.resizeQuarter,
         click: context.createInvokeHandler('editor.resize', '0.25'),
       }).render();
@@ -81,11 +81,11 @@
       // create dialog markup
       var $container = options.dialogsInBody ? $(document.body) : context.layoutInfo.editor;
 
-      var body = '<div class="form-group row-fluid">' +
+      var body = '<div className="form-group row-fluid">' +
           '<label>' + lang.databasic.testLabel + '</label>' +
-          '<input class="ext-databasic-test form-control" type="text" />' +
+          '<input className="ext-databasic-test form-control" type="text" />' +
           '</div>';
-      var footer = '<button href="#" class="btn btn-primary ext-databasic-save">' + lang.databasic.insert + '</button>';
+      var footer = '<button href="#" className="btn btn-primary ext-databasic-save">' + lang.databasic.insert + '</button>';
 
       self.$dialog = ui.dialog({
         title: lang.databasic.name,
@@ -179,7 +179,7 @@
     };
 
     self.createNode = function(info) {
-      var $node = $('<data class="ext-databasic"></data>');
+      var $node = $('<data className="ext-databasic"></data>');
 
       if ($node) {
         // save node to info structure

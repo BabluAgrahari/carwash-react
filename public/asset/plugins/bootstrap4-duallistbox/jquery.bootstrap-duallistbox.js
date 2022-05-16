@@ -46,7 +46,7 @@
       nonSelectedFilter: '',                                                              // string, filter the non selected options
       selectedFilter: '',                                                                 // string, filter the selected options
       infoText: 'Showing all {0}',                                                        // text when all options are visible / false for no info text
-      infoTextFiltered: '<span class="badge badge-warning">Filtered</span> {0} from {1}', // when not all of the options are visible due to the filter
+      infoTextFiltered: '<span className="badge badge-warning">Filtered</span> {0} from {1}', // when not all of the options are visible due to the filter
       infoTextEmpty: 'Empty list',                                                        // when there are no options present in the list
       filterOnValues: false,                                                              // filter by selector's values, boolean
       sortByInputOrder: false,
@@ -401,30 +401,30 @@
     init: function () {
       // Add the custom HTML template
       this.container = $('' +
-        '<div class="bootstrap-duallistbox-container row">' +
-        ' <div class="box1 col-md-6">' +
+        '<div className="bootstrap-duallistbox-container row">' +
+        ' <div className="box1 col-md-6">' +
         '   <label></label>' +
-        '   <span class="info-container">' +
-        '     <span class="info"></span>' +
-        '     <button type="button" class="btn btn-sm clear1" style="float:right!important;"></button>' +
+        '   <span className="info-container">' +
+        '     <span className="info"></span>' +
+        '     <button type="button" className="btn btn-sm clear1" style="float:right!important;"></button>' +
         '   </span>' +
-        '   <input class="form-control filter" type="text">' +
-        '   <div class="btn-group buttons">' +
-        '     <button type="button" class="btn moveall"></button>' +
-        '     <button type="button" class="btn move"></button>' +
+        '   <input className="form-control filter" type="text">' +
+        '   <div className="btn-group buttons">' +
+        '     <button type="button" className="btn moveall"></button>' +
+        '     <button type="button" className="btn move"></button>' +
         '   </div>' +
         '   <select multiple="multiple"></select>' +
         ' </div>' +
-        ' <div class="box2 col-md-6">' +
+        ' <div className="box2 col-md-6">' +
         '   <label></label>' +
-        '   <span class="info-container">' +
-        '     <span class="info"></span>' +
-        '     <button type="button" class="btn btn-sm clear2" style="float:right!important;"></button>' +
+        '   <span className="info-container">' +
+        '     <span className="info"></span>' +
+        '     <button type="button" className="btn btn-sm clear2" style="float:right!important;"></button>' +
         '   </span>' +
-        '   <input class="form-control filter" type="text">' +
-        '   <div class="btn-group buttons">' +
-        '     <button type="button" class="btn remove"></button>' +
-        '     <button type="button" class="btn removeall"></button>' +
+        '   <input className="form-control filter" type="text">' +
+        '   <div className="btn-group buttons">' +
+        '     <button type="button" className="btn remove"></button>' +
+        '     <button type="button" className="btn removeall"></button>' +
         '   </div>' +
         '   <select multiple="multiple"></select>' +
         ' </div>' +

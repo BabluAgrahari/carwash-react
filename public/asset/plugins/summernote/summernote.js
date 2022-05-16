@@ -1,14 +1,14 @@
 /*!
- * 
+ *
  * Super simple wysiwyg editor v0.8.18
  * https://summernote.org
- * 
- * 
+ *
+ *
  * Copyright 2013- Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license.
- * 
+ *
  * Date: 2020-05-20T16:47Z
- * 
+ *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -6074,7 +6074,7 @@ var Editor_Editor = /*#__PURE__*/function () {
         }
       } else {
         var noteStatusOutput = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.now();
-        this.$editor.find('.note-status-output').html('<div id="note-status-output-' + noteStatusOutput + '" class="alert alert-info">' + this.lang.output.noSelection + '</div>');
+        this.$editor.find('.note-status-output').html('<div id="note-status-output-' + noteStatusOutput + '" className="alert alert-info">' + this.lang.output.noSelection + '</div>');
         setTimeout(function () {
           external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('#note-status-output-' + noteStatusOutput).remove();
         }, 5000);
@@ -6356,7 +6356,7 @@ var Dropzone_Dropzone = /*#__PURE__*/function () {
     this.options = context.options;
     this.lang = this.options.langInfo;
     this.documentEventHandlers = {};
-    this.$dropzone = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()(['<div class="note-dropzone">', '<div class="note-dropzone-message"></div>', '</div>'].join('')).prependTo(this.$editor);
+    this.$dropzone = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()(['<div className="note-dropzone">', '<div className="note-dropzone-message"></div>', '</div>'].join('')).prependTo(this.$editor);
   }
   /**
    * attach Drag and Drop Events
@@ -6890,7 +6890,7 @@ var Handle_Handle = /*#__PURE__*/function () {
     value: function initialize() {
       var _this2 = this;
 
-      this.$handle = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()(['<div class="note-handle">', '<div class="note-control-selection">', '<div class="note-control-selection-bg"></div>', '<div class="note-control-holder note-control-nw"></div>', '<div class="note-control-holder note-control-ne"></div>', '<div class="note-control-holder note-control-sw"></div>', '<div class="', this.options.disableResizeImage ? 'note-control-holder' : 'note-control-sizing', ' note-control-se"></div>', this.options.disableResizeImage ? '' : '<div class="note-control-selection-info"></div>', '</div>', '</div>'].join('')).prependTo(this.$editingArea);
+      this.$handle = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()(['<div className="note-handle">', '<div className="note-control-selection">', '<div className="note-control-selection-bg"></div>', '<div className="note-control-holder note-control-nw"></div>', '<div className="note-control-holder note-control-ne"></div>', '<div className="note-control-holder note-control-sw"></div>', '<div className="', this.options.disableResizeImage ? 'note-control-holder' : 'note-control-sizing', ' note-control-se"></div>', this.options.disableResizeImage ? '' : '<div className="note-control-selection-info"></div>', '</div>', '</div>'].join('')).prependTo(this.$editingArea);
       this.$handle.on('mousedown', function (event) {
         if (dom.isControlSizing(event.target)) {
           event.preventDefault();
@@ -7272,7 +7272,7 @@ var Placeholder_Placeholder = /*#__PURE__*/function () {
     value: function initialize() {
       var _this2 = this;
 
-      this.$placeholder = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div class="note-placeholder">');
+      this.$placeholder = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div className="note-placeholder">');
       this.$placeholder.on('click', function () {
         _this2.context.invoke('focus');
       }).html(this.options.placeholder).prependTo(this.$editingArea);
@@ -7426,8 +7426,8 @@ var Buttons_Buttons = /*#__PURE__*/function () {
             toggle: 'dropdown'
           }
         }), this.ui.dropdown({
-          items: (backColor ? ['<div class="note-palette">', '<div class="note-palette-title">' + this.lang.color.background + '</div>', '<div>', '<button type="button" class="note-color-reset btn btn-light btn-default" data-event="backColor" data-value="transparent">', this.lang.color.transparent, '</button>', '</div>', '<div class="note-holder" data-event="backColor"><!-- back colors --></div>', '<div>', '<button type="button" class="note-color-select btn btn-light btn-default" data-event="openPalette" data-value="backColorPicker">', this.lang.color.cpSelect, '</button>', '<input type="color" id="backColorPicker" class="note-btn note-color-select-btn" value="' + this.options.colorButton.backColor + '" data-event="backColorPalette">', '</div>', '<div class="note-holder-custom" id="backColorPalette" data-event="backColor"></div>', '</div>'].join('') : '') + (foreColor ? ['<div class="note-palette">', '<div class="note-palette-title">' + this.lang.color.foreground + '</div>', '<div>', '<button type="button" class="note-color-reset btn btn-light btn-default" data-event="removeFormat" data-value="foreColor">', this.lang.color.resetToDefault, '</button>', '</div>', '<div class="note-holder" data-event="foreColor"><!-- fore colors --></div>', '<div>', '<button type="button" class="note-color-select btn btn-light btn-default" data-event="openPalette" data-value="foreColorPicker">', this.lang.color.cpSelect, '</button>', '<input type="color" id="foreColorPicker" class="note-btn note-color-select-btn" value="' + this.options.colorButton.foreColor + '" data-event="foreColorPalette">', '</div>', // Fix missing Div, Commented to find easily if it's wrong
-          '<div class="note-holder-custom" id="foreColorPalette" data-event="foreColor"></div>', '</div>'].join('') : ''),
+          items: (backColor ? ['<div className="note-palette">', '<div className="note-palette-title">' + this.lang.color.background + '</div>', '<div>', '<button type="button" className="note-color-reset btn btn-light btn-default" data-event="backColor" data-value="transparent">', this.lang.color.transparent, '</button>', '</div>', '<div className="note-holder" data-event="backColor"><!-- back colors --></div>', '<div>', '<button type="button" className="note-color-select btn btn-light btn-default" data-event="openPalette" data-value="backColorPicker">', this.lang.color.cpSelect, '</button>', '<input type="color" id="backColorPicker" className="note-btn note-color-select-btn" value="' + this.options.colorButton.backColor + '" data-event="backColorPalette">', '</div>', '<div className="note-holder-custom" id="backColorPalette" data-event="backColor"></div>', '</div>'].join('') : '') + (foreColor ? ['<div className="note-palette">', '<div className="note-palette-title">' + this.lang.color.foreground + '</div>', '<div>', '<button type="button" className="note-color-reset btn btn-light btn-default" data-event="removeFormat" data-value="foreColor">', this.lang.color.resetToDefault, '</button>', '</div>', '<div className="note-holder" data-event="foreColor"><!-- fore colors --></div>', '<div>', '<button type="button" className="note-color-select btn btn-light btn-default" data-event="openPalette" data-value="foreColorPicker">', this.lang.color.cpSelect, '</button>', '<input type="color" id="foreColorPicker" className="note-btn note-color-select-btn" value="' + this.options.colorButton.foreColor + '" data-event="foreColorPalette">', '</div>', // Fix missing Div, Commented to find easily if it's wrong
+          '<div className="note-holder-custom" id="foreColorPalette" data-event="foreColor"></div>', '</div>'].join('') : ''),
           callback: function callback($dropdown) {
             $dropdown.find('.note-holder').each(function (idx, item) {
               var $holder = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()(item);
@@ -7522,7 +7522,7 @@ var Buttons_Buttons = /*#__PURE__*/function () {
             var tag = item.tag;
             var title = item.title;
             var style = item.style ? ' style="' + item.style + '" ' : '';
-            var className = item.className ? ' class="' + item.className + '"' : '';
+            var className = item.className ? ' className="' + item.className + '"' : '';
             return '<' + tag + style + className + '>' + title + '</' + tag + '>';
           },
           click: _this2.context.createInvokeHandler('editor.formatBlock')
@@ -7619,7 +7619,7 @@ var Buttons_Buttons = /*#__PURE__*/function () {
 
         return _this2.ui.buttonGroup([_this2.button({
           className: 'dropdown-toggle',
-          contents: _this2.ui.dropdownButtonContents('<span class="note-current-fontname"></span>', _this2.options),
+          contents: _this2.ui.dropdownButtonContents('<span className="note-current-fontname"></span>', _this2.options),
           tooltip: _this2.lang.font.name,
           data: {
             toggle: 'dropdown'
@@ -7638,7 +7638,7 @@ var Buttons_Buttons = /*#__PURE__*/function () {
       this.context.memo('button.fontsize', function () {
         return _this2.ui.buttonGroup([_this2.button({
           className: 'dropdown-toggle',
-          contents: _this2.ui.dropdownButtonContents('<span class="note-current-fontsize"></span>', _this2.options),
+          contents: _this2.ui.dropdownButtonContents('<span className="note-current-fontsize"></span>', _this2.options),
           tooltip: _this2.lang.font.size,
           data: {
             toggle: 'dropdown'
@@ -7654,7 +7654,7 @@ var Buttons_Buttons = /*#__PURE__*/function () {
       this.context.memo('button.fontsizeunit', function () {
         return _this2.ui.buttonGroup([_this2.button({
           className: 'dropdown-toggle',
-          contents: _this2.ui.dropdownButtonContents('<span class="note-current-fontsizeunit"></span>', _this2.options),
+          contents: _this2.ui.dropdownButtonContents('<span className="note-current-fontsizeunit"></span>', _this2.options),
           tooltip: _this2.lang.font.sizeunit,
           data: {
             toggle: 'dropdown'
@@ -7769,7 +7769,7 @@ var Buttons_Buttons = /*#__PURE__*/function () {
         }), _this2.ui.dropdown({
           title: _this2.lang.table.table,
           className: 'note-table',
-          items: ['<div class="note-dimension-picker">', '<div class="note-dimension-picker-mousecatcher" data-event="insertTable" data-value="1x1"></div>', '<div class="note-dimension-picker-highlighted"></div>', '<div class="note-dimension-picker-unhighlighted"></div>', '</div>', '<div class="note-dimension-display">1 x 1</div>'].join('')
+          items: ['<div className="note-dimension-picker">', '<div className="note-dimension-picker-mousecatcher" data-event="insertTable" data-value="1x1"></div>', '<div className="note-dimension-picker-highlighted"></div>', '<div className="note-dimension-picker-unhighlighted"></div>', '</div>', '<div className="note-dimension-display">1 x 1</div>'].join('')
         })], {
           callback: function callback($node) {
             var $catcher = $node.find('.note-dimension-picker-mousecatcher');
@@ -7862,21 +7862,21 @@ var Buttons_Buttons = /*#__PURE__*/function () {
       // Image Size Buttons
       this.context.memo('button.resizeFull', function () {
         return _this3.button({
-          contents: '<span class="note-fontsize-10">100%</span>',
+          contents: '<span className="note-fontsize-10">100%</span>',
           tooltip: _this3.lang.image.resizeFull,
           click: _this3.context.createInvokeHandler('editor.resize', '1')
         }).render();
       });
       this.context.memo('button.resizeHalf', function () {
         return _this3.button({
-          contents: '<span class="note-fontsize-10">50%</span>',
+          contents: '<span className="note-fontsize-10">50%</span>',
           tooltip: _this3.lang.image.resizeHalf,
           click: _this3.context.createInvokeHandler('editor.resize', '0.5')
         }).render();
       });
       this.context.memo('button.resizeQuarter', function () {
         return _this3.button({
-          contents: '<span class="note-fontsize-10">25%</span>',
+          contents: '<span className="note-fontsize-10">25%</span>',
           tooltip: _this3.lang.image.resizeQuarter,
           click: _this3.context.createInvokeHandler('editor.resize', '0.25')
         }).render();
@@ -8372,7 +8372,7 @@ var LinkDialog_LinkDialog = /*#__PURE__*/function () {
     key: "initialize",
     value: function initialize() {
       var $container = this.options.dialogsInBody ? this.$body : this.options.container;
-      var body = ['<div class="form-group note-form-group">', "<label for=\"note-dialog-link-txt-".concat(this.options.id, "\" class=\"note-form-label\">").concat(this.lang.link.textToDisplay, "</label>"), "<input id=\"note-dialog-link-txt-".concat(this.options.id, "\" class=\"note-link-text form-control note-form-control note-input\" type=\"text\"/>"), '</div>', '<div class="form-group note-form-group">', "<label for=\"note-dialog-link-url-".concat(this.options.id, "\" class=\"note-form-label\">").concat(this.lang.link.url, "</label>"), "<input id=\"note-dialog-link-url-".concat(this.options.id, "\" class=\"note-link-url form-control note-form-control note-input\" type=\"text\" value=\"http://\"/>"), '</div>', !this.options.disableLinkTarget ? external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div/>').append(this.ui.checkbox({
+      var body = ['<div className="form-group note-form-group">', "<label for=\"note-dialog-link-txt-".concat(this.options.id, "\" class=\"note-form-label\">").concat(this.lang.link.textToDisplay, "</label>"), "<input id=\"note-dialog-link-txt-".concat(this.options.id, "\" class=\"note-link-text form-control note-form-control note-input\" type=\"text\"/>"), '</div>', '<div className="form-group note-form-group">', "<label for=\"note-dialog-link-url-".concat(this.options.id, "\" class=\"note-form-label\">").concat(this.lang.link.url, "</label>"), "<input id=\"note-dialog-link-url-".concat(this.options.id, "\" class=\"note-link-url form-control note-form-control note-input\" type=\"text\" value=\"http://\"/>"), '</div>', !this.options.disableLinkTarget ? external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div/>').append(this.ui.checkbox({
         className: 'sn-checkbox-open-in-new-window',
         text: this.lang.link.openInNewWindow,
         checked: true
@@ -8661,7 +8661,7 @@ var ImageDialog_ImageDialog = /*#__PURE__*/function () {
       }
 
       var $container = this.options.dialogsInBody ? this.$body : this.options.container;
-      var body = ['<div class="form-group note-form-group note-group-select-from-files">', '<label for="note-dialog-image-file-' + this.options.id + '" class="note-form-label">' + this.lang.image.selectFromFiles + '</label>', '<input id="note-dialog-image-file-' + this.options.id + '" class="note-image-input form-control-file note-form-control note-input" ', ' type="file" name="files" accept="image/*" multiple="multiple"/>', imageLimitation, '</div>', '<div class="form-group note-group-image-url">', '<label for="note-dialog-image-url-' + this.options.id + '" class="note-form-label">' + this.lang.image.url + '</label>', '<input id="note-dialog-image-url-' + this.options.id + '" class="note-image-url form-control note-form-control note-input" type="text"/>', '</div>'].join('');
+      var body = ['<div className="form-group note-form-group note-group-select-from-files">', '<label for="note-dialog-image-file-' + this.options.id + '" className="note-form-label">' + this.lang.image.selectFromFiles + '</label>', '<input id="note-dialog-image-file-' + this.options.id + '" className="note-image-input form-control-file note-form-control note-input" ', ' type="file" name="files" accept="image/*" multiple="multiple"/>', imageLimitation, '</div>', '<div className="form-group note-group-image-url">', '<label for="note-dialog-image-url-' + this.options.id + '" className="note-form-label">' + this.lang.image.url + '</label>', '<input id="note-dialog-image-url-' + this.options.id + '" className="note-image-url form-control note-form-control note-input" type="text"/>', '</div>'].join('');
       var buttonClass = 'btn btn-primary note-btn note-btn-primary note-image-btn';
       var footer = "<input type=\"button\" href=\"#\" class=\"".concat(buttonClass, "\" value=\"").concat(this.lang.image.insert, "\" disabled>");
       this.$dialog = this.ui.dialog({
@@ -8992,7 +8992,7 @@ var VideoDialog_VideoDialog = /*#__PURE__*/function () {
     key: "initialize",
     value: function initialize() {
       var $container = this.options.dialogsInBody ? this.$body : this.options.container;
-      var body = ['<div class="form-group note-form-group row-fluid">', "<label for=\"note-dialog-video-url-".concat(this.options.id, "\" class=\"note-form-label\">").concat(this.lang.video.url, " <small class=\"text-muted\">").concat(this.lang.video.providers, "</small></label>"), "<input id=\"note-dialog-video-url-".concat(this.options.id, "\" class=\"note-video-url form-control note-form-control note-input\" type=\"text\"/>"), '</div>'].join('');
+      var body = ['<div className="form-group note-form-group row-fluid">', "<label for=\"note-dialog-video-url-".concat(this.options.id, "\" class=\"note-form-label\">").concat(this.lang.video.url, " <small class=\"text-muted\">").concat(this.lang.video.providers, "</small></label>"), "<input id=\"note-dialog-video-url-".concat(this.options.id, "\" class=\"note-video-url form-control note-form-control note-input\" type=\"text\"/>"), '</div>'].join('');
       var buttonClass = 'btn btn-primary note-btn note-btn-primary note-video-btn';
       var footer = "<input type=\"button\" href=\"#\" class=\"".concat(buttonClass, "\" value=\"").concat(this.lang.video.insert, "\" disabled>");
       this.$dialog = this.ui.dialog({
@@ -9195,7 +9195,7 @@ var HelpDialog_HelpDialog = /*#__PURE__*/function () {
     key: "initialize",
     value: function initialize() {
       var $container = this.options.dialogsInBody ? this.$body : this.options.container;
-      var body = ['<p class="text-center">', '<a href="http://summernote.org/" target="_blank">Summernote 0.8.18</a> · ', '<a href="https://github.com/summernote/summernote" target="_blank">Project</a> · ', '<a href="https://github.com/summernote/summernote/issues" target="_blank">Issues</a>', '</p>'].join('');
+      var body = ['<p className="text-center">', '<a href="http://summernote.org/" target="_blank">Summernote 0.8.18</a> · ', '<a href="https://github.com/summernote/summernote" target="_blank">Project</a> · ', '<a href="https://github.com/summernote/summernote/issues" target="_blank">Issues</a>', '</p>'].join('');
       this.$dialog = this.ui.dialog({
         title: this.lang.options.help,
         fade: this.options.dialogsFade,
@@ -9223,7 +9223,7 @@ var HelpDialog_HelpDialog = /*#__PURE__*/function () {
       var keyMap = this.options.keyMap[env.isMac ? 'mac' : 'pc'];
       return Object.keys(keyMap).map(function (key) {
         var command = keyMap[key];
-        var $row = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div><div class="help-list-item"></div></div>');
+        var $row = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div><div className="help-list-item"></div></div>');
         $row.append(external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<label><kbd>' + key + '</kdb></label>').css({
           'width': 180,
           'margin-right': 10
@@ -9576,7 +9576,7 @@ var HintPopover_HintPopover = /*#__PURE__*/function () {
       return items.map(function (item
       /*, idx */
       ) {
-        var $item = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div class="note-hint-item"/>');
+        var $item = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div className="note-hint-item"/>');
         $item.append(hint.template ? hint.template(item) : item + '');
         $item.data({
           'index': hintIdx,
@@ -9621,7 +9621,7 @@ var HintPopover_HintPopover = /*#__PURE__*/function () {
     value: function createGroup(idx, keyword) {
       var _this3 = this;
 
-      var $group = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div class="note-hint-group note-hint-group-' + idx + '"></div>');
+      var $group = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div className="note-hint-group note-hint-group-' + idx + '"></div>');
       this.searchKeyword(idx, keyword, function (items) {
         items = items || [];
 
@@ -10023,16 +10023,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
 
-var editor = renderer["a" /* default */].create('<div class="note-editor note-frame panel panel-default"/>');
-var toolbar = renderer["a" /* default */].create('<div class="panel-heading note-toolbar" role="toolbar"/>');
-var editingArea = renderer["a" /* default */].create('<div class="note-editing-area"/>');
-var codable = renderer["a" /* default */].create('<textarea class="note-codable" aria-multiline="true"/>');
-var editable = renderer["a" /* default */].create('<div class="note-editable" contentEditable="true" role="textbox" aria-multiline="true"/>');
-var statusbar = renderer["a" /* default */].create(['<output class="note-status-output" role="status" aria-live="polite"></output>', '<div class="note-statusbar" role="status">', '<div class="note-resizebar" aria-label="Resize">', '<div class="note-icon-bar"></div>', '<div class="note-icon-bar"></div>', '<div class="note-icon-bar"></div>', '</div>', '</div>'].join(''));
-var airEditor = renderer["a" /* default */].create('<div class="note-editor note-airframe"/>');
-var airEditable = renderer["a" /* default */].create(['<div class="note-editable" contentEditable="true" role="textbox" aria-multiline="true"></div>', '<output class="note-status-output" role="status" aria-live="polite"></output>'].join(''));
-var buttonGroup = renderer["a" /* default */].create('<div class="note-btn-group btn-group">');
-var dropdown = renderer["a" /* default */].create('<ul class="note-dropdown-menu dropdown-menu">', function ($node, options) {
+var editor = renderer["a" /* default */].create('<div className="note-editor note-frame panel panel-default"/>');
+var toolbar = renderer["a" /* default */].create('<div className="panel-heading note-toolbar" role="toolbar"/>');
+var editingArea = renderer["a" /* default */].create('<div className="note-editing-area"/>');
+var codable = renderer["a" /* default */].create('<textarea className="note-codable" aria-multiline="true"/>');
+var editable = renderer["a" /* default */].create('<div className="note-editable" contentEditable="true" role="textbox" aria-multiline="true"/>');
+var statusbar = renderer["a" /* default */].create(['<output className="note-status-output" role="status" aria-live="polite"></output>', '<div className="note-statusbar" role="status">', '<div className="note-resizebar" aria-label="Resize">', '<div className="note-icon-bar"></div>', '<div className="note-icon-bar"></div>', '<div className="note-icon-bar"></div>', '</div>', '</div>'].join(''));
+var airEditor = renderer["a" /* default */].create('<div className="note-editor note-airframe"/>');
+var airEditable = renderer["a" /* default */].create(['<div className="note-editable" contentEditable="true" role="textbox" aria-multiline="true"></div>', '<output className="note-status-output" role="status" aria-live="polite"></output>'].join(''));
+var buttonGroup = renderer["a" /* default */].create('<div className="note-btn-group btn-group">');
+var dropdown = renderer["a" /* default */].create('<ul className="note-dropdown-menu dropdown-menu">', function ($node, options) {
   var markup = Array.isArray(options.items) ? options.items.map(function (item) {
     var value = typeof item === 'string' ? item : item.value || '';
     var content = options.template ? options.template(item) : item;
@@ -10054,7 +10054,7 @@ var dropdownButtonContents = function dropdownButtonContents(contents, options) 
   return contents + ' ' + icon(options.icons.caret, 'span');
 };
 
-var dropdownCheck = renderer["a" /* default */].create('<ul class="note-dropdown-menu dropdown-menu note-check">', function ($node, options) {
+var dropdownCheck = renderer["a" /* default */].create('<ul className="note-dropdown-menu dropdown-menu note-check">', function ($node, options) {
   var markup = Array.isArray(options.items) ? options.items.map(function (item) {
     var value = typeof item === 'string' ? item : item.value || '';
     var content = options.template ? options.template(item) : item;
@@ -10068,7 +10068,7 @@ var dropdownCheck = renderer["a" /* default */].create('<ul class="note-dropdown
     $node.addClass('note-codeview-keep');
   }
 });
-var dialog = renderer["a" /* default */].create('<div class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog"/>', function ($node, options) {
+var dialog = renderer["a" /* default */].create('<div className="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog"/>', function ($node, options) {
   if (options.fade) {
     $node.addClass('fade');
   }
@@ -10076,9 +10076,9 @@ var dialog = renderer["a" /* default */].create('<div class="modal note-modal" a
   $node.attr({
     'aria-label': options.title
   });
-  $node.html(['<div class="modal-dialog">', '<div class="modal-content">', options.title ? '<div class="modal-header">' + '<button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>' + '<h4 class="modal-title">' + options.title + '</h4>' + '</div>' : '', '<div class="modal-body">' + options.body + '</div>', options.footer ? '<div class="modal-footer">' + options.footer + '</div>' : '', '</div>', '</div>'].join(''));
+  $node.html(['<div className="modal-dialog">', '<div className="modal-content">', options.title ? '<div className="modal-header">' + '<button type="button" className="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>' + '<h4 className="modal-title">' + options.title + '</h4>' + '</div>' : '', '<div className="modal-body">' + options.body + '</div>', options.footer ? '<div className="modal-footer">' + options.footer + '</div>' : '', '</div>', '</div>'].join(''));
 });
-var popover = renderer["a" /* default */].create(['<div class="note-popover popover in">', '<div class="arrow"></div>', '<div class="popover-content note-children-container"></div>', '</div>'].join(''), function ($node, options) {
+var popover = renderer["a" /* default */].create(['<div className="note-popover popover in">', '<div className="arrow"></div>', '<div className="popover-content note-children-container"></div>', '</div>'].join(''), function ($node, options) {
   var direction = typeof options.direction !== 'undefined' ? options.direction : 'bottom';
   $node.addClass(direction);
 
@@ -10086,13 +10086,13 @@ var popover = renderer["a" /* default */].create(['<div class="note-popover popo
     $node.find('.arrow').hide();
   }
 });
-var ui_checkbox = renderer["a" /* default */].create('<div class="checkbox"></div>', function ($node, options) {
+var ui_checkbox = renderer["a" /* default */].create('<div className="checkbox"></div>', function ($node, options) {
   $node.html(['<label' + (options.id ? ' for="note-' + options.id + '"' : '') + '>', '<input type="checkbox"' + (options.id ? ' id="note-' + options.id + '"' : ''), options.checked ? ' checked' : '', ' aria-checked="' + (options.checked ? 'true' : 'false') + '"/>', options.text ? options.text : '', '</label>'].join(''));
 });
 
 var icon = function icon(iconClassName, tagName) {
   tagName = tagName || 'i';
-  return '<' + tagName + ' class="' + iconClassName + '"></' + tagName + '>';
+  return '<' + tagName + ' className="' + iconClassName + '"></' + tagName + '>';
 };
 
 var ui_ui = function ui(editorOptions) {
@@ -10115,7 +10115,7 @@ var ui_ui = function ui(editorOptions) {
     icon: icon,
     options: editorOptions,
     palette: function palette($node, options) {
-      return renderer["a" /* default */].create('<div class="note-color-palette"/>', function ($node, options) {
+      return renderer["a" /* default */].create('<div className="note-color-palette"/>', function ($node, options) {
         var contents = [];
 
         for (var row = 0, rowSize = options.colors.length; row < rowSize; row++) {
@@ -10127,10 +10127,10 @@ var ui_ui = function ui(editorOptions) {
           for (var col = 0, colSize = colors.length; col < colSize; col++) {
             var color = colors[col];
             var colorName = colorsName[col];
-            buttons.push(['<button type="button" class="note-color-btn"', 'style="background-color:', color, '" ', 'data-event="', eventName, '" ', 'data-value="', color, '" ', 'title="', colorName, '" ', 'aria-label="', colorName, '" ', 'data-toggle="button" tabindex="-1"></button>'].join(''));
+            buttons.push(['<button type="button" className="note-color-btn"', 'style="background-color:', color, '" ', 'data-event="', eventName, '" ', 'data-value="', color, '" ', 'title="', colorName, '" ', 'aria-label="', colorName, '" ', 'data-toggle="button" tabindex="-1"></button>'].join(''));
           }
 
-          contents.push('<div class="note-color-row">' + buttons.join('') + '</div>');
+          contents.push('<div className="note-color-row">' + buttons.join('') + '</div>');
         }
 
         $node.html(contents.join(''));
@@ -10145,7 +10145,7 @@ var ui_ui = function ui(editorOptions) {
       })($node, options);
     },
     button: function button($node, options) {
-      return renderer["a" /* default */].create('<button type="button" class="note-btn btn btn-default btn-sm" tabindex="-1">', function ($node, options) {
+      return renderer["a" /* default */].create('<button type="button" className="note-btn btn btn-default btn-sm" tabindex="-1">', function ($node, options) {
         if (options && options.tooltip) {
           $node.attr({
             title: options.tooltip,

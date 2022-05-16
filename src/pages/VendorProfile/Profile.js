@@ -68,7 +68,7 @@ export default function Profile() {
                         to="/services/add"
                         className="btn btn-success btn-sm"
                       >
-                        <i class="fas fa-plus"></i>&nbsp;Add
+                        <i className="fas fa-plus"></i>&nbsp;Add
                       </Link>
                     </div>
                   </div>

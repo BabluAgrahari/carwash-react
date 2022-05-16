@@ -70,7 +70,7 @@ var DataTable = $.fn.dataTable;
  * AFTER the 't' parameter in `dom`.
  *
  * Key features include:
- *   <ul class="limit_length">
+ *   <ul className="limit_length">
  *     <li>Speed! The aim of Scroller for DataTables is to make rendering large data sets fast</li>
  *     <li>Full compatibility with deferred rendering in DataTables for maximum speed</li>
  *     <li>Display millions of rows</li>
@@ -82,7 +82,7 @@ var DataTable = $.fn.dataTable;
  *  @constructor
  *  @global
  *  @param {object} dt DataTables settings object or API instance
- *  @param {object} [opts={}] Configuration object for Scroller. Options 
+ *  @param {object} [opts={}] Configuration object for Scroller. Options
  *    are defined by {@link Scroller.defaults}
  *
  *  @requires jQuery 1.7+
@@ -245,7 +245,7 @@ var Scroller = function ( dt, opts ) {
 	 */
 	this.dom = {
 		"force":    document.createElement('div'),
-		"label":    $('<div class="dts_label">0</div>'),
+		"label":    $('<div className="dts_label">0</div>'),
 		"scroller": null,
 		"table":    null,
 		"loader":   null
@@ -296,7 +296,7 @@ $.extend( Scroller.prototype, {
 		}
 
 		var label = this.dom.label.outerHeight();
-		
+
 		heights.xbar = this.dom.scroller.offsetHeight - this.dom.scroller.clientHeight;
 		heights.labelHeight = label;
 
@@ -318,7 +318,7 @@ $.extend( Scroller.prototype, {
 	*/
 	pageInfo: function()
 	{
-		var 
+		var
 			dt = this.s.dt,
 			iScrollTop = this.dom.scroller.scrollTop,
 			iTotal = dt.fnRecordsDisplay(),
@@ -480,7 +480,7 @@ $.extend( Scroller.prototype, {
 		// Add a 'loading' indicator
 		if ( this.s.loadingIndicator )
 		{
-			this.dom.loader = $('<div class="dataTables_processing dts_loading">'+this.s.dt.oLanguage.sLoadingRecords+'</div>')
+			this.dom.loader = $('<div className="dataTables_processing dts_loading">'+this.s.dt.oLanguage.sLoadingRecords+'</div>')
 				.css('display', 'none');
 
 			$(this.dom.scroller.parentNode)
@@ -552,7 +552,7 @@ $.extend( Scroller.prototype, {
 		}
 
 		this.measure( false );
-	
+
 		that.s.stateSaveThrottle = that.s.dt.oApi._fnThrottle( function () {
 			that.s.dtApi.state.save();
 		}, 500 );
@@ -612,9 +612,9 @@ $.extend( Scroller.prototype, {
 		var nTable = origTable.cloneNode( false );
 		var tbody = $('<tbody/>').appendTo( nTable );
 		var container = $(
-			'<div class="'+dt.oClasses.sWrapper+' DTS">'+
-				'<div class="'+dt.oClasses.sScrollWrapper+'">'+
-					'<div class="'+dt.oClasses.sScrollBody+'"></div>'+
+			'<div className="'+dt.oClasses.sWrapper+' DTS">'+
+				'<div className="'+dt.oClasses.sScrollWrapper+'">'+
+					'<div className="'+dt.oClasses.sScrollBody+'"></div>'+
 				'</div>'+
 			'</div>'
 		);
@@ -633,7 +633,7 @@ $.extend( Scroller.prototype, {
                 tbody.append('<tr><td>&#160;</td></tr>');
             }
 		}
-	
+
 		$('div.'+dt.oClasses.sScrollBody, container).append( nTable );
 
 		// If initialised using `dom`, use the holding element as the insert point
@@ -766,7 +766,7 @@ $.extend( Scroller.prototype, {
 	 * had scrolling containers of infinite height (i.e. the absolute value)
 	 *
 	 *  @param {string} dir Domain transform direction, `virtualToPhysical` or
-	 *    `physicalToVirtual` 
+	 *    `physicalToVirtual`
 	 *  @returns {number} Calculated transform
 	 *  @private
 	 */

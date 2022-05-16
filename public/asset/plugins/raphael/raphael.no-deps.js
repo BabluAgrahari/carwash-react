@@ -7910,11 +7910,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
             try {
                 !doc.namespaces.rvml && doc.namespaces.add("rvml", "urn:schemas-microsoft-com:vml");
                 createNode = function (tagName) {
-                    return doc.createElement('<rvml:' + tagName + ' class="rvml">');
+                    return doc.createElement('<rvml:' + tagName + ' className="rvml">');
                 };
             } catch (e) {
                 createNode = function (tagName) {
-                    return doc.createElement('<' + tagName + ' xmlns="urn:schemas-microsoft.com:vml" class="rvml">');
+                    return doc.createElement('<' + tagName + ' xmlns="urn:schemas-microsoft.com:vml" className="rvml">');
                 };
             }
         };

@@ -101,7 +101,7 @@ export default function Add() {
                                 value={inputs.name}
                               />
                               <span className="text-muted text-size">
-                                <i class="fas fa-question-circle"></i>
+                                <i className="fas fa-question-circle"></i>
                                 &nbsp;Please Enter Name
                               </span>
                             </div>
@@ -118,7 +118,7 @@ export default function Add() {
                                 value={inputs.phone}
                               />
                               <span className="text-muted text-size">
-                                <i class="fas fa-question-circle"></i>
+                                <i className="fas fa-question-circle"></i>
                                 &nbsp;Please Phone No.
                               </span>
                             </div>
@@ -135,7 +135,7 @@ export default function Add() {
                                 value={inputs.email}
                               />
                               <span className="text-muted text-size">
-                                <i class="fas fa-question-circle"></i>
+                                <i className="fas fa-question-circle"></i>
                                 &nbsp;Please Enter Email
                               </span>
                             </div>
@@ -152,7 +152,7 @@ export default function Add() {
                                 value={inputs.password}
                               />
                               <span className="text-muted text-size">
-                                <i class="fas fa-question-circle"></i>
+                                <i className="fas fa-question-circle"></i>
                                 &nbsp;Please Enter Password
                               </span>
                             </div>
@@ -169,7 +169,7 @@ export default function Add() {
                                 <option value="0">Inactive</option>
                               </select>
                               <span className="text-muted text-size">
-                                <i class="fas fa-question-circle"></i>
+                                <i className="fas fa-question-circle"></i>
                                 &nbsp;Please Select Status
                               </span>
                             </div>
@@ -193,7 +193,7 @@ export default function Add() {
                                 </label>
                               </div>
                               <span className="text-muted text-size">
-                                <i class="fas fa-question-circle"></i>
+                                <i className="fas fa-question-circle"></i>
                                 &nbsp;Please Browse Image
                               </span>
                             </div>
@@ -221,7 +221,7 @@ export default function Add() {
                                 <option value="noida">Noida</option>
                               </select>
                               <span className="text-muted text-size">
-                                <i class="fas fa-question-circle"></i>
+                                <i className="fas fa-question-circle"></i>
                                 &nbsp;Please Select City
                               </span>
                             </div>
@@ -239,7 +239,7 @@ export default function Add() {
                                 <option value="noida">Noida</option>
                               </select>
                               <span className="text-muted text-size">
-                                <i class="fas fa-question-circle"></i>
+                                <i className="fas fa-question-circle"></i>
                                 &nbsp;Please Select State
                               </span>
                             </div>
@@ -256,7 +256,7 @@ export default function Add() {
                                 value={inputs.pincode}
                               />
                               <span className="text-muted text-size">
-                                <i class="fas fa-question-circle"></i>
+                                <i className="fas fa-question-circle"></i>
                                 &nbsp;Please enter Pincode
                               </span>
                             </div>
@@ -275,7 +275,7 @@ export default function Add() {
                               ></textarea>
                             </div>
                             <span className="text-muted text-size">
-                              <i class="fas fa-question-circle"></i>
+                              <i className="fas fa-question-circle"></i>
                               &nbsp;Please Enter Address
                             </span>
                           </div>
@@ -289,7 +289,7 @@ export default function Add() {
                               className="btn btn-success"
                             />
                             <Link to="/driver" className="ml-2 btn btn-warning">
-                              <i class="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>&nbsp;Back
                             </Link>
                           </div>
                         </div>

@@ -103,7 +103,7 @@ export default function Display() {
                                 }}
                                 className="text-info mr-2"
                               >
-                                <i class="fas fa-edit"></i>
+                                <i className="fas fa-edit"></i>
                               </Link>
                               <a
                                 href="javascript:void(0);"

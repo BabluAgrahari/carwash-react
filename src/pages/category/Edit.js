@@ -18,6 +18,7 @@ export default function Edit(props) {
 
   const [inputs, setInputs] = useState([]);
   const [icons, setIcon] = useState([]);
+  const [inputsError, setError] = useState([]);
   const [{ alt, src }, setPreview] = useState(initialState);
 
   //for setting input filed
@@ -33,23 +34,23 @@ export default function Edit(props) {
     setPreview(
       files.length
         ? {
-          src: URL.createObjectURL(files[0]),
-          alt: files[0].name,
-        }
+            src: URL.createObjectURL(files[0]),
+            alt: files[0].name,
+          }
         : initialState
     );
   };
 
   useEffect(() => {
-    if (getToken() !== '') {
+    if (getToken() !== "") {
       fetchCatgory();
     }
   }, [getToken()]);
 
   const fetchCatgory = () => {
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
     http.get("/category/" + id, { headers }).then((res) => {
       // console.log(res.data.data);
       let response = res.data.data;
@@ -58,9 +59,11 @@ export default function Edit(props) {
         status: response.status,
       });
       setPreview({
-        src: response.icon ? response.icon : process.env.PUBLIC_URL + "asset/img/noimage.jpg",
-        alt: '',
-      })
+        src: response.icon
+          ? response.icon
+          : process.env.PUBLIC_URL + "asset/img/noimage.jpg",
+        alt: "",
+      });
     });
   };
 
@@ -68,17 +71,26 @@ export default function Edit(props) {
   function submit(e) {
     e.preventDefault();
     const inputsV = new FormData();
-    inputsV.append("icon", icons.icon);
-    inputsV.append("name", inputs.name);
-    inputsV.append("status", inputs.status);
-    inputsV.append('_method', "put");
+    inputsV.append("icon", icons.icon?icons.icon:'');
+    inputsV.append("name", inputs.name?inputs.name:'');
+    inputsV.append("status", inputs.status?inputs.status:'');
+    inputsV.append("_method", "put");
 
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
 
     http.post("category/" + id, inputsV, { headers }).then((res) => {
       let response = res.data;
+
+      if (response.type == "validation") {
+        let errors = response.message;
+        Object.keys(errors).map((error, index) =>
+          setError({ ...inputsError, [error]: errors[error][0] })
+        );
+        return false;
+      }
+
       Swal.fire(
         `${response.status}`,
         `${response.message}`,
@@ -109,7 +121,10 @@ export default function Edit(props) {
                   </div>
 
                   <div className="card-body">
-                    <form onSubmit={(e) => submit(e)} encType="multipart/form-data">
+                    <form
+                      onSubmit={(e) => submit(e)}
+                      encType="multipart/form-data"
+                    >
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-group">
@@ -123,6 +138,9 @@ export default function Edit(props) {
                               id="name"
                               value={inputs.name}
                             />
+                            <span className="text-danger">
+                              {inputsError.name}
+                            </span>
                           </div>
 
                           <div className="form-group">
@@ -137,6 +155,9 @@ export default function Edit(props) {
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
+                            <span className="text-danger">
+                              {inputsError.status}
+                            </span>
                           </div>
                         </div>
 
@@ -158,15 +179,14 @@ export default function Edit(props) {
                                 Choose file
                               </label>
                             </div>
+                            <span className="text-danger">
+                              {inputsError.icon}
+                            </span>
                           </div>
                         </div>
 
                         <div className="col-md-3">
-                          <img
-                            className="preview"
-                            src={src}
-                            alt={alt}
-                          />
+                          <img className="preview" src={src} alt={alt} />
                         </div>
 
                         <div className="col-md-12">
@@ -180,7 +200,7 @@ export default function Edit(props) {
                               to="/category"
                               className="ml-2 btn btn-warning"
                             >
-                              <i class="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>&nbsp;Back
                             </Link>
                           </div>
                         </div>

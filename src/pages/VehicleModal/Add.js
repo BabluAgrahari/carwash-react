@@ -131,7 +131,7 @@ export default function Add() {
                               to="/vehicle-modal"
                               className="ml-2 btn btn-warning"
                             >
-                              <i class="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>&nbsp;Back
                             </Link>
                           </div>
                         </div>

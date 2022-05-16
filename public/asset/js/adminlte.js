@@ -44,8 +44,8 @@
     loadOnInit: true,
     loadErrorTemplate: true,
     responseType: '',
-    overlayTemplate: '<div class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>',
-    errorTemplate: '<span class="text-danger"></span>',
+    overlayTemplate: '<div className="overlay"><i className="fas fa-2x fa-sync-alt fa-spin"></i></div>',
+    errorTemplate: '<span className="text-danger"></span>',
     onLoadStart: function onLoadStart() {},
     onLoadDone: function onLoadDone(response) {
       return response;
@@ -2603,7 +2603,7 @@
     var _proto = Toasts.prototype;
 
     _proto.create = function create() {
-      var toast = $__default['default']('<div class="toast" role="alert" aria-live="assertive" aria-atomic="true"/>');
+      var toast = $__default['default']('<div className="toast" role="alert" aria-live="assertive" aria-atomic="true"/>');
       toast.data('autohide', this._config.autohide);
       toast.data('animation', this._config.fade);
 
@@ -2615,7 +2615,7 @@
         toast.data('delay', this._config.delay);
       }
 
-      var toastHeader = $__default['default']('<div class="toast-header">');
+      var toastHeader = $__default['default']('<div className="toast-header">');
 
       if (this._config.image != null) {
         var toastImage = $__default['default']('<img />').addClass('rounded mr-2').attr('src', this._config.image).attr('alt', this._config.imageAlt);
@@ -2652,7 +2652,7 @@
       toast.append(toastHeader);
 
       if (this._config.body != null) {
-        toast.append($__default['default']('<div class="toast-body" />').html(this._config.body));
+        toast.append($__default['default']('<div className="toast-body" />').html(this._config.body));
       }
 
       $__default['default'](this._getContainerId()).prepend(toast);

@@ -27,7 +27,7 @@
       context.memo('button.hello', function() {
         // create button
         var button = ui.button({
-          contents: '<i class="fa fa-child"/> Hello',
+          contents: '<i className="fa fa-child"/> Hello',
           tooltip: 'hello',
           click: function() {
             self.$panel.show();
@@ -59,7 +59,7 @@
       // This method will be called when editor is initialized by $('..').summernote();
       // You can create elements for plugin
       this.initialize = function() {
-        this.$panel = $('<div class="hello-panel"/>').css({
+        this.$panel = $('<div className="hello-panel"/>').css({
           position: 'absolute',
           width: 100,
           height: 100,

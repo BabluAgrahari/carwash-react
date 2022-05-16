@@ -71,7 +71,7 @@ export default function Display() {
                         to="/driver/add"
                         className="btn btn-success btn-sm"
                       >
-                        <i class="fas fa-plus"></i>&nbsp;Add
+                        <i className="fas fa-plus"></i>&nbsp;Add
                       </Link>
                     </div>
                   </div>
@@ -108,14 +108,14 @@ export default function Display() {
                                 }}
                                 className="text-info mr-2"
                               >
-                                <i class="fas fa-edit"></i>
+                                <i className="fas fa-edit"></i>
                               </Link>
                               <a
                                 href="javascript:void(0);"
                                 onClick={() => remove(driver._id)}
                                 className="text-danger"
                               >
-                                <i class="fas fa-trash-alt"></i>
+                                <i className="fas fa-trash-alt"></i>
                               </a>
                             </td>
                           </tr>

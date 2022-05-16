@@ -236,6 +236,7 @@ export default function Edit(props) {
                                   onChange={handleChange}
                                   id="category"
                                   className="form-control"
+                                  value={inputs.category}
                                 >
                                   <option value="">Select</option>
                                   {categories &&
@@ -254,6 +255,7 @@ export default function Edit(props) {
                                   onChange={handleChange}
                                   id="vehicle_brand"
                                   className="form-control"
+                                  value={inputs.vehicle_brand}
                                 >
                                   <option value="">Select</option>
                                   {vehicleBrands &&
@@ -273,7 +275,7 @@ export default function Edit(props) {
                                   id="time_duration"
                                   name="time_duration"
                                   onChange={handleChange}
-                                  value={inputs.datetime}
+                                  value={inputs.time_duration}
                                 />
                               </div>
 
@@ -299,6 +301,7 @@ export default function Edit(props) {
                                   onChange={handleChange}
                                   id="service_type"
                                   className="form-control"
+                                  value={inputs.service_type}
                                 >
                                   <option value="">Select</option>
                                   <option value="Service at Home/Service Pickup">
@@ -317,6 +320,7 @@ export default function Edit(props) {
                                   onChange={handleChange}
                                   id="vehicle_model"
                                   className="form-control"
+                                  value={inputs.vehicle_model}
                                 >
                                   <option value="">Select</option>
                                   {vehicleModals &&
@@ -363,6 +367,7 @@ export default function Edit(props) {
                               onChange={handleChange}
                               id="status"
                               className="form-control"
+                              value={inputs.status}
                             >
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
@@ -381,7 +386,7 @@ export default function Edit(props) {
                               to="/services"
                               className="ml-2 btn btn-warning"
                             >
-                              <i class="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>&nbsp;Back
                             </Link>
                           </div>
                         </div>

@@ -6,40 +6,41 @@ import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 
 // react modal
 
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    width: '30vw',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    transection: 'all 1s ease-in-out',
-    background: 'transection',
+    top: "50%",
+    left: "50%",
+    width: "30vw",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    transection: "all 1s ease-in-out",
+    background: "transection",
     padding: 0,
-    border: 'none',
+    border: "none",
   },
   overlay: {
-    background: 'rgba(0, 0, 0, 0.295)'
-  }
-}
+    background: "rgba(0, 0, 0, 0.295)",
+  },
+};
 
 export default function Display() {
   const [modalShow, setModalShow] = React.useState(false);
   const [owners, setOwner] = useState([]);
   const [services, service] = useState([]);
   const [checkboxes, setCheckbox] = useState([]);
-  const [ownerId, setOwnerId] = useState([]);
-  const [modalIsOpen, setIsOpen] = useState(false)
+  const [checked, setChecked] = useState([]);
+  const [ownerId, setOwnerId] = useState({ id: "dfdf" });
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   //for show list of data
   useEffect(() => {
-    if (getToken() !== '') {
+    if (getToken() !== "") {
       OwnerList();
       ServiceList();
     }
@@ -47,8 +48,8 @@ export default function Display() {
 
   const OwnerList = async () => {
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
     await http.get("shop-owner", { headers }).then((res) => {
       setOwner(res.data.data);
     });
@@ -57,11 +58,11 @@ export default function Display() {
   // for modal
 
   function openModal() {
-    setIsOpen(true)
+    setIsOpen(true);
   }
 
   function closeModal() {
-    setIsOpen(false)
+    setIsOpen(false);
   }
 
   const remove = (id) => {
@@ -76,8 +77,8 @@ export default function Display() {
     }).then((result) => {
       if (result.isConfirmed) {
         const headers = {
-          Authorization: `Bearer ${getToken()}`
-        }
+          Authorization: `Bearer ${getToken()}`,
+        };
         http.delete("shop-owner/" + id, { headers }).then((res) => {
           let response = res.data;
           Swal.fire("Deleted!", `${response.message}`, `${response.status}`);
@@ -93,8 +94,8 @@ export default function Display() {
   };
   const ServiceList = async () => {
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
     await http.get("services", { headers }).then((res) => {
       service(res.data.data);
     });
@@ -105,12 +106,13 @@ export default function Display() {
     var isChecked = e.target.checked;
     let checkedVal = isChecked ? e.target.value : "";
     setCheckbox({ ...checkboxes, [e.target.name]: checkedVal });
+    setChecked({...checked,[e.target.name]:checkedVal?true:false})
   };
 
   function showModal(id) {
     setOwnerId({ id });
     // $("#exampleModalCenter").modal("show");
-    openModal()
+    openModal();
   }
 
   //for Assign services to vendor
@@ -125,8 +127,8 @@ export default function Display() {
     );
 
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
 
     http.post("assign-services/" + id, inputsV, { headers }).then((res) => {
       let response = res.data;
@@ -144,10 +146,9 @@ export default function Display() {
     });
   }
 
-
   return (
     <>
-      {console.log(checkboxes.length)}
+      {console.log(checked)}
       <Header></Header>
       <Menu></Menu>
       <div className="content-wrapper mt-2">
@@ -163,7 +164,7 @@ export default function Display() {
                         to="/shop-owner/add"
                         className="btn btn-success btn-sm"
                       >
-                        <i class="fas fa-plus"></i>&nbsp;Add
+                        <i className="fas fa-plus"></i>&nbsp;Add
                       </Link>
                     </div>
                   </div>
@@ -198,7 +199,7 @@ export default function Display() {
                                 _id={owner._id}
                                 onClick={() => showModal(owner._id)}
                               >
-                                <i class="fas fa-concierge-bell"></i>
+                                <i className="fas fa-concierge-bell"></i>
                               </a>
                               <Link
                                 to={{
@@ -206,14 +207,14 @@ export default function Display() {
                                 }}
                                 className="text-info mr-2"
                               >
-                                <i class="fas fa-edit"></i>
+                                <i className="fas fa-edit"></i>
                               </Link>
                               <a
                                 href="javascript:void(0);"
                                 onClick={() => remove(owner._id)}
                                 className="text-danger"
                               >
-                                <i class="fas fa-trash-alt"></i>
+                                <i className="fas fa-trash-alt"></i>
                               </a>
                             </td>
                           </tr>
@@ -316,12 +317,19 @@ export default function Display() {
                 {services &&
                   services.map((service, index) => (
                     <tr>
+
                       <td>{service.title}</td>
                       <td>
                         <input
                           type="checkbox"
                           name={index}
                           id=""
+                          checked={
+                            service.shop_owners &&
+                            service.shop_owners.indexOf(ownerId.id) !== -1
+                              ? true
+                              :false
+                          }
                           value={service._id}
                           onClick={handleCheckbox}
                         />

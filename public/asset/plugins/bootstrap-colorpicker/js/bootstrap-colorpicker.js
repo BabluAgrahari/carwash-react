@@ -1298,16 +1298,16 @@ exports.default = {
    * @type {String}
    * @example
    * <!-- This is the default template: -->
-   * <div class="colorpicker">
-   *   <div class="colorpicker-saturation"><i class="colorpicker-guide"></i></div>
-   *   <div class="colorpicker-hue"><i class="colorpicker-guide"></i></div>
-   *   <div class="colorpicker-alpha">
-   *     <div class="colorpicker-alpha-color"></div>
-   *     <i class="colorpicker-guide"></i>
+   * <div className="colorpicker">
+   *   <div className="colorpicker-saturation"><i className="colorpicker-guide"></i></div>
+   *   <div className="colorpicker-hue"><i className="colorpicker-guide"></i></div>
+   *   <div className="colorpicker-alpha">
+   *     <div className="colorpicker-alpha-color"></div>
+   *     <i className="colorpicker-guide"></i>
    *   </div>
    * </div>
    */
-  template: '<div class="colorpicker">\n      <div class="colorpicker-saturation"><i class="colorpicker-guide"></i></div>\n      <div class="colorpicker-hue"><i class="colorpicker-guide"></i></div>\n      <div class="colorpicker-alpha">\n        <div class="colorpicker-alpha-color"></div>\n        <i class="colorpicker-guide"></i>\n      </div>\n    </div>',
+  template: '<div className="colorpicker">\n      <div className="colorpicker-saturation"><i className="colorpicker-guide"></i></div>\n      <div className="colorpicker-hue"><i className="colorpicker-guide"></i></div>\n      <div className="colorpicker-alpha">\n        <div className="colorpicker-alpha-color"></div>\n        <i className="colorpicker-guide"></i>\n      </div>\n    </div>',
   /**
    *
    * Associative object with the extension class name and its config.
@@ -3543,7 +3543,7 @@ var Preview = function (_Extension) {
     _classCallCheck(this, Preview);
 
     var _this = _possibleConstructorReturn(this, (Preview.__proto__ || Object.getPrototypeOf(Preview)).call(this, colorpicker, _jquery2.default.extend(true, {}, {
-      template: '<div class="colorpicker-bar colorpicker-preview"><div /></div>',
+      template: '<div className="colorpicker-bar colorpicker-preview"><div /></div>',
       showText: true,
       format: colorpicker.format
     }, options)));
@@ -3621,8 +3621,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var defaults = {
-  barTemplate: '<div class="colorpicker-bar colorpicker-swatches">\n                    <div class="colorpicker-swatches--inner"></div>\n                </div>',
-  swatchTemplate: '<i class="colorpicker-swatch"><i class="colorpicker-swatch--inner"></i></i>'
+  barTemplate: '<div className="colorpicker-bar colorpicker-swatches">\n                    <div className="colorpicker-swatches--inner"></div>\n                </div>',
+  swatchTemplate: '<i className="colorpicker-swatch"><i className="colorpicker-swatch--inner"></i></i>'
 };
 
 /**
@@ -3687,7 +3687,7 @@ var Swatches = function (_Palette) {
         swatchContainer.append($swatch);
       });
 
-      swatchContainer.append((0, _jquery2.default)('<i class="colorpicker-clear"></i>'));
+      swatchContainer.append((0, _jquery2.default)('<i className="colorpicker-clear"></i>'));
     }
   }]);
 

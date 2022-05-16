@@ -2598,7 +2598,7 @@ var TempusDominusBootstrap4 = function ($) {
       }
 
       $('body').addClass('tempusdominus-bootstrap-datetimepicker-widget-day-click');
-      $('body').append('<div class="tempusdominus-bootstrap-datetimepicker-widget-day-click-glass-panel"></div>');
+      $('body').append('<div className="tempusdominus-bootstrap-datetimepicker-widget-day-click-glass-panel"></div>');
       daysView.find('tbody').empty().append(html);
       $('body').find('.tempusdominus-bootstrap-datetimepicker-widget-day-click-glass-panel').remove();
       $('body').removeClass('tempusdominus-bootstrap-datetimepicker-widget-day-click');

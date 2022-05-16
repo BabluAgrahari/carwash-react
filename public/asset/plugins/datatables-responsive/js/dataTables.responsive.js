@@ -811,7 +811,7 @@ $.extend( Responsive.prototype, {
 				break;
 			}
 		}
-		
+
 		// Show the columns for that break point
 		var columnsVis = this._columnsVisiblity( breakpoint );
 		this.s.current = columnsVis;
@@ -820,7 +820,7 @@ $.extend( Responsive.prototype, {
 		// listeners know what the state is. Need to determine if there are
 		// any columns that are not visible but can be shown
 		var collapsedClass = false;
-	
+
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 			if ( columnsVis[i] === false && ! columns[i].never && ! columns[i].control && ! dt.column(i).visible() === false ) {
 				collapsedClass = true;
@@ -948,7 +948,7 @@ $.extend( Responsive.prototype, {
 		if ( this.c.details.type === 'inline' ) {
 			$(clonedTable).addClass( 'dtr-inline collapsed' );
 		}
-		
+
 		// It is unsafe to insert elements with the same name into the DOM
 		// multiple times. For example, cloning and inserting a checked radio
 		// clears the chcecked state of the original radio.
@@ -957,7 +957,7 @@ $.extend( Responsive.prototype, {
 		// A position absolute table would take the table out of the flow of
 		// our container element, bypassing the height and width (Scroller)
 		$( clonedTable ).css( 'position', 'relative' )
-		
+
 		var inserted = $('<div/>')
 			.css( {
 				width: 1,
@@ -1144,18 +1144,18 @@ Responsive.display = {
 					$(document).off( 'keypress.dtr' );
 				};
 
-				var modal = $('<div class="dtr-modal"/>')
-					.append( $('<div class="dtr-modal-display"/>')
-						.append( $('<div class="dtr-modal-content"/>')
+				var modal = $('<div className="dtr-modal"/>')
+					.append( $('<div className="dtr-modal-display"/>')
+						.append( $('<div className="dtr-modal-content"/>')
 							.append( render() )
 						)
-						.append( $('<div class="dtr-modal-close">&times;</div>' )
+						.append( $('<div className="dtr-modal-close">&times;</div>' )
 							.click( function () {
 								close();
 							} )
 						)
 					)
-					.append( $('<div class="dtr-modal-background"/>')
+					.append( $('<div className="dtr-modal-background"/>')
 						.click( function () {
 							close();
 						} )
@@ -1243,23 +1243,23 @@ function _childNodesRestore( dt, row, col ) {
 Responsive.renderer = {
 	listHiddenNodes: function () {
 		return function ( api, rowIdx, columns ) {
-			var ul = $('<ul data-dtr-index="'+rowIdx+'" class="dtr-details"/>');
+			var ul = $('<ul data-dtr-index="'+rowIdx+'" className="dtr-details"/>');
 			var found = false;
 
 			var data = $.each( columns, function ( i, col ) {
 				if ( col.hidden ) {
 					var klass = col.className ?
-						'class="'+ col.className +'"' :
+						'className="'+ col.className +'"' :
 						'';
-	
+
 					$(
 						'<li '+klass+' data-dtr-index="'+col.columnIndex+'" data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
-							'<span class="dtr-title">'+
+							'<span className="dtr-title">'+
 								col.title+
 							'</span> '+
 						'</li>'
 					)
-						.append( $('<span class="dtr-data"/>').append( _childNodes( api, col.rowIndex, col.columnIndex ) ) )// api.cell( col.rowIndex, col.columnIndex ).node().childNodes ) )
+						.append( $('<span className="dtr-data"/>').append( _childNodes( api, col.rowIndex, col.columnIndex ) ) )// api.cell( col.rowIndex, col.columnIndex ).node().childNodes ) )
 						.appendTo( ul );
 
 					found = true;
@@ -1276,15 +1276,15 @@ Responsive.renderer = {
 		return function ( api, rowIdx, columns ) {
 			var data = $.map( columns, function ( col ) {
 				var klass = col.className ?
-					'class="'+ col.className +'"' :
+					'className="'+ col.className +'"' :
 					'';
 
 				return col.hidden ?
 					'<li '+klass+' data-dtr-index="'+col.columnIndex+'" data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
-						'<span class="dtr-title">'+
+						'<span className="dtr-title">'+
 							col.title+
 						'</span> '+
-						'<span class="dtr-data">'+
+						'<span className="dtr-data">'+
 							col.data+
 						'</span>'+
 					'</li>' :
@@ -1292,7 +1292,7 @@ Responsive.renderer = {
 			} ).join('');
 
 			return data ?
-				$('<ul data-dtr-index="'+rowIdx+'" class="dtr-details"/>').append( data ) :
+				$('<ul data-dtr-index="'+rowIdx+'" className="dtr-details"/>').append( data ) :
 				false;
 		}
 	},
@@ -1305,7 +1305,7 @@ Responsive.renderer = {
 		return function ( api, rowIdx, columns ) {
 			var data = $.map( columns, function ( col ) {
 				var klass = col.className ?
-					'class="'+ col.className +'"' :
+					'className="'+ col.className +'"' :
 					'';
 
 				return '<tr '+klass+' data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
@@ -1314,7 +1314,7 @@ Responsive.renderer = {
 					'</tr>';
 			} ).join('');
 
-			return $('<table class="'+options.tableClass+' dtr-details" width="100%"/>').append( data );
+			return $('<table className="'+options.tableClass+' dtr-details" width="100%"/>').append( data );
 		}
 	}
 };

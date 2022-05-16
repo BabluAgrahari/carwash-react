@@ -56,7 +56,7 @@ $.extend( true, DataTable.Buttons.defaults, {
 	},
 	buttonCreated: function ( config, button ) {
 		return config.buttons ?
-			$('<div class="btn-group"/>').append(button) :
+			$('<div className="btn-group"/>').append(button) :
 			button;
 	}
 } );

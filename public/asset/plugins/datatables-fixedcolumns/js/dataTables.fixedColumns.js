@@ -413,7 +413,7 @@ $.extend( FixedColumns.prototype , {
 	 * table, so you can pass in nodes from the master table, or the cloned
 	 * tables and get the index position for the data in the main table.
 	 *  @param {node} node TR, TH or TD element to get the information about
-	 *  @returns {int} If nNode is given as a TR, then a single index is 
+	 *  @returns {int} If nNode is given as a TR, then a single index is
 	 *    returned, or if given as a cell, an array of [row index, column index
 	 *    (visible), column index (all)] is given.
 	 */
@@ -778,23 +778,23 @@ $.extend( FixedColumns.prototype , {
 		this.dom.header.parentNode.parentNode.style.position = "relative";
 
 		var nSWrapper =
-			$('<div class="DTFC_ScrollWrapper" style="position:relative; clear:both;">'+
-				'<div class="DTFC_LeftWrapper" style="position:absolute; top:0; left:0;" aria-hidden="true">'+
-					'<div class="DTFC_LeftHeadWrapper" style="position:relative; top:0; left:0; overflow:hidden;"></div>'+
-					'<div class="DTFC_LeftBodyWrapper" style="position:relative; top:0; left:0; height:0; overflow:hidden;">'+
-						'<div class="DTFC_LeftBodyLiner" style="position:relative; top:0; left:0; overflow-y:scroll;"></div>'+
+			$('<div className="DTFC_ScrollWrapper" style="position:relative; clear:both;">'+
+				'<div className="DTFC_LeftWrapper" style="position:absolute; top:0; left:0;" aria-hidden="true">'+
+					'<div className="DTFC_LeftHeadWrapper" style="position:relative; top:0; left:0; overflow:hidden;"></div>'+
+					'<div className="DTFC_LeftBodyWrapper" style="position:relative; top:0; left:0; height:0; overflow:hidden;">'+
+						'<div className="DTFC_LeftBodyLiner" style="position:relative; top:0; left:0; overflow-y:scroll;"></div>'+
 					'</div>'+
-					'<div class="DTFC_LeftFootWrapper" style="position:relative; top:0; left:0; overflow:hidden;"></div>'+
+					'<div className="DTFC_LeftFootWrapper" style="position:relative; top:0; left:0; overflow:hidden;"></div>'+
 				'</div>'+
-				'<div class="DTFC_RightWrapper" style="position:absolute; top:0; right:0;" aria-hidden="true">'+
-					'<div class="DTFC_RightHeadWrapper" style="position:relative; top:0; left:0;">'+
-						'<div class="DTFC_RightHeadBlocker DTFC_Blocker" style="position:absolute; top:0; bottom:0;"></div>'+
+				'<div className="DTFC_RightWrapper" style="position:absolute; top:0; right:0;" aria-hidden="true">'+
+					'<div className="DTFC_RightHeadWrapper" style="position:relative; top:0; left:0;">'+
+						'<div className="DTFC_RightHeadBlocker DTFC_Blocker" style="position:absolute; top:0; bottom:0;"></div>'+
 					'</div>'+
-					'<div class="DTFC_RightBodyWrapper" style="position:relative; top:0; left:0; height:0; overflow:hidden;">'+
-						'<div class="DTFC_RightBodyLiner" style="position:relative; top:0; left:0; overflow-y:scroll;"></div>'+
+					'<div className="DTFC_RightBodyWrapper" style="position:relative; top:0; left:0; height:0; overflow:hidden;">'+
+						'<div className="DTFC_RightBodyLiner" style="position:relative; top:0; left:0; overflow-y:scroll;"></div>'+
 					'</div>'+
-					'<div class="DTFC_RightFootWrapper" style="position:relative; top:0; left:0;">'+
-						'<div class="DTFC_RightFootBlocker DTFC_Blocker" style="position:absolute; top:0; bottom:0;"></div>'+
+					'<div className="DTFC_RightFootWrapper" style="position:relative; top:0; left:0;">'+
+						'<div className="DTFC_RightFootBlocker DTFC_Blocker" style="position:absolute; top:0; bottom:0;"></div>'+
 					'</div>'+
 				'</div>'+
 			'</div>')[0];

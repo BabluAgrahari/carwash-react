@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./Middleware/Auth";
+import LocationSearchInput from "./pages/LocationSearchInput";
 
 import Display from "./pages/Category/Display";
 import Add from "./pages/Category/Add";
@@ -141,6 +142,13 @@ function App() {
           <Route
             path="/profile"
             element={<Auth component={Profile} role={["vendor","admin"]} />}
+          ></Route>
+
+
+          {/* for location */}
+          <Route
+            path="/location"
+            element={<Auth component={LocationSearchInput} role={["vendor","admin"]} />}
           ></Route>
 
           <Route path="/" element={<Login />}></Route>

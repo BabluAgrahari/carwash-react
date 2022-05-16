@@ -37,11 +37,12 @@ export default function Add() {
   const [vehicleBrands, setBrand] = useState([]);
   const [vehicleModals, setModal] = useState([]);
   const [categories, setCategory] = useState([]);
-  const [token, setToken] = useState('')
+  const [inputsError, setError] = useState([]);
+  const [token, setToken] = useState("");
 
   useEffect(() => {
-    if (typeof sessionStorage.getItem('userData') !== 'undefined') {
-      setToken(JSON.parse(sessionStorage.getItem('userData')).token)
+    if (typeof sessionStorage.getItem("userData") !== "undefined") {
+      setToken(JSON.parse(sessionStorage.getItem("userData")).token);
       vehicleBrancd();
       vehicleModal();
       category();
@@ -51,8 +52,8 @@ export default function Add() {
   //for vehical brand
   const vehicleBrancd = async () => {
     const headers = {
-      Authorization: `Bearer ${token}`
-    }
+      Authorization: `Bearer ${token}`,
+    };
     await http.get("vehicle-brand", { headers }).then((res) => {
       setBrand(res.data.data);
     });
@@ -61,8 +62,8 @@ export default function Add() {
   //for vehical modal
   const vehicleModal = async () => {
     const headers = {
-      Authorization: `Bearer ${token}`
-    }
+      Authorization: `Bearer ${token}`,
+    };
     await http.get("vehicle-modal", { headers }).then((res) => {
       setModal(res.data.data);
     });
@@ -71,8 +72,8 @@ export default function Add() {
   //for vehical modal
   const category = async () => {
     const headers = {
-      Authorization: `Bearer ${token}`
-    }
+      Authorization: `Bearer ${token}`,
+    };
     await http.get("category", { headers }).then((res) => {
       setCategory(res.data.data);
     });
@@ -83,7 +84,7 @@ export default function Add() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  const handleVideo = (e) => { };
+  const handleVideo = (e) => {};
 
   const handleIcon = (e) => {
     setIcon({ icon: e.target.files[0] });
@@ -91,15 +92,15 @@ export default function Add() {
     setPreview(
       files.length
         ? {
-          src: URL.createObjectURL(files[0]),
-          alt: files[0].name,
-        }
+            src: URL.createObjectURL(files[0]),
+            alt: files[0].name,
+          }
         : initialState
     );
   };
 
   //for submit data in collection
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
     var files = e.target[0].files;
     console.log(files);
@@ -107,27 +108,36 @@ export default function Add() {
     // for (let i = 0; i < files.length; i++) {
     //   inputsV.append("multiple_images[]", files[i]);
     // }
-    inputsV.append("icon", icon.icon);
-    inputsV.append("title", inputs.title);
-    inputsV.append("sort_description", inputs.sort_description);
-    inputsV.append("description", inputs.description);
-    inputsV.append("video", inputs.video);
-    inputsV.append("category", inputs.category);
-    inputsV.append("vehicle_brand", inputs.vehicle_brand);
-    inputsV.append("vehicle_model", inputs.vehicle_model);
-    inputsV.append("time_duration", inputs.time_duration);
-    inputsV.append("discount", inputs.discount);
-    inputsV.append("service_charge", inputs.service_charge);
-    inputsV.append("gst_charges", inputs.gst_charges);
-    inputsV.append("service_type", inputs.service_type);
-    inputsV.append("status", inputs.status);
+    inputsV.append("icon", icon.icon?icon.icon:'');
+    inputsV.append("title", inputs.title?inputs.title:'');
+    inputsV.append("sort_description", inputs.sort_description?inputs.sort_description:'');
+    inputsV.append("description", inputs.description?inputs.description:'');
+    inputsV.append("video", inputs.video?inputs.video:'');
+    inputsV.append("category", inputs.category?inputs.category:'');
+    inputsV.append("vehicle_brand", inputs.vehicle_brand?inputs.vehicle_brand:'');
+    inputsV.append("vehicle_model", inputs.vehicle_model?inputs.vehicle_model:'');
+    inputsV.append("time_duration", inputs.time_duration?inputs.time_duration:'');
+    inputsV.append("discount", inputs.discount?inputs.discount:'');
+    inputsV.append("service_charge", inputs.service_charge?inputs.service_charge:'');
+    inputsV.append("gst_charges", inputs.gst_charges?inputs.gst_charges:'');
+    inputsV.append("service_type", inputs.service_type?inputs.service_type:'');
+    inputsV.append("status", inputs.status?inputs.status:'');
 
     const headers = {
-      Authorization: `Bearer ${token}`
-    }
+      Authorization: `Bearer ${token}`,
+    };
 
     http.post("services", inputsV, { headers }).then((res) => {
       let response = res.data;
+
+      if (response.type == "validation") {
+        let errors = response.message;
+        Object.keys(errors).map((error, index) =>
+          setError({ ...inputsError, [error]: errors[error][0] })
+        );
+        return false;
+      }
+
       Swal.fire(
         `${response.status}`,
         `${response.message}`,
@@ -144,6 +154,7 @@ export default function Add() {
 
   return (
     <>
+    {console.log(inputsError.title)}
       <Header></Header>
       <Menu></Menu>
       <div className="content-wrapper mt-2">
@@ -158,7 +169,10 @@ export default function Add() {
                   </div>
 
                   <div className="card-body">
-                    <form onSubmit={(e) => submit(e)} encType="multipart/form-data">
+                    <form
+                      onSubmit={(e) => submit(e)}
+                      encType="multipart/form-data"
+                    >
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-group">
@@ -171,6 +185,9 @@ export default function Add() {
                               className="form-control"
                               placeholder="Enter Title"
                             />
+                             <span className="text-danger">
+                              {inputsError.title}
+                            </span>
                           </div>
 
                           <div className="form-group">
@@ -183,6 +200,9 @@ export default function Add() {
                               placeholder="Enter Sort Description"
                               onChange={handleInput}
                             ></textarea>
+                             <span className="text-danger">
+                              {inputsError.sort_description}
+                            </span>
                           </div>
 
                           <div className="form-group">
@@ -195,6 +215,9 @@ export default function Add() {
                               placeholder="Enter Full Description"
                               onChange={handleInput}
                             ></textarea>
+                             <span className="text-danger">
+                              {inputsError.description}
+                            </span>
                           </div>
 
                           <div className="form-group">
@@ -214,6 +237,9 @@ export default function Add() {
                                 Choose file
                               </label>
                             </div>
+                             <span className="text-danger">
+                              {inputsError.video}
+                            </span>
                           </div>
 
                           <div className="form-group">
@@ -238,6 +264,9 @@ export default function Add() {
                                 Choose file
                               </label>
                             </div>
+                             <span className="text-danger">
+                              {inputsError.icon}
+                            </span>
                           </div>
 
                           <div className="form-group">
@@ -261,6 +290,9 @@ export default function Add() {
                                 Choose file
                               </label>
                             </div>
+                             <span className="text-danger">
+                              {inputsError.multiple_images}
+                            </span>
                           </div>
                         </div>
 
@@ -283,6 +315,9 @@ export default function Add() {
                                       </option>
                                     ))}
                                 </select>
+                                   <span className="text-danger">
+                              {inputsError.category}
+                            </span>
                               </div>
 
                               <div className="form-group">
@@ -301,6 +336,9 @@ export default function Add() {
                                       </option>
                                     ))}
                                 </select>
+                                   <span className="text-danger">
+                              {inputsError.vehicle_brand}
+                            </span>
                               </div>
 
                               <div className="form-group">
@@ -312,6 +350,9 @@ export default function Add() {
                                   name="time_duration"
                                   onChange={handleInput}
                                 />
+                                   <span className="text-danger">
+                              {inputsError.time_duration}
+                            </span>
                               </div>
 
                               <div className="form-group">
@@ -324,6 +365,9 @@ export default function Add() {
                                   name="discount"
                                   onChange={handleInput}
                                 />
+                                   <span className="text-danger">
+                              {inputsError.discount}
+                            </span>
                               </div>
                             </div>
 
@@ -344,6 +388,9 @@ export default function Add() {
                                     Drop/Service at Service Point
                                   </option>
                                 </select>
+                                   <span className="text-danger">
+                              {inputsError.service_type}
+                            </span>
                               </div>
 
                               <div className="form-group">
@@ -362,6 +409,9 @@ export default function Add() {
                                       </option>
                                     ))}
                                 </select>
+                                   <span className="text-danger">
+                              {inputsError.vehicle_model}
+                            </span>
                               </div>
 
                               <div className="form-group">
@@ -374,6 +424,9 @@ export default function Add() {
                                   placeholder="Service Charges"
                                   onChange={handleInput}
                                 />
+                                   <span className="text-danger">
+                              {inputsError.service_charge}
+                            </span>
                               </div>
 
                               <div className="form-group">
@@ -386,6 +439,9 @@ export default function Add() {
                                   placeholder="GST Charges"
                                   onChange={handleInput}
                                 />
+                                   <span className="text-danger">
+                              {inputsError.gst_charges}
+                            </span>
                               </div>
                             </div>
                           </div>
@@ -401,6 +457,9 @@ export default function Add() {
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
+                               <span className="text-danger">
+                              {inputsError.status}
+                            </span>
                           </div>
                         </div>
 
@@ -415,7 +474,7 @@ export default function Add() {
                               to="/services"
                               className="ml-2 btn btn-warning"
                             >
-                              <i class="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>&nbsp;Back
                             </Link>
                           </div>
                         </div>

@@ -52,7 +52,7 @@ var DataTable = $.fn.dataTable;
 
 var _instance = 0;
 
-/** 
+/**
  * AutoFill provides Excel like auto-fill features for a DataTable
  *
  * @class AutoFill
@@ -107,7 +107,7 @@ var AutoFill = function( dt, opts )
 	 */
 	this.dom = {
 		/** @type {jQuery} AutoFill handle */
-		handle: $('<div class="dt-autofill-handle"/>'),
+		handle: $('<div className="dt-autofill-handle"/>'),
 
 		/**
 		 * @type {Object} Selected cells outline - Need to use 4 elements,
@@ -115,17 +115,17 @@ var AutoFill = function( dt, opts )
 		 *   will be over that element, rather than the cells!
 		 */
 		select: {
-			top:    $('<div class="dt-autofill-select top"/>'),
-			right:  $('<div class="dt-autofill-select right"/>'),
-			bottom: $('<div class="dt-autofill-select bottom"/>'),
-			left:   $('<div class="dt-autofill-select left"/>')
+			top:    $('<div className="dt-autofill-select top"/>'),
+			right:  $('<div className="dt-autofill-select right"/>'),
+			bottom: $('<div className="dt-autofill-select bottom"/>'),
+			left:   $('<div className="dt-autofill-select left"/>')
 		},
 
 		/** @type {jQuery} Fill type chooser background */
-		background: $('<div class="dt-autofill-background"/>'),
+		background: $('<div className="dt-autofill-background"/>'),
 
 		/** @type {jQuery} Fill type chooser */
-		list: $('<div class="dt-autofill-list">'+this.s.dt.i18n('autoFill.info', '')+'<ul/></div>'),
+		list: $('<div className="dt-autofill-list">'+this.s.dt.i18n('autoFill.info', '')+'<ul/></div>'),
 
 		/** @type {jQuery} DataTables scrolling container */
 		dtScroll: null,
@@ -304,12 +304,12 @@ $.extend( AutoFill.prototype, {
 			$.each( available, function ( i, name ) {
 				list.append( $('<li/>')
 					.append(
-						'<div class="dt-autofill-question">'+
+						'<div className="dt-autofill-question">'+
 							actions[ name ].option( dt, cells )+
 						'<div>'
 					)
-					.append( $('<div class="dt-autofill-button">' )
-						.append( $('<button class="'+AutoFill.classes.btn+'">'+dt.i18n('autoFill.button', '&gt;')+'</button>')
+					.append( $('<div className="dt-autofill-button">' )
+						.append( $('<button className="'+AutoFill.classes.btn+'">'+dt.i18n('autoFill.button', '&gt;')+'</button>')
 							.on( 'click', function () {
 								var result = actions[ name ].execute(
 									dt, cells, $(this).closest('li')
@@ -681,7 +681,7 @@ $.extend( AutoFill.prototype, {
 	 * @private
 	 */
 	_mousemove: function ( e )
-	{	
+	{
 		var that = this;
 		var dt = this.s.dt;
 		var name = e.target.nodeName.toLowerCase();
@@ -787,7 +787,7 @@ $.extend( AutoFill.prototype, {
 		}
 
 		this._actionSelector( selected );
-		
+
 		// Stop shiftScroll
 		clearInterval( this.s.scrollInterval );
 		this.s.scrollInterval = null;
@@ -797,7 +797,7 @@ $.extend( AutoFill.prototype, {
 	/**
 	 * Create an array with a range of numbers defined by the start and end
 	 * parameters passed in (inclusive!).
-	 * 
+	 *
 	 * @param  {integer} start Start
 	 * @param  {integer} end   End
 	 * @private
@@ -1098,7 +1098,7 @@ AutoFill.actions = {
 
 /**
  * AutoFill version
- * 
+ *
  * @static
  * @type      String
  */
@@ -1107,7 +1107,7 @@ AutoFill.version = '2.3.9';
 
 /**
  * AutoFill defaults
- * 
+ *
  * @namespace
  */
 AutoFill.defaults = {
@@ -1139,7 +1139,7 @@ AutoFill.defaults = {
 
 /**
  * Classes used by AutoFill that are configurable
- * 
+ *
  * @namespace
  */
 AutoFill.classes = {

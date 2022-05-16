@@ -99,7 +99,7 @@ function Header() {
                 </span>
                 Profile
               </a>
-              <a className="dropdown-item" href="" onclick="">
+              <a className="dropdown-item" href="" onClick="">
                 <button
                   onClick={logout}
                   className="btn btn-danger logout-button w-100"

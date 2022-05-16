@@ -44,8 +44,8 @@
                 yPos: ''
             };
 
-        html[j++] = '<svg class="legendLayer" style="width:inherit;height:inherit;">';
-        html[j++] = '<rect class="background" width="100%" height="100%"/>';
+        html[j++] = '<svg className="legendLayer" style="width:inherit;height:inherit;">';
+        html[j++] = '<rect className="background" width="100%" height="100%"/>';
         html[j++] = svgShapeDefs;
 
         var left = 0;
@@ -145,7 +145,7 @@
         var legendEl,
             height = Math.ceil(entries.length / options.legend.noColumns) * 1.6;
         if (!options.legend.container) {
-            legendEl = $('<div class="legend" style="position:absolute;' + pos + '">' + html.join('') + '</div>').appendTo(placeholder);
+            legendEl = $('<div className="legend" style="position:absolute;' + pos + '">' + html.join('') + '</div>').appendTo(placeholder);
             legendEl.css('width', width + 'px');
             legendEl.css('height', height + 'em');
             legendEl.css('pointerEvents', 'none');
@@ -167,7 +167,7 @@
             width = shape.strokeWidth;
         switch (name) {
             case 'circle':
-                html = '<use xlink:href="#circle" class="legendIcon" ' +
+                html = '<use xlink:href="#circle" className="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
@@ -177,7 +177,7 @@
                     '/>';
                 break;
             case 'diamond':
-                html = '<use xlink:href="#diamond" class="legendIcon" ' +
+                html = '<use xlink:href="#diamond" className="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
@@ -187,7 +187,7 @@
                     '/>';
                 break;
             case 'cross':
-                html = '<use xlink:href="#cross" class="legendIcon" ' +
+                html = '<use xlink:href="#cross" className="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     // 'fill="' + fill + '" ' +
@@ -197,7 +197,7 @@
                     '/>';
                 break;
             case 'rectangle':
-                html = '<use xlink:href="#rectangle" class="legendIcon" ' +
+                html = '<use xlink:href="#rectangle" className="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
@@ -207,7 +207,7 @@
                     '/>';
                 break;
             case 'plus':
-                html = '<use xlink:href="#plus" class="legendIcon" ' +
+                html = '<use xlink:href="#plus" className="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     // 'fill="' + fill + '" ' +
@@ -217,7 +217,7 @@
                     '/>';
                 break;
             case 'bar':
-                html = '<use xlink:href="#bars" class="legendIcon" ' +
+                html = '<use xlink:href="#bars" className="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
@@ -227,7 +227,7 @@
                     '/>';
                 break;
             case 'area':
-                html = '<use xlink:href="#area" class="legendIcon" ' +
+                html = '<use xlink:href="#area" className="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
@@ -237,7 +237,7 @@
                     '/>';
                 break;
             case 'line':
-                html = '<use xlink:href="#line" class="legendIcon" ' +
+                html = '<use xlink:href="#line" className="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     // 'fill="' + fill + '" ' +
@@ -248,7 +248,7 @@
                 break;
             default:
                 // default is circle
-                html = '<use xlink:href="#circle" class="legendIcon" ' +
+                html = '<use xlink:href="#circle" className="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
