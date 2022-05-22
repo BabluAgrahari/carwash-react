@@ -1,6 +1,7 @@
 {
   "name": "carwash",
   "version": "0.1.0",
+  "homepage": "https://crm.quarainfotech.com/",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.17.9",

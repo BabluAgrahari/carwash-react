@@ -187,7 +187,7 @@ export default function Display() {
                             <td>{++index}</td>
                             <td>{owner.business_name}</td>
                             <td>{owner.business_email}</td>
-                            <td>{owner.mobile}</td>
+                            <td>{owner.mobile_no}</td>
                             <td>{owner.address}</td>
                             {/* <td>{owner.status}</td> */}
                             <td>{owner.created}</td>
@@ -312,13 +312,16 @@ export default function Display() {
               <table className="table table-sm w-100">
                 <tr>
                   <th>Service</th>
-                  <th>Action</th>
+                  <th>Commision (in %)</th>
+                  <th>Assign</th>
                 </tr>
                 {services &&
                   services.map((service, index) => (
                     <tr>
 
                       <td>{service.title}</td>
+                      <td  className="w-50">
+                        <input type="number" onChange={commision} className="form-control form-control-sm" name={`cms-${index}`}/></td>
                       <td>
                         <input
                           type="checkbox"

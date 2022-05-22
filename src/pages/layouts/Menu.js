@@ -44,7 +44,7 @@ export default class Menu extends Component {
                     <NavLink
                       to="/dashboard"
                       className="nav-link"
-                      activeClassName="active"
+                      ClassName="active"
                     >
                       <i className="nav-icon fas fa-tachometer-alt text-danger"></i>
                       <p>Dashboard</p>
@@ -52,15 +52,15 @@ export default class Menu extends Component {
                   </li>
                 )}
 
-                {permission(["admin", "vendor"]) && (
+                {permission(["vendor"]) && (
                   <li className="nav-item">
                     <NavLink
                       to="/profile"
                       className="nav-link"
-                      activeClassName="active"
+                      ClassName="active"
                     >
                       <i className="nav-icon fas fa-solid fa-id-badge"></i>
-                      <p>Profile</p>
+                      <p>Time Slab</p>
                     </NavLink>
                   </li>
                 )}
@@ -70,7 +70,7 @@ export default class Menu extends Component {
                     <NavLink
                       to="/category"
                       className="nav-link"
-                      activeClassName="active"
+                      ClassName="active"
                     >
                       <i className="nav-icon fas fa-band-aid"></i>
                       <p>Category</p>
@@ -82,7 +82,7 @@ export default class Menu extends Component {
                     <NavLink
                       to="/vehicle-brand"
                       className="nav-link"
-                      activeClassName="active"
+                      ClassName="active"
                     >
                       <i className="nav-icon fas fa-car-side"></i>
                       <p>Vehicle Brand</p>
@@ -94,7 +94,7 @@ export default class Menu extends Component {
                     <NavLink
                       to="/vehicle-modal"
                       className="nav-link"
-                      activeClassName="active"
+                      ClassName="active"
                     >
                       <i className="nav-icon fas fa-car-alt"></i>
                       <p>Vehicle Modal</p>
@@ -106,7 +106,7 @@ export default class Menu extends Component {
                     <NavLink
                       to="/services"
                       className="nav-link"
-                      activeClassName="active"
+                      ClassName="active"
                     >
                       <i className="nav-icon fas fa-concierge-bell"></i>
                       <p>Services</p>
@@ -118,7 +118,7 @@ export default class Menu extends Component {
                     <NavLink
                       to="/shop-owner"
                       className="nav-link"
-                      activeClassName="active"
+                      ClassName="active"
                     >
                       <i className="nav-icon fas fa-store-alt"></i>
                       <p>Shop Owner</p>
@@ -130,7 +130,7 @@ export default class Menu extends Component {
                     <NavLink
                       to="/booking"
                       className="nav-link"
-                      activeClassName="active"
+                      ClassName="active"
                     >
                       <i className="nav-icon fab fa-first-order"></i>
                       <p>Booking</p>
@@ -143,7 +143,7 @@ export default class Menu extends Component {
                     <NavLink
                       to="/driver"
                       className="nav-link"
-                      activeClassName="active"
+                      ClassName="active"
                     >
                       <i className="nav-icon fas fa-car-alt"></i>
                       <p>Driver</p>
@@ -156,7 +156,7 @@ export default class Menu extends Component {
                     <NavLink
                       to="/vendor-services"
                       className="nav-link"
-                      activeClassName="active"
+                      ClassName="active"
                     >
                       <i className="nav-icon fas fa-concierge-bell"></i>
                       <p>Services</p>
@@ -164,16 +164,29 @@ export default class Menu extends Component {
                   </li>
                 )}
 
-                <li className="nav-item">
+                {permission(["admin","vendor"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/passbook"
+                      className="nav-link"
+                      ClassName="active"
+                    >
+                      <i className="nav-icon fas fa-concierge-bell"></i>
+                      <p>Passbook</p>
+                    </NavLink>
+                  </li>
+                )}
+
+                {/* <li className="nav-item">
                   <NavLink
                     to="/location"
                     className="nav-link"
-                    activeClassName="active"
+                    ClassName="active"
                   >
                     <i className="nav-icon fas fa-concierge-bell"></i>
                     <p>Location</p>
                   </NavLink>
-                </li>
+                </li> */}
 
                 {/* <li className="nav-item">
                   <a href="#" className="nav-link">

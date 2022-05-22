@@ -41,7 +41,7 @@ export default function Edit(props) {
       // console.log(res.data.data);
       setInputs({
         name: res.data.data.name,
-        vehicle_brand: res.data.data.vehicle_brand,
+        brand_id: res.data.data.brand_id,
         status: res.data.data.status,
       });
     });
@@ -115,7 +115,9 @@ export default function Edit(props) {
                               onChange={handleChange}
                               id="status"
                               className="form-control"
+                              value={inputs.status}
                             >
+                               <option value="">Select</option>
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
@@ -126,10 +128,11 @@ export default function Edit(props) {
                           <div className="form-group">
                             <label>Vehicle Brand</label>
                             <select
-                              name="vehicle_brand"
+                              name="brand_id"
                               onChange={handleChange}
-                              id="vehicle_brand"
+                              id="brand_id"
                               className="form-control"
+                               value={inputs.brand_id}
                             >
                               <option value="">Select</option>
                               {vehicleBrands && vehicleBrands.map((v_brand, index) => (

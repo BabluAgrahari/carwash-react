@@ -96,9 +96,11 @@ export default function Edit(props) {
       // console.log(res.data.data);
       let response = res.data.data;
       setInputs({
+        name:response.name,
+        email:response.email,
+        mobile_no:response.mobile_no,
         business_name: response.business_name,
         business_email: response.business_email,
-        mobile: response.mobile,
         city: response.city,
         pincode: response.pincode,
         state: response.state,
@@ -136,6 +138,9 @@ export default function Edit(props) {
     e.preventDefault();
 
     const inputsV = new FormData();
+    inputsV.append("name",inputs.name);
+    inputsV.append("email",inputs.email);
+    inputsV.append("mobile_no",inputs.mobile_no);
     inputsV.append("logo", logo.logo);
     inputsV.append("cover_photo", coverPhoto.cover_photo);
     inputsV.append("business_name", inputs.business_name);
@@ -193,7 +198,76 @@ export default function Edit(props) {
 
                   <div className="card-body">
                     <form onSubmit={(e) => submit(e)}>
+
+                       <div className="form-row border-bottom mb-3">
+                        <div className="col-md-12 mb-1">
+                          <h5>
+                            <i class="text-danger fa-solid fa-users"></i>
+                            &nbsp;Personal Details
+                          </h5>
+                        </div>
+
+                        <div className="form-group col-md-3">
+                          <label>Name<span className="font-weight-bold text-danger">&nbsp;* </span></label>
+                          <input
+                            type="text"
+                            name="name"
+                            className="form-control"
+                            placeholder="Name"
+                            onChange={handleInput}
+                            id="name"
+                            value={inputs.name}
+                          />
+                          <span className="text-muted text-size">
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Enter Name
+                          </span>
+                        </div>
+
+                        <div className="form-group col-md-3">
+                          <label>Email<span className="font-weight-bold text-danger">&nbsp;* </span></label>
+                          <input
+                            type="email"
+                            name="email"
+                            readOnly={true}
+                            className="form-control"
+                            placeholder="Email"
+                            onChange={handleInput}
+                            id="Email"
+                            value={inputs.email}
+                          />
+                          <span className="text-muted text-size">
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Enter Email Id
+                          </span>
+                        </div>
+
+                          <div className="form-group col-md-3">
+                          <label>Mobile No<span className="font-weight-bold text-danger">&nbsp;* </span></label>
+                          <input
+                            type="number"
+                            name="mobile_no"
+                            className="form-control"
+                            placeholder="Mobile No"
+                            onChange={handleInput}
+                            id="mobile_no"
+                            value={inputs.mobile_no}
+                          />
+                          <span className="text-muted text-size">
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please Enter Mobile No
+                          </span>
+                        </div>
+
+                      </div>
+
                       <div className="form-row">
+                        <div className="col-md-12 mb-1">
+                          <h5>
+                            <i class="text-danger nav-icon fas fa-store-alt"></i>
+                            &nbsp;Store Details
+                          </h5>
+                        </div>
                         <div className="form-group col-md-4">
                           <label>Business Name</label>
                           <input
@@ -314,22 +388,6 @@ export default function Edit(props) {
                       </div>
 
                       <div className="form-row">
-                        <div className="form-group col-md-4">
-                          <label>Mobile No</label>
-                          <input
-                            type="text"
-                            name="mobile"
-                            className="form-control"
-                            placeholder="Enter Mobile"
-                            onChange={handleInput}
-                            id="mobile"
-                            value={inputs.mobile}
-                          />
-                          <span className="text-muted text-size">
-                            <i className="fas fa-question-circle"></i>
-                            &nbsp;Please Enter Mobile No
-                          </span>
-                        </div>
 
                         <div className="form-group col-md-4">
                           <label>Whatsapp No</label>
@@ -349,22 +407,6 @@ export default function Edit(props) {
                         </div>
 
                         <div className="form-group col-md-4">
-                          <label>Country</label>
-                          <input
-                            type="text"
-                            name="country"
-                            className="form-control"
-                            placeholder="Enter Country"
-                            onChange={handleInput}
-                            id="country"
-                            disabled="disabled"
-                            value="India"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="form-row">
-                        <div className="form-group col-md-3">
                           <label>City</label>
                           <input
                             name="city"
@@ -380,7 +422,7 @@ export default function Edit(props) {
                           </span>
                         </div>
 
-                        <div className="form-group col-md-3">
+                        <div className="form-group col-md-4">
                           <label>State</label>
                           <select
                             name="state"
@@ -446,7 +488,11 @@ export default function Edit(props) {
                           </span>
                         </div>
 
-                        <div className="form-group col-md-3">
+                      </div>
+
+                      <div className="form-row">
+
+                        <div className="form-group col-md-4">
                           <label>Pincode</label>
                           <input
                             type="number"
@@ -461,6 +507,20 @@ export default function Edit(props) {
                             <i className="fas fa-question-circle"></i>
                             &nbsp;Please enter Pincode
                           </span>
+                        </div>
+
+                         <div className="form-group col-md-4">
+                          <label>Country</label>
+                          <input
+                            type="text"
+                            name="country"
+                            className="form-control"
+                            placeholder="Enter Country"
+                            onChange={handleInput}
+                            id="country"
+                            disabled="disabled"
+                            value="India"
+                          />
                         </div>
                       </div>
 
@@ -557,7 +617,10 @@ export default function Edit(props) {
 
                       <div className="form-row">
                         <div className="card custom-card-shasow col-md-12 p-2">
-                          <h4>Bank Account Details</h4>
+                         <h5>
+                            <i class="fa fa-solid fa-building-columns text-danger"></i>
+                            &nbsp;Bank Account Details
+                          </h5>
 
                           {bankDetails &&
                             bankDetails.map((bankDetail, index) => (

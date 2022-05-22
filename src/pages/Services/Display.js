@@ -94,7 +94,7 @@ export default function Display() {
                             <td>{++index}</td>
                             <td>{<img src={service.icon ? service.icon : process.env.PUBLIC_URL + "asset/img/noimage.jpg"} className="custom-img-size" />}</td>
                             <td>{service.title}</td>
-                            <td>{service.description}</td>
+                            <td>{service.sort_description}</td>
                             <td>{service.status}</td>
                             <td>{service.created}</td>
                             <td>

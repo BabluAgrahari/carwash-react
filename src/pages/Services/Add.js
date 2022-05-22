@@ -16,6 +16,12 @@ export default function Add() {
 
   const [{ alt, src }, setPreview] = useState(initialState);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [vehicleBrands, setBrand] = useState([]);
+  const [vehicleModals, setModal] = useState([]);
+  const [categories, setCategory] = useState([]);
+  const [inputsError, setError] = useState([]);
+  const [totalCharges, setTotalCharges] = useState(false);
+  const [token, setToken] = useState("");
 
   const handleImageChange = (e) => {
     setSelectedFiles([]);
@@ -33,12 +39,6 @@ export default function Add() {
       return <img className="preview" src={photo} />;
     });
   };
-
-  const [vehicleBrands, setBrand] = useState([]);
-  const [vehicleModals, setModal] = useState([]);
-  const [categories, setCategory] = useState([]);
-  const [inputsError, setError] = useState([]);
-  const [token, setToken] = useState("");
 
   useEffect(() => {
     if (typeof sessionStorage.getItem("userData") !== "undefined") {
@@ -84,6 +84,16 @@ export default function Add() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  const handleKeyup = (e) => {
+    e.persist();
+
+    let service_charge = $('#service_charge').val();
+    let discount =$('#discount').val()?$('#discount').val():100;
+    let gst_charges = $('#gst_charges').val()?$('#gst_charges').val():0;
+
+    let perVal = (service_charge * discount) / 100;
+    setTotalCharges((parseInt(service_charge) - parseInt(perVal )) + parseInt(gst_charges));
+  };
   const handleVideo = (e) => {};
 
   const handleIcon = (e) => {
@@ -105,23 +115,23 @@ export default function Add() {
     var files = e.target[0].files;
     console.log(files);
     const inputsV = new FormData();
-    // for (let i = 0; i < files.length; i++) {
-    //   inputsV.append("multiple_images[]", files[i]);
+    // for (let i = 0; i < selectedFiles.length; i++) {
+    //   inputsV.append("multiple_images[]", selectedFiles[i]);
     // }
-    inputsV.append("icon", icon.icon?icon.icon:'');
-    inputsV.append("title", inputs.title?inputs.title:'');
-    inputsV.append("sort_description", inputs.sort_description?inputs.sort_description:'');
-    inputsV.append("description", inputs.description?inputs.description:'');
-    inputsV.append("video", inputs.video?inputs.video:'');
-    inputsV.append("category", inputs.category?inputs.category:'');
-    inputsV.append("vehicle_brand", inputs.vehicle_brand?inputs.vehicle_brand:'');
-    inputsV.append("vehicle_model", inputs.vehicle_model?inputs.vehicle_model:'');
-    inputsV.append("time_duration", inputs.time_duration?inputs.time_duration:'');
-    inputsV.append("discount", inputs.discount?inputs.discount:'');
-    inputsV.append("service_charge", inputs.service_charge?inputs.service_charge:'');
-    inputsV.append("gst_charges", inputs.gst_charges?inputs.gst_charges:'');
-    inputsV.append("service_type", inputs.service_type?inputs.service_type:'');
-    inputsV.append("status", inputs.status?inputs.status:'');
+    inputsV.append("icon", icon.icon ? icon.icon : "");
+    inputsV.append("title", inputs.title ? inputs.title : "");
+    inputsV.append("sort_description", inputs.sort_description ? inputs.sort_description : "");
+    inputsV.append("description", inputs.description ? inputs.description : "");
+    inputsV.append("video", inputs.video ? inputs.video : "");
+    inputsV.append("category", inputs.category ? inputs.category : "");
+    inputsV.append("vehicle_brand",inputs.vehicle_brand ? inputs.vehicle_brand : "");
+    inputsV.append("vehicle_model",inputs.vehicle_model ? inputs.vehicle_model : "");
+    inputsV.append("discount", inputs.discount ? inputs.discount : "");
+    inputsV.append("service_charge",inputs.service_charge ? inputs.service_charge : "");
+    inputsV.append("gst_charges", inputs.gst_charges ? inputs.gst_charges : "");
+    inputsV.append("total_charges", inputs.total_charges ? inputs.total_charges : "");
+    inputsV.append("service_type",inputs.service_type ? inputs.service_type : "" );
+    inputsV.append("status", inputs.status ? inputs.status : "");
 
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -152,9 +162,11 @@ export default function Add() {
     });
   }
 
+  //for changes calucation
+
   return (
     <>
-    {console.log(inputsError.title)}
+      {console.log(totalCharges)}
       <Header></Header>
       <Menu></Menu>
       <div className="content-wrapper mt-2">
@@ -185,7 +197,7 @@ export default function Add() {
                               className="form-control"
                               placeholder="Enter Title"
                             />
-                             <span className="text-danger">
+                            <span className="text-danger">
                               {inputsError.title}
                             </span>
                           </div>
@@ -200,7 +212,7 @@ export default function Add() {
                               placeholder="Enter Sort Description"
                               onChange={handleInput}
                             ></textarea>
-                             <span className="text-danger">
+                            <span className="text-danger">
                               {inputsError.sort_description}
                             </span>
                           </div>
@@ -215,7 +227,7 @@ export default function Add() {
                               placeholder="Enter Full Description"
                               onChange={handleInput}
                             ></textarea>
-                             <span className="text-danger">
+                            <span className="text-danger">
                               {inputsError.description}
                             </span>
                           </div>
@@ -237,7 +249,7 @@ export default function Add() {
                                 Choose file
                               </label>
                             </div>
-                             <span className="text-danger">
+                            <span className="text-danger">
                               {inputsError.video}
                             </span>
                           </div>
@@ -264,7 +276,7 @@ export default function Add() {
                                 Choose file
                               </label>
                             </div>
-                             <span className="text-danger">
+                            <span className="text-danger">
                               {inputsError.icon}
                             </span>
                           </div>
@@ -290,7 +302,7 @@ export default function Add() {
                                 Choose file
                               </label>
                             </div>
-                             <span className="text-danger">
+                            <span className="text-danger">
                               {inputsError.multiple_images}
                             </span>
                           </div>
@@ -315,9 +327,9 @@ export default function Add() {
                                       </option>
                                     ))}
                                 </select>
-                                   <span className="text-danger">
-                              {inputsError.category}
-                            </span>
+                                <span className="text-danger">
+                                  {inputsError.category}
+                                </span>
                               </div>
 
                               <div className="form-group">
@@ -336,38 +348,41 @@ export default function Add() {
                                       </option>
                                     ))}
                                 </select>
-                                   <span className="text-danger">
-                              {inputsError.vehicle_brand}
-                            </span>
+                                <span className="text-danger">
+                                  {inputsError.vehicle_brand}
+                                </span>
                               </div>
 
                               <div className="form-group">
-                                <label>Time Duration</label>
-                                <input
-                                  type="datetime"
-                                  className="form-control"
-                                  id="time_duration"
-                                  name="time_duration"
-                                  onChange={handleInput}
-                                />
-                                   <span className="text-danger">
-                              {inputsError.time_duration}
-                            </span>
-                              </div>
-
-                              <div className="form-group">
-                                <label>Discount</label>
+                                <label>Service Charges</label>
                                 <input
                                   type="number"
                                   className="form-control"
-                                  id="discount"
-                                  placeholder="Discount"
-                                  name="discount"
+                                  id="service_charge"
+                                  name="service_charge"
+                                  placeholder="Service Charges"
+                                  onKeyUp={handleKeyup}
                                   onChange={handleInput}
                                 />
-                                   <span className="text-danger">
-                              {inputsError.discount}
-                            </span>
+                                <span className="text-danger">
+                                  {inputsError.service_charge}
+                                </span>
+                              </div>
+
+                              <div className="form-group">
+                                <label>GST Charges</label>
+                                <input
+                                  type="number"
+                                  className="form-control"
+                                  id="gst_charges"
+                                  name="gst_charges"
+                                  placeholder="GST Charges"
+                                   onKeyUp={handleKeyup}
+                                  onChange={handleInput}
+                                />
+                                <span className="text-danger">
+                                  {inputsError.gst_charges}
+                                </span>
                               </div>
                             </div>
 
@@ -381,16 +396,19 @@ export default function Add() {
                                   className="form-control"
                                 >
                                   <option value="">Select</option>
-                                  <option value="Service at Home/Service Pickup">
-                                    Service at Home/Service Pickup
+                                  <option value="1">
+                                    Service at Home
                                   </option>
-                                  <option value="Drop/Service at Service Point">
-                                    Drop/Service at Service Point
+                                  <option value="2">
+                                    Service at Service Point
+                                  </option>
+                                   <option value="3">
+                                    Pickup & Drop
                                   </option>
                                 </select>
-                                   <span className="text-danger">
-                              {inputsError.service_type}
-                            </span>
+                                <span className="text-danger">
+                                  {inputsError.service_type}
+                                </span>
                               </div>
 
                               <div className="form-group">
@@ -409,39 +427,42 @@ export default function Add() {
                                       </option>
                                     ))}
                                 </select>
-                                   <span className="text-danger">
-                              {inputsError.vehicle_model}
-                            </span>
+                                <span className="text-danger">
+                                  {inputsError.vehicle_model}
+                                </span>
                               </div>
 
                               <div className="form-group">
-                                <label>Service Charges</label>
+                                <label>Discount (In %)</label>
                                 <input
                                   type="number"
                                   className="form-control"
-                                  id="service_charge"
-                                  name="service_charge"
-                                  placeholder="Service Charges"
+                                  id="discount"
+                                  placeholder="Discount"
+                                  name="discount"
+                                  onKeyUp={handleKeyup}
                                   onChange={handleInput}
                                 />
-                                   <span className="text-danger">
-                              {inputsError.service_charge}
-                            </span>
+                                <span className="text-danger">
+                                  {inputsError.discount}
+                                </span>
                               </div>
 
                               <div className="form-group">
-                                <label>GST Charges</label>
+                                <label>Total Charges</label>
                                 <input
                                   type="number"
                                   className="form-control"
-                                  id="gst_charges"
-                                  name="gst_charges"
-                                  placeholder="GST Charges"
+                                  id="total_charges"
+                                  readOnly={true}
+                                  placeholder="Total Charges"
+                                  name="total_charges"
+                                  value={totalCharges ? totalCharges : 0}
                                   onChange={handleInput}
                                 />
-                                   <span className="text-danger">
-                              {inputsError.gst_charges}
-                            </span>
+                                <span className="text-danger">
+                                  {inputsError.total_charges}
+                                </span>
                               </div>
                             </div>
                           </div>
@@ -454,10 +475,11 @@ export default function Add() {
                               id="status"
                               className="form-control"
                             >
+                               <option value="">Select</option>
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
-                               <span className="text-danger">
+                            <span className="text-danger">
                               {inputsError.status}
                             </span>
                           </div>
@@ -474,7 +496,8 @@ export default function Add() {
                               to="/services"
                               className="ml-2 btn btn-warning"
                             >
-                              <i className="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>
+                              &nbsp;Back
                             </Link>
                           </div>
                         </div>

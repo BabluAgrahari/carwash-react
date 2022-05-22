@@ -41,6 +41,11 @@ import Profile from "./pages/VendorProfile/Profile";
 
 //for Booking
 import BookingDisplay from "./pages/Booking/Display";
+import BookingDetails from "./pages/Booking/Details";
+import BookingInfo from "./pages/Booking/Info";
+
+//for Passbook
+import PassbookDisplay from "./pages/Passbook/Display";
 
 function App() {
   return (
@@ -153,16 +158,13 @@ function App() {
             element={<Auth component={BookingDisplay} role={["vendor", "admin"]} />}
           ></Route>
 
-          {/* for location */}
-          <Route
-            path="/location"
-            element={
-              <Auth
-                component={LocationSearchInput}
-                role={["vendor", "admin"]}
-              />
-            }
-          ></Route>
+          {/* for passbook */}
+          <Route path="/passbook" element={<Auth component={PassbookDisplay} role={["vendor", "admin"]} /> }></Route>
+
+          <Route path="booking-details" element={<Auth component={BookingDetails} role={["vendor","admin"]}/>}></Route>
+
+            {/* for passbook */}
+          <Route path="/booking-info" element={<Auth component={BookingInfo} role={["vendor", "admin"]} /> }></Route>
 
           <Route path="/" element={<Login />}></Route>
         </Routes>

@@ -83,11 +83,13 @@ export default function Add() {
     e.preventDefault();
 
     const inputsV = new FormData();
+    inputsV.append("name",inputs.name);
+    inputsV.append("email",inputs.email);
+    inputsV.append("mobile_no",inputs.mobile_no);
     inputsV.append("logo", logo.logo);
     inputsV.append("cover_photo", coverPhoto.cover_photo);
-    inputsV.append("business_name", inputs.business_name);
-    inputsV.append("business_email", inputs.business_email);
-    inputsV.append("mobile", inputs.mobile);
+    inputsV.append("store_name", inputs.store_name);
+    inputsV.append("store_email", inputs.store_email);
     inputsV.append("city", inputs.city);
     inputsV.append("pincode", inputs.pincode);
     inputsV.append("state", inputs.state);
@@ -139,22 +141,106 @@ export default function Add() {
 
                   <div className="card-body">
                     <form onSubmit={(e) => submit(e)}>
+                      <div className="form-row border-bottom mb-3">
+                        <div className="col-md-12 mb-1">
+                          <h5>
+                            <i class="text-danger fa-solid fa-users"></i>
+                            &nbsp;Personal Details
+                          </h5>
+                        </div>
+
+                        <div className="form-group col-md-3">
+                          <label>Name<span className="font-weight-bold text-danger">&nbsp;* </span></label>
+                          <input
+                            type="text"
+                            name="name"
+                            className="form-control"
+                            placeholder="Name"
+                            onChange={handleInput}
+                            id="name"
+                            value={inputs.name}
+                          />
+                          <span className="text-muted text-size">
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Enter Name
+                          </span>
+                        </div>
+
+                        <div className="form-group col-md-3">
+                          <label>Email<span className="font-weight-bold text-danger">&nbsp;* </span></label>
+                          <input
+                            type="email"
+                            name="email"
+                            className="form-control"
+                            placeholder="Email"
+                            onChange={ handleInput }
+                            id="Email"
+                            value={inputs.email}
+                          />
+                          <span className="text-muted text-size">
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Enter Email Id
+                          </span>
+                        </div>
+
+                          <div className="form-group col-md-3">
+                          <label>Mobile No<span className="font-weight-bold text-danger">&nbsp;* </span></label>
+                          <input
+                            type="number"
+                            name="mobile_no"
+                            className="form-control"
+                            placeholder="Mobile No"
+                            onChange={handleInput}
+                            id="mobile_no"
+                            value={inputs.mobile_no}
+                          />
+                          <span className="text-muted text-size">
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please Enter Mobile No
+                          </span>
+                        </div>
+
+                         <div className="form-group col-md-3">
+                          <label>Password</label>
+                          <input
+                            type="password"
+                            name="password"
+                            className="form-control"
+                            placeholder="Enter Password"
+                            onChange={handleInput}
+                            id="password"
+                            value={inputs.password}
+                          />
+                          <span className="text-muted text-size">
+                            <i className="fas fa-question-circle"></i>
+                            &nbsp;Please enter Password here
+                          </span>
+                        </div>
+
+                      </div>
+
                       <div className="form-row">
+                        <div className="col-md-12 mb-1">
+                          <h5>
+                            <i class="text-danger nav-icon fas fa-store-alt"></i>
+                            &nbsp;Store Details
+                          </h5>
+                        </div>
                         <div className="form-group col-md-4">
                           <label>
-                            Business Name
+                            Store Name
                             <span className="font-weight-bold text-danger">
                               &nbsp;*
                             </span>
                           </label>
                           <input
                             type="text"
-                            name="business_name"
+                            name="store_name"
                             className="form-control"
-                            placeholder="Business Name"
+                            placeholder="Store Name"
                             onChange={handleInput}
-                            id="business_name"
-                            value={inputs.business_name}
+                            id="store_name"
+                            value={inputs.store_name}
                           />
                           <span className="text-muted text-size">
                             <i className="fas fa-question-circle"></i>
@@ -213,15 +299,15 @@ export default function Add() {
 
                       <div className="form-row">
                         <div className="form-group col-md-4">
-                          <label>Business Email</label>
+                          <label>Store Email</label>
                           <input
                             type="email"
-                            name="business_email"
+                            name="store_email"
                             className="form-control"
-                            placeholder="Enter Business Email"
+                            placeholder="Enter Store Email"
                             onChange={handleInput}
-                            id="business_email"
-                            value={inputs.business_email}
+                            id="store_email"
+                            value={inputs.store_email}
                           />
                           <span className="text-muted text-size">
                             <i className="fas fa-question-circle"></i>
@@ -266,23 +352,6 @@ export default function Add() {
 
                       <div className="form-row">
                         <div className="form-group col-md-4">
-                          <label>Mobile No</label>
-                          <input
-                            type="text"
-                            name="mobile"
-                            className="form-control"
-                            placeholder="Enter Mobile"
-                            onChange={handleInput}
-                            id="mobile"
-                            value={inputs.mobile}
-                          />
-                          <span className="text-muted text-size">
-                            <i className="fas fa-question-circle"></i>
-                            &nbsp;Please Enter Mobile No
-                          </span>
-                        </div>
-
-                        <div className="form-group col-md-4">
                           <label>Whatsapp No</label>
                           <input
                             type="text"
@@ -300,22 +369,6 @@ export default function Add() {
                         </div>
 
                         <div className="form-group col-md-4">
-                          <label>Country</label>
-                          <input
-                            type="text"
-                            name="country"
-                            className="form-control"
-                            placeholder="Enter Country"
-                            onChange={handleInput}
-                            id="country"
-                            disabled="disabled"
-                            value="India"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="form-row">
-                        <div className="form-group col-md-3">
                           <label>City</label>
                           <input
                             name="city"
@@ -330,7 +383,7 @@ export default function Add() {
                           </span>
                         </div>
 
-                        <div className="form-group col-md-3">
+                        <div className="form-group col-md-4">
                           <label>State</label>
                           <select
                             name="state"
@@ -394,8 +447,10 @@ export default function Add() {
                             &nbsp;Please Select State
                           </span>
                         </div>
+                      </div>
 
-                        <div className="form-group col-md-3">
+                      <div className="form-row">
+                        <div className="form-group col-md-4">
                           <label>Pincode</label>
                           <input
                             type="number"
@@ -412,22 +467,20 @@ export default function Add() {
                           </span>
                         </div>
 
-                        <div className="form-group col-md-3">
-                          <label>Password</label>
+                        <div className="form-group col-md-4">
+                          <label>Country</label>
                           <input
-                            type="password"
-                            name="password"
+                            type="text"
+                            name="country"
                             className="form-control"
-                            placeholder="Enter Password"
+                            placeholder="Enter Country"
                             onChange={handleInput}
-                            id="password"
-                            value={inputs.password}
+                            id="country"
+                            disabled="disabled"
+                            value="India"
                           />
-                          <span className="text-muted text-size">
-                            <i className="fas fa-question-circle"></i>
-                            &nbsp;Please enter Password here
-                          </span>
                         </div>
+
                       </div>
 
                       <div className="form-row">
@@ -521,7 +574,10 @@ export default function Add() {
 
                       <div className="form-row">
                         <div className="card custom-card-shasow col-md-12 p-2">
-                          <h4>Bank Account Details</h4>
+                          <h5>
+                            <i class="fa fa-solid fa-building-columns text-danger"></i>
+                            &nbsp;Bank Account Details
+                          </h5>
 
                           {bankDetails &&
                             bankDetails.map((bankDetail, index) => (

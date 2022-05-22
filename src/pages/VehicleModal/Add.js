@@ -96,7 +96,7 @@ export default function Add() {
                               onChange={handleChange}
                               id="status"
                               className="form-control"
-                            >
+                            > <option value="">Select</option>
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
@@ -107,9 +107,9 @@ export default function Add() {
                           <div className="form-group">
                             <label>Vehicle Brand</label>
                             <select
-                              name="vehicle_brand"
+                              name="brand_id"
                               onChange={handleChange}
-                              id="vehicle_brand"
+                              id="brand_id"
                               className="form-control"
                             >
                               <option value="">Select</option>

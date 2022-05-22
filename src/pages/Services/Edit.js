@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import http from "../../http";
@@ -13,13 +12,13 @@ export default function Edit(props) {
   const [vehicleBrands, setBrand] = useState([]);
   const [vehicleModals, setModal] = useState([]);
   const [categories, setCategory] = useState([]);
+  const [totalCharges, setTotalCharges] = useState(false);
 
   const { id } = useParams();
   const navigate = useNavigate();
 
-
   useEffect(() => {
-    if (getToken() !== '') {
+    if (getToken() !== "") {
       service();
       vehicleBrancd();
       vehicleModal();
@@ -30,8 +29,8 @@ export default function Edit(props) {
   //for vehical brand
   const vehicleBrancd = async () => {
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
     await http.get("vehicle-brand", { headers }).then((res) => {
       setBrand(res.data.data);
     });
@@ -40,8 +39,8 @@ export default function Edit(props) {
   //for vehical modal
   const vehicleModal = async () => {
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
     await http.get("vehicle-modal", { headers }).then((res) => {
       setModal(res.data.data);
     });
@@ -50,20 +49,18 @@ export default function Edit(props) {
   //for vehical modal
   const category = async () => {
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
     await http.get("category", { headers }).then((res) => {
       setCategory(res.data.data);
     });
-  }
-
+  };
 
   const service = () => {
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
     http.get("/services/" + id, { headers }).then((res) => {
-      console.log(res.data.data);
       let response = res.data.data;
       setInputs({
         title: response.title,
@@ -76,33 +73,60 @@ export default function Edit(props) {
         vehicle_model: response.vehicle_model,
         service_charge: response.service_charge,
         gst_charges: response.gst_charges,
+        total_charges: response.total_charges,
         vehicle_brand: response.vehicle_brand,
         status: response.status,
       });
     });
   };
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    // const status = event.target.status;
-    setInputs((values) => ({ ...values, [name]: value }));
+  const handleKeyup = (e) => {
+    e.persist();
+
+    let service_charge = $("#service_charge").val();
+    let discount = $("#discount").val() ? $("#discount").val() : 100;
+    let gst_charges = $("#gst_charges").val() ? $("#gst_charges").val() : 0;
+
+    let perVal = (service_charge * discount) / 100;
+    setTotalCharges((parseInt(service_charge) - parseInt(perVal)) + parseInt(gst_charges));
+  };
+
+  const handleChange = (e) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
   //for submit data in collection
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
+
+    const inputsV = new FormData();
+    inputsV.append("icon", icon.icon ? icon.icon : "");
+    inputsV.append("title", inputs.title ? inputs.title : "");
+    inputsV.append("sort_description", inputs.sort_description ? inputs.sort_description : "");
+    inputsV.append("description", inputs.description ? inputs.description : "");
+    inputsV.append("video", inputs.video ? inputs.video : "");
+    inputsV.append("category", inputs.category ? inputs.category : "");
+    inputsV.append("vehicle_brand",inputs.vehicle_brand ? inputs.vehicle_brand : "");
+    inputsV.append("vehicle_model",inputs.vehicle_model ? inputs.vehicle_model : "");
+    inputsV.append("discount", inputs.discount ? inputs.discount : "");
+    inputsV.append("service_charge",inputs.service_charge ? inputs.service_charge : "");
+    inputsV.append("gst_charges", inputs.gst_charges ? inputs.gst_charges : "");
+    inputsV.append("total_charges", inputs.total_charges ? inputs.total_charges : "");
+    inputsV.append("service_type",inputs.service_type ? inputs.service_type : "" );
+    inputsV.append("status", inputs.status ? inputs.status : "");
+     inputsV.append("_method", "put");
+
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
-    http.put("services/" + id, inputs, { headers }).then((res) => {
+      Authorization: `Bearer ${getToken()}`,
+    };
+    http.post("services/" + id, inputsV, { headers }).then((res) => {
       let response = res.data;
       Swal.fire(
         `${response.status}`,
         `${response.message}`,
         `${response.status}`
       );
-      if (response.status == 'success') {
+      if (response.status == "success") {
         setTimeout(() => {
           Swal.close();
           navigate("/services");
@@ -127,7 +151,6 @@ export default function Edit(props) {
                   </div>
 
                   <div className="card-body">
-
                     <form onSubmit={(e) => submit(e)}>
                       <div className="row">
                         <div className="col-md-6">
@@ -153,7 +176,9 @@ export default function Edit(props) {
                               name="sort_description"
                               placeholder="Enter Sort Description"
                               onChange={handleChange}
-                            >{inputs.sort_description}</textarea>
+                            >
+                              {inputs.sort_description}
+                            </textarea>
                           </div>
 
                           <div className="form-group">
@@ -165,7 +190,9 @@ export default function Edit(props) {
                               name="description"
                               placeholder="Enter Full Description"
                               onChange={handleChange}
-                            >{inputs.description}</textarea>
+                            >
+                              {inputs.description}
+                            </textarea>
                           </div>
 
                           <div className="form-group">
@@ -268,27 +295,30 @@ export default function Edit(props) {
                               </div>
 
                               <div className="form-group">
-                                <label>Time Duration</label>
+                                <label>Service Charges</label>
                                 <input
-                                  type="datetime"
+                                  type="number"
                                   className="form-control"
-                                  id="time_duration"
-                                  name="time_duration"
+                                  id="service_charge"
+                                  name="service_charge"
+                                  placeholder="Service Charges"
                                   onChange={handleChange}
-                                  value={inputs.time_duration}
+                                   onKeyUp={handleKeyup}
+                                  value={inputs.service_charge}
                                 />
                               </div>
 
                               <div className="form-group">
-                                <label>Discount</label>
+                                <label>GST Charges</label>
                                 <input
                                   type="number"
                                   className="form-control"
-                                  id="discount"
-                                  placeholder="Discount"
-                                  name="discount"
+                                  id="gst_charges"
+                                  name="gst_charges"
+                                  placeholder="GST Charges"
                                   onChange={handleChange}
-                                  value={inputs.discount}
+                                   onKeyUp={handleKeyup}
+                                  value={inputs.gst_charges}
                                 />
                               </div>
                             </div>
@@ -304,11 +334,14 @@ export default function Edit(props) {
                                   value={inputs.service_type}
                                 >
                                   <option value="">Select</option>
-                                  <option value="Service at Home/Service Pickup">
-                                    Service at Home/Service Pickup
+                                  <option value="1">
+                                    Service at Home
                                   </option>
-                                  <option value="Drop/Service at Service Point">
-                                    Drop/Service at Service Point
+                                  <option value="2">
+                                    Service at Service Point
+                                  </option>
+                                   <option value="3">
+                                    Pickup & Drop
                                   </option>
                                 </select>
                               </div>
@@ -333,29 +366,36 @@ export default function Edit(props) {
                               </div>
 
                               <div className="form-group">
-                                <label>Service Charges</label>
+                                <label>Discount (in %)</label>
                                 <input
                                   type="number"
                                   className="form-control"
-                                  id="service_charge"
-                                  name="service_charge"
-                                  placeholder="Service Charges"
+                                  id="discount"
+                                  placeholder="Discount In (%)"
+                                  name="discount"
                                   onChange={handleChange}
-                                  value={inputs.service_charge}
+                                  onKeyUp={handleKeyup}
+                                  value={inputs.discount}
                                 />
                               </div>
 
                               <div className="form-group">
-                                <label>GST Charges</label>
+                                <label>Total Charges</label>
                                 <input
                                   type="number"
                                   className="form-control"
-                                  id="gst_charges"
-                                  name="gst_charges"
-                                  placeholder="GST Charges"
+                                  id="total_charges"
+                                  readOnly={true}
+                                  placeholder="Total Charges"
+                                  name="total_charges"
+                                  value={
+                                    totalCharges
+                                      ? totalCharges
+                                      : inputs.total_charges
+                                  }
                                   onChange={handleChange}
-                                  value={inputs.gst_charges}
                                 />
+                                <span className="text-danger"></span>
                               </div>
                             </div>
                           </div>
@@ -369,6 +409,7 @@ export default function Edit(props) {
                               className="form-control"
                               value={inputs.status}
                             >
+                              <option value="">Select</option>
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
@@ -386,13 +427,13 @@ export default function Edit(props) {
                               to="/services"
                               className="ml-2 btn btn-warning"
                             >
-                              <i className="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>
+                              &nbsp;Back
                             </Link>
                           </div>
                         </div>
                       </div>
                     </form>
-
                   </div>
                 </div>
               </div>
