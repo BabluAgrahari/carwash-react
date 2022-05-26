@@ -78,12 +78,7 @@ export default function VendorServices() {
                   <div className="card-header">
                     <h3 className="card-title">Services List</h3>
                     <div className="card-tools">
-                      <Link
-                        to="/services/add"
-                        className="btn btn-success btn-sm"
-                      >
-                        <i className="fas fa-plus"></i>&nbsp;Add
-                      </Link>
+
                     </div>
                   </div>
                   {/* /.card-header */}
@@ -98,7 +93,6 @@ export default function VendorServices() {
                         <th>Service Charge</th>
                         <th>Status</th>
                         <th>CreatetAt</th>
-                        <th>Action</th>
                       </tr>
                       {services &&
                         services.map((service, index) => (
@@ -123,17 +117,6 @@ export default function VendorServices() {
                             <td>{service.service_charge}</td>
                             <td>{service.status}</td>
                             <td>{service.created}</td>
-                            <td>
-                              <a
-                                href="javascript:void(0)"
-                                className="text-success mr-2"
-                                title="Assign Service"
-                                _id={service._id}
-                                onClick={() => showModal({ 'id': service._id, 'charge': service.service_charge })}
-                              >
-                                <i className="fas fa-concierge-bell"></i>
-                              </a>
-                            </td>
                           </tr>
                         ))}
                     </table>

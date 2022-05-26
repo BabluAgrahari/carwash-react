@@ -44,7 +44,6 @@ export default function Add() {
     if (typeof sessionStorage.getItem("userData") !== "undefined") {
       setToken(JSON.parse(sessionStorage.getItem("userData")).token);
       vehicleBrancd();
-      vehicleModal();
       category();
     }
   }, [token]);
@@ -56,16 +55,6 @@ export default function Add() {
     };
     await http.get("vehicle-brand", { headers }).then((res) => {
       setBrand(res.data.data);
-    });
-  };
-
-  //for vehical modal
-  const vehicleModal = async () => {
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    await http.get("vehicle-modal", { headers }).then((res) => {
-      setModal(res.data.data);
     });
   };
 
@@ -84,15 +73,29 @@ export default function Add() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  const handleDropdown = (e) => {
+    e.persist();
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    http.get("veh-modal/"+e.target.value, { headers }).then((res) => {
+      setModal(res.data.data);
+    });
+  };
+
   const handleKeyup = (e) => {
     e.persist();
 
-    let service_charge = $('#service_charge').val();
-    let discount =$('#discount').val()?$('#discount').val():100;
-    let gst_charges = $('#gst_charges').val()?$('#gst_charges').val():0;
+    let service_charge = $("#service_charge").val();
+    let discount = $("#discount").val() ? $("#discount").val() : 100;
+    let gst_charges = $("#gst_charges").val() ? $("#gst_charges").val() : 0;
 
     let perVal = (service_charge * discount) / 100;
-    setTotalCharges((parseInt(service_charge) - parseInt(perVal )) + parseInt(gst_charges));
+    setTotalCharges(
+      parseInt(service_charge) - parseInt(perVal) + parseInt(gst_charges)
+    );
   };
   const handleVideo = (e) => {};
 
@@ -113,24 +116,41 @@ export default function Add() {
   async function submit(e) {
     e.preventDefault();
     var files = e.target[0].files;
-    console.log(files);
     const inputsV = new FormData();
     // for (let i = 0; i < selectedFiles.length; i++) {
     //   inputsV.append("multiple_images[]", selectedFiles[i]);
     // }
     inputsV.append("icon", icon.icon ? icon.icon : "");
     inputsV.append("title", inputs.title ? inputs.title : "");
-    inputsV.append("sort_description", inputs.sort_description ? inputs.sort_description : "");
+    inputsV.append(
+      "sort_description",
+      inputs.sort_description ? inputs.sort_description : ""
+    );
     inputsV.append("description", inputs.description ? inputs.description : "");
     inputsV.append("video", inputs.video ? inputs.video : "");
     inputsV.append("category", inputs.category ? inputs.category : "");
-    inputsV.append("vehicle_brand",inputs.vehicle_brand ? inputs.vehicle_brand : "");
-    inputsV.append("vehicle_model",inputs.vehicle_model ? inputs.vehicle_model : "");
+    inputsV.append(
+      "vehicle_brand",
+      inputs.vehicle_brand ? inputs.vehicle_brand : ""
+    );
+    inputsV.append(
+      "vehicle_model",
+      inputs.vehicle_model ? inputs.vehicle_model : ""
+    );
     inputsV.append("discount", inputs.discount ? inputs.discount : "");
-    inputsV.append("service_charge",inputs.service_charge ? inputs.service_charge : "");
+    inputsV.append(
+      "service_charge",
+      inputs.service_charge ? inputs.service_charge : ""
+    );
     inputsV.append("gst_charges", inputs.gst_charges ? inputs.gst_charges : "");
-    inputsV.append("total_charges", inputs.total_charges ? inputs.total_charges : "");
-    inputsV.append("service_type",inputs.service_type ? inputs.service_type : "" );
+    inputsV.append(
+      "total_charges",
+      inputs.total_charges ? inputs.total_charges : ""
+    );
+    inputsV.append(
+      "service_type",
+      inputs.service_type ? inputs.service_type : ""
+    );
     inputsV.append("status", inputs.status ? inputs.status : "");
 
     const headers = {
@@ -161,8 +181,6 @@ export default function Add() {
       }
     });
   }
-
-  //for changes calucation
 
   return (
     <>
@@ -336,7 +354,7 @@ export default function Add() {
                                 <label>Vehicle Brand</label>
                                 <select
                                   name="vehicle_brand"
-                                  onChange={handleInput}
+                                  onChange={handleDropdown}
                                   id="vehicle_brand"
                                   className="form-control"
                                 >
@@ -377,7 +395,7 @@ export default function Add() {
                                   id="gst_charges"
                                   name="gst_charges"
                                   placeholder="GST Charges"
-                                   onKeyUp={handleKeyup}
+                                  onKeyUp={handleKeyup}
                                   onChange={handleInput}
                                 />
                                 <span className="text-danger">
@@ -396,15 +414,11 @@ export default function Add() {
                                   className="form-control"
                                 >
                                   <option value="">Select</option>
-                                  <option value="1">
-                                    Service at Home
-                                  </option>
+                                  <option value="1">Service at Home</option>
                                   <option value="2">
                                     Service at Service Point
                                   </option>
-                                   <option value="3">
-                                    Pickup & Drop
-                                  </option>
+                                  <option value="3">Pickup & Drop</option>
                                 </select>
                                 <span className="text-danger">
                                   {inputsError.service_type}
@@ -475,7 +489,7 @@ export default function Add() {
                               id="status"
                               className="form-control"
                             >
-                               <option value="">Select</option>
+                              <option value="">Select</option>
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>

@@ -321,7 +321,7 @@ export default function Display() {
 
                       <td>{service.title}</td>
                       <td  className="w-50">
-                        <input type="number" onChange={commision} className="form-control form-control-sm" name={`cms-${index}`}/></td>
+                        <input type="number" className="form-control form-control-sm" name={`cms-${index}`}/></td>
                       <td>
                         <input
                           type="checkbox"

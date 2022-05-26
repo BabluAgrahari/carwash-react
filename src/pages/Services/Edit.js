@@ -9,39 +9,50 @@ import { getToken } from "../../token";
 
 export default function Edit(props) {
   const [inputs, setInputs] = useState([]);
+  const [vehicleB,setVehicleBrand] = useState([]);
   const [vehicleBrands, setBrand] = useState([]);
   const [vehicleModals, setModal] = useState([]);
   const [categories, setCategory] = useState([]);
   const [totalCharges, setTotalCharges] = useState(false);
+  const [token, setToken] = useState("");
 
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (getToken() !== "") {
+   if (typeof sessionStorage.getItem("userData") !== "undefined") {
+      setToken(JSON.parse(sessionStorage.getItem("userData")).token);
+
       service();
-      vehicleBrancd();
-      vehicleModal();
+      vehicleBrand();
       category();
     }
-  }, [getToken()]);
+  }, [token]);
+
+  //  useEffect(() => {
+  //   if (typeof sessionStorage.getItem("userData") !== "undefined") {
+  //     setToken(JSON.parse(sessionStorage.getItem("userData")).token);
+  //   }
+  // }, [token]);
 
   //for vehical brand
-  const vehicleBrancd = async () => {
+  const vehicleBrand = async () => {
     const headers = {
-      Authorization: `Bearer ${getToken()}`,
+      Authorization: `Bearer ${token}`,
     };
     await http.get("vehicle-brand", { headers }).then((res) => {
       setBrand(res.data.data);
     });
   };
 
-  //for vehical modal
-  const vehicleModal = async () => {
+  const handleDropdown = (value) => {
+    // setInputs({ ...inputs, ['vehicle_brand']: value });
+    setVehicleBrand(value);
+
     const headers = {
-      Authorization: `Bearer ${getToken()}`,
+      Authorization: `Bearer ${token}`,
     };
-    await http.get("vehicle-modal", { headers }).then((res) => {
+    http.get("veh-modal/"+value, { headers }).then((res) => {
       setModal(res.data.data);
     });
   };
@@ -49,18 +60,22 @@ export default function Edit(props) {
   //for vehical modal
   const category = async () => {
     const headers = {
-      Authorization: `Bearer ${getToken()}`,
+      Authorization: `Bearer ${token}`,
     };
     await http.get("category", { headers }).then((res) => {
       setCategory(res.data.data);
     });
   };
 
-  const service = () => {
+const handleChange = (e) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  };
+
+  const service = async () => {
     const headers = {
-      Authorization: `Bearer ${getToken()}`,
+      Authorization: `Bearer ${token}`,
     };
-    http.get("/services/" + id, { headers }).then((res) => {
+    await http.get("/services/" + id, { headers }).then((res) => {
       let response = res.data.data;
       setInputs({
         title: response.title,
@@ -77,6 +92,8 @@ export default function Edit(props) {
         vehicle_brand: response.vehicle_brand,
         status: response.status,
       });
+
+      handleDropdown(response.vehicle_brand);
     });
   };
 
@@ -91,9 +108,6 @@ export default function Edit(props) {
     setTotalCharges((parseInt(service_charge) - parseInt(perVal)) + parseInt(gst_charges));
   };
 
-  const handleChange = (e) => {
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
-  };
 
   //for submit data in collection
   async function submit(e) {
@@ -106,7 +120,7 @@ export default function Edit(props) {
     inputsV.append("description", inputs.description ? inputs.description : "");
     inputsV.append("video", inputs.video ? inputs.video : "");
     inputsV.append("category", inputs.category ? inputs.category : "");
-    inputsV.append("vehicle_brand",inputs.vehicle_brand ? inputs.vehicle_brand : "");
+    inputsV.append("vehicle_brand",vehicleB ? vehicleB : "");
     inputsV.append("vehicle_model",inputs.vehicle_model ? inputs.vehicle_model : "");
     inputsV.append("discount", inputs.discount ? inputs.discount : "");
     inputsV.append("service_charge",inputs.service_charge ? inputs.service_charge : "");
@@ -137,6 +151,7 @@ export default function Edit(props) {
 
   return (
     <>
+    {console.log(inputs)}
       <Header></Header>
       <Menu></Menu>
       <div className="content-wrapper mt-2">
@@ -176,8 +191,8 @@ export default function Edit(props) {
                               name="sort_description"
                               placeholder="Enter Sort Description"
                               onChange={handleChange}
+                              value= {inputs.sort_description}
                             >
-                              {inputs.sort_description}
                             </textarea>
                           </div>
 
@@ -190,8 +205,8 @@ export default function Edit(props) {
                               name="description"
                               placeholder="Enter Full Description"
                               onChange={handleChange}
+                              value= {inputs.description}
                             >
-                              {inputs.description}
                             </textarea>
                           </div>
 
@@ -279,10 +294,10 @@ export default function Edit(props) {
                                 <label>Vehicle Brand</label>
                                 <select
                                   name="vehicle_brand"
-                                  onChange={handleChange}
+                                  onChange={ (e) => handleDropdown(e.target.value)}
                                   id="vehicle_brand"
                                   className="form-control"
-                                  value={inputs.vehicle_brand}
+                                  value={vehicleB}
                                 >
                                   <option value="">Select</option>
                                   {vehicleBrands &&
