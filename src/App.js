@@ -5,9 +5,9 @@ import Dashboard from "./pages/Dashboard";
 import Auth from "./Middleware/Auth";
 import LocationSearchInput from "./pages/LocationSearchInput";
 
-import Display from "./pages/Category/Display";
-import Add from "./pages/Category/Add";
-import Edit from "./pages/Category/Edit";
+import Display from "./pages/category/Display";
+import Add from "./pages/category/Add";
+import Edit from "./pages/category/Edit";
 //for vehicle
 import VehicleBrandDisplay from "./pages/VehicleBrand/Display";
 import VehicleBrandAdd from "./pages/VehicleBrand/Add";

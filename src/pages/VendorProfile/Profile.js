@@ -24,17 +24,16 @@ export default function Profile() {
   };
 
   const [counter, setCounter] = useState({});
-  const incrementCounter = (index) => {
+  const incrementCounter = (index, value) => {
     console.log(counter);
-    setCounter({ ...counter, [index]: counter[index] + 1 });
-    // console.log(counter)
+    setCounter({ ...counter, [index]: (typeof counter[index] !== 'undefined' ? counter[index] : value) + 1 });
   };
   let decrementCounter = (index) => {
-    setCounter({ ...counter, [index]: counter[index] - 1 });
+    setCounter({ ...counter, [index]: (typeof counter[index] !== 'undefined' ? counter[index] : value) - 1 });
   };
-  // if (counter == '') {
-  //   decrementCounter = () => setCounter({ ...counter, [0]: 1 });
-  // }
+  if (counter == '') {
+    decrementCounter = () => setCounter({ ...counter, [0]: 1 });
+  }
   //for show list of data
   useEffect(() => {
     if (getToken() !== "") {
@@ -104,14 +103,14 @@ export default function Profile() {
                                       <td className="w-25">
                                         <div className="form-group">
                                           <button
-                                            onClick={(e) => {incrementCounter(ind)}}
+                                            onClick={(e) => { incrementCounter(ind, Cslap.no_of_services) }}
                                           >
                                             +
                                           </button>
 
                                           <input
                                             type="number"
-                                            // onChange={inputfield}
+                                            onChange={inputfield}
                                             value={
                                               counter[ind]
                                                 ? counter[ind]
