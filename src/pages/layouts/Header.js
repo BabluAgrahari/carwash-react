@@ -24,63 +24,20 @@ function Header() {
               <i className="fas fa-bars" />
             </a>
           </li>
-          <li className="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" className="nav-link">
-              Home
-            </a>
-          </li>
-          <li className="nav-item d-none d-sm-inline-block">
-            <a href="#" className="nav-link">
-              Contact
-            </a>
-          </li>
+
         </ul>
         {/* Right navbar links */}
         <ul className="navbar-nav ml-auto">
           {/* Navbar Search */}
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              data-widget="navbar-search"
-              href="#"
-              role="button"
-            >
-              <i className="fas fa-search" />
-            </a>
-            <div className="navbar-search-block">
-              <form className="form-inline">
-                <div className="input-group input-group-sm">
-                  <input
-                    className="form-control form-control-navbar"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                  <div className="input-group-append">
-                    <button className="btn btn-navbar" type="submit">
-                      <i className="fas fa-search" />
-                    </button>
-                    <button
-                      className="btn btn-navbar"
-                      type="button"
-                      data-widget="navbar-search"
-                    >
-                      <i className="fas fa-times" />
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </li>
 
-          <li className="nav-item dropdown">
+          <li className="nav-item dropdown mr-5">
             <a className="nav-link" data-toggle="dropdown" href="#">
               <span>
                 <i className="far fa-user" />
               </span>
             </a>
             <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <a href="javascript:void(0);" className="pro-li dropdown-item">
+              {/* <a href="javascript:void(0);" className="pro-li dropdown-item">
                 <span>
                   <img
                     className="profile-small img-fluid img-circle"
@@ -89,8 +46,8 @@ function Header() {
                     alt="User profile picture"
                   />
                 </span>
-              </a>
-              <a
+              </a> */}
+              {/* <a
                 href="{{ url('admin/profile') }}"
                 className="pro-li dropdown-item"
               >
@@ -98,7 +55,7 @@ function Header() {
                   <i className="far fa-user" />
                 </span>
                 Profile
-              </a>
+              </a> */}
               <a className="dropdown-item" href="" onClick="">
                 <button
                   onClick={logout}
@@ -113,28 +70,6 @@ function Header() {
             </div>
           </li>
 
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              data-widget="fullscreen"
-              href="#"
-              role="button"
-            >
-              <i className="fas fa-expand-arrows-alt" />
-            </a>
-          </li>
-
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              data-widget="control-sidebar"
-              data-controlsidebar-slide="true"
-              href="#"
-              role="button"
-            >
-              <i className="fas fa-th-large" />
-            </a>
-          </li>
         </ul>
       </nav>
     </div>

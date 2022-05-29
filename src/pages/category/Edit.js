@@ -71,9 +71,9 @@ export default function Edit(props) {
   function submit(e) {
     e.preventDefault();
     const inputsV = new FormData();
-    inputsV.append("icon", icons.icon?icons.icon:'');
-    inputsV.append("name", inputs.name?inputs.name:'');
-    inputsV.append("status", inputs.status?inputs.status:'');
+    inputsV.append("icon", icons.icon ? icons.icon : "");
+    inputsV.append("name", inputs.name ? inputs.name : "");
+    inputsV.append("status", inputs.status ? inputs.status : "");
     inputsV.append("_method", "put");
 
     const headers = {
@@ -152,6 +152,7 @@ export default function Edit(props) {
                               className="form-control"
                               value={inputs.status}
                             >
+                              <option value="">Select</option>
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
@@ -200,7 +201,8 @@ export default function Edit(props) {
                               to="/category"
                               className="ml-2 btn btn-warning"
                             >
-                              <i className="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>
+                              &nbsp;Back
                             </Link>
                           </div>
                         </div>

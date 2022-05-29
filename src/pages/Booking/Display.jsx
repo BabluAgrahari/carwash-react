@@ -71,12 +71,12 @@ export default function Display() {
                   <div className="card-header">
                     <h3 className="card-title">Booking List</h3>
                     <div className="card-tools">
-                      <Link
+                      {/* <Link
                         to="/booking-details"
                         className="btn btn-sm btn-success"
                       >
                         <i class="fas fa-solid fa-asterisk"></i>&nbsp;View
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
                   {/* /.card-header */}
@@ -87,6 +87,7 @@ export default function Display() {
                         <th>Booking No</th>
                         <th>Customer Name</th>
                         <th>Store Name</th>
+                        <th>Service</th>
                         <th>Time Slab</th>
                         <th>Booking Date</th>
                         <th>Total Amount</th>
@@ -116,6 +117,7 @@ export default function Display() {
                               <td>{booking.booking_no}</td>
                               <td>{booking.customer_name}</td>
                               <td>{booking.vendor_name}</td>
+                              <td>{booking.service_name}</td>
                               <td>{booking.time_slab}</td>
                               <td>{booking.booking_date}</td>
                               <td>{booking.total_amount}</td>
@@ -132,7 +134,9 @@ export default function Display() {
                                 >
                                   <option value="">Select</option>
                                   <option value="pending">Pending</option>
+                                  <option value="accept">Accept</option>
                                   <option value="competed">Completed</option>
+                                  <option value="rejected">Rejected</option>
                                 </select>
                               </td>
                               <td>

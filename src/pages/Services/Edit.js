@@ -9,7 +9,7 @@ import { getToken } from "../../token";
 
 export default function Edit(props) {
   const [inputs, setInputs] = useState([]);
-  const [vehicleB,setVehicleBrand] = useState([]);
+  const [vehicleB, setVehicleBrand] = useState([]);
   const [vehicleBrands, setBrand] = useState([]);
   const [vehicleModals, setModal] = useState([]);
   const [categories, setCategory] = useState([]);
@@ -20,7 +20,7 @@ export default function Edit(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-   if (typeof sessionStorage.getItem("userData") !== "undefined") {
+    if (typeof sessionStorage.getItem("userData") !== "undefined") {
       setToken(JSON.parse(sessionStorage.getItem("userData")).token);
 
       service();
@@ -52,7 +52,7 @@ export default function Edit(props) {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    http.get("veh-modal/"+value, { headers }).then((res) => {
+    http.get("veh-modal/" + value, { headers }).then((res) => {
       setModal(res.data.data);
     });
   };
@@ -67,7 +67,7 @@ export default function Edit(props) {
     });
   };
 
-const handleChange = (e) => {
+  const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
@@ -91,6 +91,7 @@ const handleChange = (e) => {
         total_charges: response.total_charges,
         vehicle_brand: response.vehicle_brand,
         status: response.status,
+        video_url: response.video_url,
       });
 
       handleDropdown(response.vehicle_brand);
@@ -105,9 +106,10 @@ const handleChange = (e) => {
     let gst_charges = $("#gst_charges").val() ? $("#gst_charges").val() : 0;
 
     let perVal = (service_charge * discount) / 100;
-    setTotalCharges((parseInt(service_charge) - parseInt(perVal)) + parseInt(gst_charges));
+    setTotalCharges(
+      parseInt(service_charge) - parseInt(perVal) + parseInt(gst_charges)
+    );
   };
-
 
   //for submit data in collection
   async function submit(e) {
@@ -116,19 +118,34 @@ const handleChange = (e) => {
     const inputsV = new FormData();
     inputsV.append("icon", icon.icon ? icon.icon : "");
     inputsV.append("title", inputs.title ? inputs.title : "");
-    inputsV.append("sort_description", inputs.sort_description ? inputs.sort_description : "");
+    inputsV.append(
+      "sort_description",
+      inputs.sort_description ? inputs.sort_description : ""
+    );
     inputsV.append("description", inputs.description ? inputs.description : "");
-    inputsV.append("video", inputs.video ? inputs.video : "");
+    inputsV.append("video_url", inputs.video_url ? inputs.video_url : "");
     inputsV.append("category", inputs.category ? inputs.category : "");
-    inputsV.append("vehicle_brand",vehicleB ? vehicleB : "");
-    inputsV.append("vehicle_model",inputs.vehicle_model ? inputs.vehicle_model : "");
+    inputsV.append("vehicle_brand", vehicleB ? vehicleB : "");
+    inputsV.append(
+      "vehicle_model",
+      inputs.vehicle_model ? inputs.vehicle_model : ""
+    );
     inputsV.append("discount", inputs.discount ? inputs.discount : "");
-    inputsV.append("service_charge",inputs.service_charge ? inputs.service_charge : "");
+    inputsV.append(
+      "service_charge",
+      inputs.service_charge ? inputs.service_charge : ""
+    );
     inputsV.append("gst_charges", inputs.gst_charges ? inputs.gst_charges : "");
-    inputsV.append("total_charges", inputs.total_charges ? inputs.total_charges : "");
-    inputsV.append("service_type",inputs.service_type ? inputs.service_type : "" );
+    inputsV.append(
+      "total_charges",
+      totalCharges ? totalCharges : ""
+    );
+    inputsV.append(
+      "service_type",
+      inputs.service_type ? inputs.service_type : ""
+    );
     inputsV.append("status", inputs.status ? inputs.status : "");
-     inputsV.append("_method", "put");
+    inputsV.append("_method", "put");
 
     const headers = {
       Authorization: `Bearer ${getToken()}`,
@@ -151,7 +168,7 @@ const handleChange = (e) => {
 
   return (
     <>
-    {console.log(inputs)}
+      {console.log(inputs)}
       <Header></Header>
       <Menu></Menu>
       <div className="content-wrapper mt-2">
@@ -191,9 +208,8 @@ const handleChange = (e) => {
                               name="sort_description"
                               placeholder="Enter Sort Description"
                               onChange={handleChange}
-                              value= {inputs.sort_description}
-                            >
-                            </textarea>
+                              value={inputs.sort_description}
+                            ></textarea>
                           </div>
 
                           <div className="form-group">
@@ -205,28 +221,20 @@ const handleChange = (e) => {
                               name="description"
                               placeholder="Enter Full Description"
                               onChange={handleChange}
-                              value= {inputs.description}
-                            >
-                            </textarea>
+                              value={inputs.description}
+                            ></textarea>
                           </div>
 
                           <div className="form-group">
-                            <label>Video</label>
-                            <div className="custom-file">
-                              <input
-                                type="file"
-                                className="custom-file-input"
-                                id="video"
-                                name="video"
-                                onChange={handleChange}
-                              />
-                              <label
-                                className="custom-file-label"
-                                htmlFor="customFile"
-                              >
-                                Choose file
-                              </label>
-                            </div>
+                            <label>Video URL</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="video_url"
+                              name="video_url"
+                              onChange={handleChange}
+                              value={inputs.video_url}
+                            />
                           </div>
 
                           <div className="form-group">
@@ -294,7 +302,9 @@ const handleChange = (e) => {
                                 <label>Vehicle Brand</label>
                                 <select
                                   name="vehicle_brand"
-                                  onChange={ (e) => handleDropdown(e.target.value)}
+                                  onChange={(e) =>
+                                    handleDropdown(e.target.value)
+                                  }
                                   id="vehicle_brand"
                                   className="form-control"
                                   value={vehicleB}
@@ -318,7 +328,7 @@ const handleChange = (e) => {
                                   name="service_charge"
                                   placeholder="Service Charges"
                                   onChange={handleChange}
-                                   onKeyUp={handleKeyup}
+                                  onKeyUp={handleKeyup}
                                   value={inputs.service_charge}
                                 />
                               </div>
@@ -332,7 +342,7 @@ const handleChange = (e) => {
                                   name="gst_charges"
                                   placeholder="GST Charges"
                                   onChange={handleChange}
-                                   onKeyUp={handleKeyup}
+                                  onKeyUp={handleKeyup}
                                   value={inputs.gst_charges}
                                 />
                               </div>
@@ -349,15 +359,11 @@ const handleChange = (e) => {
                                   value={inputs.service_type}
                                 >
                                   <option value="">Select</option>
-                                  <option value="1">
-                                    Service at Home
-                                  </option>
+                                  <option value="1">Service at Home</option>
                                   <option value="2">
                                     Service at Service Point
                                   </option>
-                                   <option value="3">
-                                    Pickup & Drop
-                                  </option>
+                                  <option value="3">Pickup & Drop</option>
                                 </select>
                               </div>
 

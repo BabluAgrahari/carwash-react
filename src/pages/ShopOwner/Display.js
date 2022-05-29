@@ -32,9 +32,9 @@ const customStyles = {
 export default function Display() {
   const [modalShow, setModalShow] = React.useState(false);
   const [owners, setOwner] = useState([]);
-  const [services, service] = useState([]);
+  const [services, setService] = useState([]);
   const [checkboxes, setCheckbox] = useState([]);
-  const [checked, setChecked] = useState([]);
+  const [checked, setChecked] = useState({});
   const [ownerId, setOwnerId] = useState({ id: "dfdf" });
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -56,11 +56,6 @@ export default function Display() {
   };
 
   // for modal
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
   function closeModal() {
     setIsOpen(false);
   }
@@ -97,7 +92,7 @@ export default function Display() {
       Authorization: `Bearer ${getToken()}`,
     };
     await http.get("services", { headers }).then((res) => {
-      service(res.data.data);
+      setService(res.data.data);
     });
   };
 
@@ -106,13 +101,25 @@ export default function Display() {
     var isChecked = e.target.checked;
     let checkedVal = isChecked ? e.target.value : "";
     setCheckbox({ ...checkboxes, [e.target.name]: checkedVal });
-    setChecked({...checked,[e.target.name]:checkedVal?true:false})
+    setChecked({ ...checked, [e.target.name]: checkedVal ? true : false });
   };
 
   function showModal(id) {
     setOwnerId({ id });
-    // $("#exampleModalCenter").modal("show");
-    openModal();
+    let checkVal = [];
+    services.map((service, ind) => {
+      let che =
+        service.shop_owners && service.shop_owners.indexOf(id) !== -1
+          ? true
+          : false;
+      checkVal.push(che);
+    });
+    const chhe = checkVal.reduce(
+      (obj, arrValue, index) => ((obj[index] = arrValue), obj),
+      {}
+    );
+    setChecked(chhe);
+    setIsOpen(true);
   }
 
   //for Assign services to vendor
@@ -140,7 +147,9 @@ export default function Display() {
       if (response.status == "success") {
         setTimeout(() => {
           Swal.close();
-          $("#exampleModalCenter").modal("hide");
+          setIsOpen(false);
+            OwnerList();
+      ServiceList();
         }, 1000);
       }
     });
@@ -229,65 +238,6 @@ export default function Display() {
         </section>
       </div>
 
-      <div
-        className="modal fade"
-        id="exampleModalCenter"
-        tabIndex={-1}
-        role="dialog"
-        aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLongTitle">
-                Service List
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <form onSubmit={(e) => assignService(e)}>
-                <table className="table table-sm">
-                  <tr>
-                    <th>Service</th>
-                    <th>Action</th>
-                  </tr>
-                  {services &&
-                    services.map((service, index) => (
-                      <tr>
-                        <td>{service.title}</td>
-                        <td>
-                          <input
-                            type="checkbox"
-                            name={index}
-                            id=""
-                            value={service._id}
-                            onClick={handleCheckbox}
-                          />
-                        </td>
-                      </tr>
-                    ))}
-                </table>
-                <div className="form-group text-center">
-                  <input
-                    type="submit"
-                    className="btn btn-success btn-sm"
-                    value="Submit"
-                  />
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -318,23 +268,22 @@ export default function Display() {
                 {services &&
                   services.map((service, index) => (
                     <tr>
-
                       <td>{service.title}</td>
-                      <td  className="w-50">
-                        <input type="number" className="form-control form-control-sm" name={`cms-${index}`}/></td>
+                      <td className="w-50">
+                        <input
+                          type="number"
+                          className="form-control form-control-sm"
+                          name={`cms-${index}`}
+                        />
+                      </td>
                       <td>
                         <input
                           type="checkbox"
                           name={index}
                           id=""
-                          checked={
-                            service.shop_owners &&
-                            service.shop_owners.indexOf(ownerId.id) !== -1
-                              ? true
-                              :false
-                          }
+                          checked={checked[index]}
                           value={service._id}
-                          onClick={handleCheckbox}
+                          onChange={handleCheckbox}
                         />
                       </td>
                     </tr>

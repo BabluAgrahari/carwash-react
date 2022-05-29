@@ -149,7 +149,9 @@ export default function Edit(props) {
                               onChange={handleInput}
                               id="status"
                               className="form-control"
+                              value={inputs.status}
                             >
+                              <option value="">Select</option>
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
@@ -198,7 +200,8 @@ export default function Edit(props) {
                               to="/vehicle-brand"
                               className="ml-2 btn btn-warning"
                             >
-                              <i className="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>
+                              &nbsp;Back
                             </Link>
                           </div>
                         </div>

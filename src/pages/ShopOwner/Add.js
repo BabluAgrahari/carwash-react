@@ -86,6 +86,8 @@ export default function Add() {
     inputsV.append("name",inputs.name);
     inputsV.append("email",inputs.email);
     inputsV.append("mobile_no",inputs.mobile_no);
+    inputsV.append("business_name", inputs.business_name);
+    inputsV.append("business_email", inputs.business_email);
     inputsV.append("logo", logo.logo);
     inputsV.append("cover_photo", coverPhoto.cover_photo);
     inputsV.append("store_name", inputs.store_name);

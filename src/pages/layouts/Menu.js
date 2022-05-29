@@ -8,7 +8,7 @@ export default class Menu extends Component {
       <div>
         <aside className="main-sidebar elevation-4 bg-custom-sidebar">
           {/* Brand Logo */}
-          <a href="index3.html" className="brand-link nl-4">
+          <a href="" className="brand-link nl-4">
             <img
               src={`${process.env.PUBLIC_URL}/asset/logo/logo.png`}
               alt="carwash Logo"
@@ -171,8 +171,23 @@ export default class Menu extends Component {
                       className="nav-link"
                       ClassName="active"
                     >
-                      <i className="nav-icon fas fa-concierge-bell"></i>
+                      <i class="nav-icon fas fa-solid fa-book"></i>
                       <p>Passbook</p>
+                    </NavLink>
+                  </li>
+                )}
+
+
+                  {permission(["admin"]) && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/pay-history"
+                      className="nav-link"
+                      ClassName="active"
+                    >
+
+                      <i class="nav-icon fas fa-solid fa-monument"></i>
+                      <p>Pay Histroy</p>
                     </NavLink>
                   </li>
                 )}

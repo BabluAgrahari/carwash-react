@@ -113,6 +113,7 @@ export default function Add() {
                               id="status"
                               className="form-control"
                             >
+                              <option value="">Select</option>
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
@@ -163,7 +164,8 @@ export default function Add() {
                               to="/vehicle-brand"
                               className="ml-2 btn btn-warning"
                             >
-                              <i className="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>
+                              &nbsp;Back
                             </Link>
                           </div>
                         </div>

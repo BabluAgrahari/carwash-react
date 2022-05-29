@@ -5,9 +5,9 @@ import Dashboard from "./pages/Dashboard";
 import Auth from "./Middleware/Auth";
 import LocationSearchInput from "./pages/LocationSearchInput";
 
-import Display from "./pages/category/Display";
-import Add from "./pages/category/Add";
-import Edit from "./pages/category/Edit";
+import Display from "./pages/Category/Display";
+import Add from "./pages/Category/Add";
+import Edit from "./pages/Category/Edit";
 //for vehicle
 import VehicleBrandDisplay from "./pages/VehicleBrand/Display";
 import VehicleBrandAdd from "./pages/VehicleBrand/Add";
@@ -46,6 +46,9 @@ import BookingInfo from "./pages/Booking/Info";
 
 //for Passbook
 import PassbookDisplay from "./pages/Passbook/Display";
+
+//for payHistory
+import PayHistoryDisplay from "./pages/PayHistory/Display";
 
 function App() {
   return (
@@ -155,16 +158,41 @@ function App() {
           {/* for booking */}
           <Route
             path="/booking"
-            element={<Auth component={BookingDisplay} role={["vendor", "admin"]} />}
+            element={
+              <Auth component={BookingDisplay} role={["vendor", "admin"]} />
+            }
           ></Route>
 
           {/* for passbook */}
-          <Route path="/passbook" element={<Auth component={PassbookDisplay} role={["vendor", "admin"]} /> }></Route>
+          <Route
+            path="/passbook"
+            element={
+              <Auth component={PassbookDisplay} role={["vendor", "admin"]} />
+            }
+          ></Route>
 
-          <Route path="booking-details" element={<Auth component={BookingDetails} role={["vendor","admin"]}/>}></Route>
+          <Route
+            path="booking-details"
+            element={
+              <Auth component={BookingDetails} role={["vendor", "admin"]} />
+            }
+          ></Route>
 
-            {/* for passbook */}
-          <Route path="/booking-info" element={<Auth component={BookingInfo} role={["vendor", "admin"]} /> }></Route>
+          {/* for passbook */}
+          <Route
+            path="/booking-info"
+            element={
+              <Auth component={BookingInfo} role={["vendor", "admin"]} />
+            }
+          ></Route>
+
+           {/* for pay history */}
+          <Route
+            path="/pay-history"
+            element={
+              <Auth component={PayHistoryDisplay} role={["admin"]} />
+            }
+          ></Route>
 
           <Route path="/" element={<Login />}></Route>
         </Routes>

@@ -20,7 +20,7 @@ export default function Add() {
   const [vehicleModals, setModal] = useState([]);
   const [categories, setCategory] = useState([]);
   const [inputsError, setError] = useState([]);
-  const [totalCharges, setTotalCharges] = useState(false);
+  const [totalCharges, setTotalCharges] = useState([]);
   const [token, setToken] = useState("");
 
   const handleImageChange = (e) => {
@@ -127,7 +127,7 @@ export default function Add() {
       inputs.sort_description ? inputs.sort_description : ""
     );
     inputsV.append("description", inputs.description ? inputs.description : "");
-    inputsV.append("video", inputs.video ? inputs.video : "");
+    inputsV.append("video_url", inputs.video_url ? inputs.video_url : "");
     inputsV.append("category", inputs.category ? inputs.category : "");
     inputsV.append(
       "vehicle_brand",
@@ -145,7 +145,7 @@ export default function Add() {
     inputsV.append("gst_charges", inputs.gst_charges ? inputs.gst_charges : "");
     inputsV.append(
       "total_charges",
-      inputs.total_charges ? inputs.total_charges : ""
+      totalCharges ? totalCharges : ""
     );
     inputsV.append(
       "service_type",
@@ -251,22 +251,15 @@ export default function Add() {
                           </div>
 
                           <div className="form-group">
-                            <label>Video</label>
-                            <div className="custom-file">
+                            <label>Video URL</label>
                               <input
-                                type="file"
-                                className="custom-file-input"
-                                id="video"
-                                name="video"
+                                type="text"
+                                placeholder="Enter Video URL"
+                                className="form-control"
+                                id="video_url"
+                                name="video_url"
                                 onChange={handleVideo}
                               />
-                              <label
-                                className="custom-file-label"
-                                htmlFor="customFile"
-                              >
-                                Choose file
-                              </label>
-                            </div>
                             <span className="text-danger">
                               {inputsError.video}
                             </span>

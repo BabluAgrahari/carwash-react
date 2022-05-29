@@ -116,6 +116,7 @@ export default function Add() {
                               id="status"
                               className="form-control"
                             >
+                              <option value="">Select</option>
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
