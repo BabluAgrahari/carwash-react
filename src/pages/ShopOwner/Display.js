@@ -30,7 +30,6 @@ const customStyles = {
 };
 
 export default function Display() {
-  const [modalShow, setModalShow] = React.useState(false);
   const [owners, setOwner] = useState([]);
   const [services, setService] = useState([]);
   const [checkboxes, setCheckbox] = useState([]);
