@@ -29,6 +29,7 @@ const customStyles = {
 export default function Display() {
   const [histories, setHistory] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [account, setAccount] = useState([]);
 
   useEffect(() => {
     if (getToken() !== "") {
@@ -50,12 +51,19 @@ export default function Display() {
     });
   };
 
-  function paya() {
+  async function accountModal(value) {
     // alert("under development...");
+    const headers = {
+      Authorization: `Bearer ${getToken()}`,
+    };
+    await http.get("vendor-account/" + value, { headers }).then((res) => {
+      setAccount(res.data.data);
+    });
     setIsOpen(true);
   }
   return (
     <>
+    {console.log(account)}
       <Header></Header>
       <Menu></Menu>
       <div className="content-wrapper mt-2">
@@ -65,7 +73,7 @@ export default function Display() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header">
-                    <h3 className="card-title">Pay History List</h3>
+                    <h3 className="card-title">Payment History List</h3>
                     <div className="card-tools"></div>
                   </div>
                   {/* /.card-header */}
@@ -93,10 +101,10 @@ export default function Display() {
                             <td>
                               <a
                                 href="javascript:void(0);"
-                                onClick={() => paya()}
+                                onClick={() => accountModal(pay.vendor_id)}
                                 className="btn btn-success btn-xs"
                               >
-                                Pay
+                                <i class="fa-solid fa-comment-dollar"></i> Pay
                               </a>
                             </td>
                           </tr>
@@ -119,7 +127,7 @@ export default function Display() {
       >
         <div className="card">
           <div className="card-header">
-            <h3 className="card-title">Payment Mode</h3>
+            <h3 className="card-title">Payment Details</h3>
             <div className="card-tool">
               <button
                 type="button"
@@ -132,22 +140,37 @@ export default function Display() {
           </div>
           <div className="card-body">
             <form onSubmit={(e) => assignService(e)}>
-
-              <div className="form-group">
-                <label>Payment Mode</label>
-                <select name="payment_mode" className="form-control form-control-sm">
-                  <option value="">Select</option>
-                  <option value='imps'>IMPS</option>
-                  <option value='neft'>NEFT</option>
-                  <option value='net_banking'>Net Banking</option>
-                </select>
+              <div className="row">
+                <div className="col-md-12 mb-2">
+                  <b>Store Name :</b>
+                  <span className="ml-2">{account.store_name}</span>
+                </div>
+                <div className="card col-md-12 ">
+                  <table className="table table-sm">
+                    <tr></tr>
+                    <tr>
+                      <th>Account Holder :</th>
+                      <td>{account.bank_account.holder_name}</td>
+                    </tr>
+                    <tr>
+                      <th>Bank Name :</th>
+                      <td>{account.bank_account.bank_name}</td>
+                    </tr>
+                    <tr>
+                      <th>Account Number :</th>
+                      <td>{account.bank_account.account_number}</td>
+                    </tr>
+                    <tr>
+                      <th>IFSC Code :</th>
+                      <td>{account.bank_account.ifsc_code}</td>
+                    </tr>
+                  </table>
+                </div>
               </div>
+
               <div className="form-group text-center">
-                <input
-                  type="submit"
-                  className="btn btn-success btn-sm"
-                  value="Submit"
-                />
+
+                <button type="submit" className="btn btn-danger btn-sm"><i class="fas fa-solid fa-comment-dollar"></i> Pay</button>
               </div>
             </form>
           </div>

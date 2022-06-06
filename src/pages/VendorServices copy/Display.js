@@ -68,7 +68,7 @@ export default function Display() {
                     <h3 className="card-title">Services List</h3>
                     <div className="card-tools">
                       <Link
-                        to="/services/add"
+                        to="/vendor-services/add"
                         className="btn btn-success btn-sm"
                       >
                         <i className="fas fa-plus"></i>&nbsp;Add
@@ -82,7 +82,6 @@ export default function Display() {
                         <th>Sr.No</th>
                         <th>Icon</th>
                         <th>Title</th>
-                        <th>Category</th>
                         <th>Description</th>
                         <th>Status</th>
                         <th>CreatetAt</th>
@@ -95,14 +94,13 @@ export default function Display() {
                             <td>{++index}</td>
                             <td>{<img src={service.icon ? service.icon : process.env.PUBLIC_URL + "asset/img/noimage.jpg"} className="custom-img-size" />}</td>
                             <td>{service.title}</td>
-                            <td>{service.category}</td>
-                            <td>{service.description.slice(0,60)}</td>
+                            <td>{service.sort_description}</td>
                             <td>{service.status}</td>
                             <td>{service.created}</td>
                             <td>
                               <Link
                                 to={{
-                                  pathname: "/services/edit/" + service._id,
+                                  pathname: "/vendor-services/edit/" + service._id,
                                 }}
                                 className="text-info mr-2"
                               >

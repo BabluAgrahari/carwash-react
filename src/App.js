@@ -34,7 +34,10 @@ import DriverAdd from "./pages/Driver/Add";
 import DriverEdit from "./pages/Driver/Edit";
 
 //for vendor services
-import VendorServices from "./pages/VendorServices/Services";
+// import VendorServices from "./pages/VendorServices/Services";
+import VendorServicesDisplay from "./pages/VendorServices/Display";
+import VendorServicesAdd from "./pages/VendorServices/Add";
+import VendorServicesEdit from "./pages/VendorServices/Edit";
 
 //for vendor profile
 import Profile from "./pages/VendorProfile/Profile";
@@ -146,7 +149,15 @@ function App() {
           {/* for Vendor Services */}
           <Route
             path="/vendor-services"
-            element={<Auth component={VendorServices} role={["vendor"]} />}
+            element={<Auth component={VendorServicesDisplay} role={["vendor"]} />}
+          ></Route>
+           <Route
+            path="/vendor-services/add"
+            element={<Auth component={VendorServicesAdd} role={["vendor"]} />}
+          ></Route>
+           <Route
+            path="/vendor-services/edit/:id"
+            element={<Auth component={VendorServicesEdit} role={["vendor"]} />}
           ></Route>
 
           {/* for Vendor Profile */}

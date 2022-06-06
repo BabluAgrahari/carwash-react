@@ -445,7 +445,7 @@ export default function Edit(props) {
                               className="btn btn-success"
                             />
                             <Link
-                              to="/services"
+                              to="/vendor-services"
                               className="ml-2 btn btn-warning"
                             >
                               <i className="far fa-hand-point-left"></i>

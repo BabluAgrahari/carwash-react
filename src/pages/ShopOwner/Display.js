@@ -115,7 +115,6 @@ export default function Display() {
     });
     const chhe = checkVal.reduce(
       (obj, arrValue, index) => ((obj[index] = arrValue), obj),
-      {}
     );
     setChecked(chhe);
     setIsOpen(true);

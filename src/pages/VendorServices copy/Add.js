@@ -80,7 +80,7 @@ export default function Add() {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    http.get("veh-modal/"+e.target.value, { headers }).then((res) => {
+    http.get("veh-modal/" + e.target.value, { headers }).then((res) => {
       setModal(res.data.data);
     });
   };
@@ -143,10 +143,7 @@ export default function Add() {
       inputs.service_charge ? inputs.service_charge : ""
     );
     inputsV.append("gst_charges", inputs.gst_charges ? inputs.gst_charges : "");
-    inputsV.append(
-      "total_charges",
-      totalCharges ? totalCharges : ""
-    );
+    inputsV.append("total_charges", totalCharges ? totalCharges : "");
     inputsV.append(
       "service_type",
       inputs.service_type ? inputs.service_type : ""
@@ -206,164 +203,111 @@ export default function Add() {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-group">
-                            <label>Title</label>
-                            <input
-                              type="text"
-                              id="tilte"
-                              name="title"
+                            <label>Select Services</label>
+                            <select
+                              name="status"
                               onChange={handleInput}
+                              id="status"
                               className="form-control"
-                              placeholder="Enter Title"
-                            />
+                            >
+                              <option value="">Select</option>
+                              <option value="1">Active</option>
+                              <option value="0">Inactive</option>
+                            </select>
                             <span className="text-danger">
-                              {inputsError.title}
+                              {inputsError.status}
                             </span>
                           </div>
 
-                          <div className="form-group">
-                            <label>Sort Description</label>
-                            <textarea
-                              className="form-control"
-                              rows="3"
-                              id="sort_description"
-                              name="sort_description"
-                              placeholder="Enter Sort Description"
-                              onChange={handleInput}
-                            ></textarea>
-                            <span className="text-danger">
-                              {inputsError.sort_description}
-                            </span>
-                          </div>
-
-                          <div className="form-group">
-                            <label>Description</label>
-                            <textarea
-                              className="form-control"
-                              rows="5"
-                              id="description"
-                              name="description"
-                              placeholder="Enter Full Description"
-                              onChange={handleInput}
-                            ></textarea>
-                            <span className="text-danger">
-                              {inputsError.description}
-                            </span>
-                          </div>
-
-                          <div className="form-group">
-                            <label>Video URL</label>
-                              <input
-                                type="text"
-                                placeholder="Enter Video URL"
+                          <div className="form-row">
+                            <div className="form-group col-md-6">
+                              <label>Category</label>
+                              <select
+                                name="category"
+                                onChange={handleInput}
+                                id="category"
                                 className="form-control"
-                                id="video_url"
-                                name="video_url"
-                                onChange={handleVideo}
-                              />
-                            <span className="text-danger">
-                              {inputsError.video}
-                            </span>
-                          </div>
-
-                          <div className="form-group">
-                            {src && (
-                              <img className="preview" src={src} alt={alt} />
-                            )}
-                          </div>
-                          <div className="form-group">
-                            <label>Icon</label>
-                            <div className="custom-file">
-                              <input
-                                type="file"
-                                className="custom-file-input"
-                                id="icon"
-                                name="icon"
-                                onChange={handleIcon}
-                              />
-                              <label
-                                className="custom-file-label"
-                                htmlFor="customFile"
                               >
-                                Choose file
-                              </label>
+                                <option value="">Select</option>
+                                {categories &&
+                                  categories.map((category, index) => (
+                                    <option value={category._id}>
+                                      {category.name}
+                                    </option>
+                                  ))}
+                              </select>
+                              <span className="text-danger">
+                                {inputsError.category}
+                              </span>
                             </div>
-                            <span className="text-danger">
-                              {inputsError.icon}
-                            </span>
-                          </div>
 
-                          <div className="form-group">
-                            {renderPhotos(selectedFiles)}
-                          </div>
-                          <div className="form-group">
-                            <label>Multiple Images</label>
-                            <div className="custom-file">
-                              <input
-                                type="file"
-                                multiple="true"
-                                className="custom-file-input"
-                                id="multiple_images"
-                                name="multiple_images[]"
-                                onChange={handleImageChange}
-                              />
-                              <label
-                                className="custom-file-label"
-                                htmlFor="customFile"
+                            <div className="form-group col-md-6">
+                              <label>Service Type</label>
+                              <select
+                                name="service_type"
+                                onChange={handleInput}
+                                id="service_type"
+                                className="form-control"
                               >
-                                Choose file
-                              </label>
+                                <option value="">Select</option>
+                                <option value="1">Service at Home</option>
+                                <option value="2">
+                                  Service at Service Point
+                                </option>
+                                <option value="3">Pickup & Drop</option>
+                              </select>
+                              <span className="text-danger">
+                                {inputsError.service_type}
+                              </span>
                             </div>
-                            <span className="text-danger">
-                              {inputsError.multiple_images}
-                            </span>
+
+                            <div className="form-group col-md-6">
+                              <label>Vehicle Brand</label>
+                              <select
+                                name="vehicle_brand"
+                                onChange={handleDropdown}
+                                id="vehicle_brand"
+                                className="form-control"
+                              >
+                                <option value="">Select</option>
+                                {vehicleBrands &&
+                                  vehicleBrands.map((v_brand, index) => (
+                                    <option value={v_brand._id}>
+                                      {v_brand.name}
+                                    </option>
+                                  ))}
+                              </select>
+                              <span className="text-danger">
+                                {inputsError.vehicle_brand}
+                              </span>
+                            </div>
+
+                            <div className="form-group col-md-6">
+                              <label>Vehicle Modal</label>
+                              <select
+                                name="vehicle_model"
+                                onChange={handleInput}
+                                id="vehicle_model"
+                                className="form-control"
+                              >
+                                <option value="">Select</option>
+                                {vehicleModals &&
+                                  vehicleModals.map((v_modal, index) => (
+                                    <option value={v_modal._id}>
+                                      {v_modal.name}
+                                    </option>
+                                  ))}
+                              </select>
+                              <span className="text-danger">
+                                {inputsError.vehicle_model}
+                              </span>
+                            </div>
                           </div>
                         </div>
 
                         <div className="col-md-6">
                           <div className="row">
                             <div className="col-md-6">
-                              <div className="form-group">
-                                <label>Category</label>
-                                <select
-                                  name="category"
-                                  onChange={handleInput}
-                                  id="category"
-                                  className="form-control"
-                                >
-                                  <option value="">Select</option>
-                                  {categories &&
-                                    categories.map((category, index) => (
-                                      <option value={category._id}>
-                                        {category.name}
-                                      </option>
-                                    ))}
-                                </select>
-                                <span className="text-danger">
-                                  {inputsError.category}
-                                </span>
-                              </div>
-
-                              <div className="form-group">
-                                <label>Vehicle Brand</label>
-                                <select
-                                  name="vehicle_brand"
-                                  onChange={handleDropdown}
-                                  id="vehicle_brand"
-                                  className="form-control"
-                                >
-                                  <option value="">Select</option>
-                                  {vehicleBrands &&
-                                    vehicleBrands.map((v_brand, index) => (
-                                      <option value={v_brand._id}>
-                                        {v_brand.name}
-                                      </option>
-                                    ))}
-                                </select>
-                                <span className="text-danger">
-                                  {inputsError.vehicle_brand}
-                                </span>
-                              </div>
-
                               <div className="form-group">
                                 <label>Service Charges</label>
                                 <input
@@ -399,47 +343,6 @@ export default function Add() {
 
                             <div className="col-md-6">
                               <div className="form-group">
-                                <label>Service Type</label>
-                                <select
-                                  name="service_type"
-                                  onChange={handleInput}
-                                  id="service_type"
-                                  className="form-control"
-                                >
-                                  <option value="">Select</option>
-                                  <option value="1">Service at Home</option>
-                                  <option value="2">
-                                    Service at Service Point
-                                  </option>
-                                  <option value="3">Pickup & Drop</option>
-                                </select>
-                                <span className="text-danger">
-                                  {inputsError.service_type}
-                                </span>
-                              </div>
-
-                              <div className="form-group">
-                                <label>Vehicle Modal</label>
-                                <select
-                                  name="vehicle_model"
-                                  onChange={handleInput}
-                                  id="vehicle_model"
-                                  className="form-control"
-                                >
-                                  <option value="">Select</option>
-                                  {vehicleModals &&
-                                    vehicleModals.map((v_modal, index) => (
-                                      <option value={v_modal._id}>
-                                        {v_modal.name}
-                                      </option>
-                                    ))}
-                                </select>
-                                <span className="text-danger">
-                                  {inputsError.vehicle_model}
-                                </span>
-                              </div>
-
-                              <div className="form-group">
                                 <label>Discount (In %)</label>
                                 <input
                                   type="number"
@@ -473,23 +376,6 @@ export default function Add() {
                               </div>
                             </div>
                           </div>
-
-                          <div className="form-group">
-                            <label>Status</label>
-                            <select
-                              name="status"
-                              onChange={handleInput}
-                              id="status"
-                              className="form-control"
-                            >
-                              <option value="">Select</option>
-                              <option value="1">Active</option>
-                              <option value="0">Inactive</option>
-                            </select>
-                            <span className="text-danger">
-                              {inputsError.status}
-                            </span>
-                          </div>
                         </div>
 
                         <div className="col-md-12">
@@ -500,7 +386,7 @@ export default function Add() {
                               className="btn btn-success"
                             />
                             <Link
-                              to="/services"
+                              to="/vendor-services"
                               className="ml-2 btn btn-warning"
                             >
                               <i className="far fa-hand-point-left"></i>

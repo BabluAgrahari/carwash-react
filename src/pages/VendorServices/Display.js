@@ -21,7 +21,7 @@ export default function Display() {
     const headers = {
       Authorization: `Bearer ${getToken()}`
     }
-    await http.get("services", { headers }).then((res) => {
+    await http.get("vendor-services", { headers }).then((res) => {
       service(res.data.data);
     });
   };
@@ -40,7 +40,7 @@ export default function Display() {
         const headers = {
           Authorization: `Bearer ${getToken()}`
         }
-        delete ("services/" + id, { headers }).then((res) => {
+        delete ("vendor-services/" + id, { headers }).then((res) => {
           let response = res.data;
           Swal.fire("Deleted!", `${response.message}`, `${response.status}`);
           ServiceList();
@@ -68,7 +68,7 @@ export default function Display() {
                     <h3 className="card-title">Services List</h3>
                     <div className="card-tools">
                       <Link
-                        to="/services/add"
+                        to="/vendor-services/add"
                         className="btn btn-success btn-sm"
                       >
                         <i className="fas fa-plus"></i>&nbsp;Add
@@ -82,8 +82,13 @@ export default function Display() {
                         <th>Sr.No</th>
                         <th>Icon</th>
                         <th>Title</th>
+                        <th>V.Brand</th>
+                        <th>V.Modal</th>
                         <th>Description</th>
-                        <th>Status</th>
+                        {/* <th>Status</th> */}
+                        <th>Charges</th>
+                        <th>Discount(%)</th>
+                        <th>Total Charges</th>
                         <th>CreatetAt</th>
                         <th>Action</th>
                       </tr>
@@ -94,13 +99,18 @@ export default function Display() {
                             <td>{++index}</td>
                             <td>{<img src={service.icon ? service.icon : process.env.PUBLIC_URL + "asset/img/noimage.jpg"} className="custom-img-size" />}</td>
                             <td>{service.title}</td>
-                            <td>{service.sort_description}</td>
-                            <td>{service.status}</td>
+                            <td>{service.vehicle_brand}</td>
+                            <td>{service.vehicle_model}</td>
+                            <td>{service.description}</td>
+                            <td>{service.service_charge}</td>
+                            <td>{service.discount}</td>
+                            <td>{service.total_charges}</td>
+                            {/* <td>{service.status}</td> */}
                             <td>{service.created}</td>
                             <td>
                               <Link
                                 to={{
-                                  pathname: "/services/edit/" + service._id,
+                                  pathname: "/vendor-services/edit/" + service._id,
                                 }}
                                 className="text-info mr-2"
                               >

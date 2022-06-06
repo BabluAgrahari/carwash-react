@@ -9,7 +9,7 @@ import { getToken } from "../../token";
 
 export default function Edit(props) {
   const [inputs, setInputs] = useState([]);
-
+  const [categories, setCategory] = useState([]);
   const [token, setToken] = useState("");
 
   const { id } = useParams();
@@ -19,8 +19,19 @@ export default function Edit(props) {
     if (typeof sessionStorage.getItem("userData") !== "undefined") {
       setToken(JSON.parse(sessionStorage.getItem("userData")).token);
       service();
+      category();
     }
   }, [token]);
+
+  //for category
+  const category = async () => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    await http.get("category", { headers }).then((res) => {
+      setCategory(res.data.data);
+    });
+  };
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -35,9 +46,8 @@ export default function Edit(props) {
       setInputs({
         title: response.title,
         description: response.description,
-        service_type: response.service_type,
         status: response.status,
-        video_url: response.video_url,
+        category: response.category,
       });
     });
   };
@@ -50,9 +60,7 @@ export default function Edit(props) {
     inputsV.append("icon", icon.icon ? icon.icon : "");
     inputsV.append("title", inputs.title ? inputs.title : "");
     inputsV.append("description", inputs.description ? inputs.description : "");
-    inputsV.append("video_url", inputs.video_url ? inputs.video_url : "");
     inputsV.append("category", inputs.category ? inputs.category : "");
-    inputsV.append("service_type",inputs.service_type ? inputs.service_type : "");
     inputsV.append("status", inputs.status ? inputs.status : "");
     inputsV.append("_method", "put");
 
@@ -86,7 +94,7 @@ export default function Edit(props) {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header">
-                    <h3 className="card-title">Edit Vehicle Modal</h3>
+                    <h3 className="card-title">Edit Services</h3>
                     <div className="card-tools"></div>
                   </div>
 
@@ -111,7 +119,7 @@ export default function Edit(props) {
                             <label>Description</label>
                             <textarea
                               className="form-control"
-                              rows="5"
+                              rows="3"
                               id="description"
                               name="description"
                               placeholder="Enter Full Description"
@@ -119,40 +127,30 @@ export default function Edit(props) {
                               value={inputs.description}
                             ></textarea>
                           </div>
-
-                          <div className="form-group">
-                            <label>Video URL</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="video_url"
-                              name="video_url"
-                              onChange={handleChange}
-                              value={inputs.video_url}
-                            />
-                          </div>
                         </div>
 
                         <div className="col-md-6">
                           <div className="row">
-                            <div className="col-md-6">
-                              <div className="form-group">
-                                <label>Service Type</label>
-                                <select
-                                  name="service_type"
-                                  onChange={handleChange}
-                                  id="service_type"
-                                  className="form-control"
-                                  value={inputs.service_type}
-                                >
-                                  <option value="">Select</option>
-                                  <option value="1">Service at Home</option>
-                                  <option value="2">
-                                    Service at Service Point
-                                  </option>
-                                  <option value="3">Pickup & Drop</option>
-                                </select>
-                              </div>
+                            <div className="form-group col-md-6">
+                              <label>Category</label>
+                              <select
+                                name="category"
+                                onChange={handleChange}
+                                id="category"
+                                className="form-control"
+                                value={inputs.category}
+                              >
+                                <option value="">Select</option>
+                                {categories &&
+                                  categories.map((category, index) => (
+                                    <option value={category._id}>
+                                      {category.name}
+                                    </option>
+                                  ))}
+                              </select>
+                              <span className="text-danger">
+
+                              </span>
                             </div>
 
                             <div className="form-group col-md-6">
@@ -189,24 +187,6 @@ export default function Edit(props) {
                               </div>
                             </div>
 
-                            <div className="form-group col-md-12">
-                              <label>Multiple Images</label>
-                              <div className="custom-file">
-                                <input
-                                  type="file"
-                                  className="custom-file-input"
-                                  id="multiple_images"
-                                  name="multiple_images"
-                                  onChange={handleChange}
-                                />
-                                <label
-                                  className="custom-file-label"
-                                  htmlFor="customFile"
-                                >
-                                  Choose file
-                                </label>
-                              </div>
-                            </div>
                           </div>
                         </div>
 

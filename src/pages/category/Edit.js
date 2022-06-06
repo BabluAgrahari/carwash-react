@@ -73,6 +73,7 @@ export default function Edit(props) {
     const inputsV = new FormData();
     inputsV.append("icon", icons.icon ? icons.icon : "");
     inputsV.append("name", inputs.name ? inputs.name : "");
+    inputsV.append("gst_charges", inputs.gst_charges ? inputs.gst_charges : "");
     inputsV.append("status", inputs.status ? inputs.status : "");
     inputsV.append("_method", "put");
 
@@ -143,22 +144,38 @@ export default function Edit(props) {
                             </span>
                           </div>
 
-                          <div className="form-group">
-                            <label>Status</label>
-                            <select
-                              name="status"
-                              onChange={handleInput}
-                              id="status"
-                              className="form-control"
-                              value={inputs.status}
-                            >
-                              <option value="">Select</option>
-                              <option value="1">Active</option>
-                              <option value="0">Inactive</option>
-                            </select>
-                            <span className="text-danger">
-                              {inputsError.status}
-                            </span>
+                          <div className="form-row">
+                            <div className="form-group col-md-6">
+                              <label>GST Charges</label>
+                              <input
+                                type="number"
+                                className="form-control"
+                                id="gst_charges"
+                                name="gst_charges"
+                                placeholder="GST Charges"
+                                onChange={handleInput}
+                              />
+                              <span className="text-danger">
+                                {inputsError.gst_charges}
+                              </span>
+                            </div>
+                            <div className="form-group col-md-6">
+                              <label>Status</label>
+                              <select
+                                name="status"
+                                onChange={handleInput}
+                                id="status"
+                                className="form-control"
+                                value={inputs.status}
+                              >
+                                <option value="">Select</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                              </select>
+                              <span className="text-danger">
+                                {inputsError.status}
+                              </span>
+                            </div>
                           </div>
                         </div>
 

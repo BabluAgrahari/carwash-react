@@ -187,7 +187,7 @@ export default class Menu extends Component {
                     >
 
                       <i class="nav-icon fas fa-solid fa-monument"></i>
-                      <p>Pay Histroy</p>
+                      <p>Payment History</p>
                     </NavLink>
                   </li>
                 )}
