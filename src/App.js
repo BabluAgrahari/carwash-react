@@ -135,15 +135,15 @@ function App() {
           {/* for Driver module */}
           <Route
             path="/driver"
-            element={<Auth component={DriverDisplay} role={["vendor"]} />}
+            element={<Auth component={DriverDisplay} role={["vendor","admin"]} />}
           ></Route>
           <Route
             path="/driver/add"
-            element={<Auth component={DriverAdd} role={["vendor"]} />}
+            element={<Auth component={DriverAdd} role={["vendor","admin"]} />}
           ></Route>
           <Route
             path="/driver/edit/:id"
-            element={<Auth component={DriverEdit} role={["vendor"]} />}
+            element={<Auth component={DriverEdit} role={["vendor","admin"]} />}
           ></Route>
 
           {/* for Vendor Services */}

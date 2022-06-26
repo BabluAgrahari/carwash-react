@@ -61,7 +61,7 @@ export default function Profile() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header">
-                    <h3 className="card-title">User Profile</h3>
+                    <h3 className="card-title">Time Slab</h3>
                     <div className="card-tools">
                       <Link
                         to="/services/add"
@@ -74,7 +74,8 @@ export default function Profile() {
                   {/* /.card-header */}
                   <div className="card-body">
                     <div className="row">
-                      {timeSlaps &&
+                      <h6>This Page is Under Development....</h6>
+                      {/* {timeSlaps &&
                         timeSlaps.map((slap, index) => (
                           <div className="col-md-6 card py-2" index={index}>
                             <div className="row">
@@ -136,7 +137,7 @@ export default function Profile() {
                               </div>
                             </div>
                           </div>
-                        ))}
+                        ))} */}
                     </div>
                   </div>
                 </div>

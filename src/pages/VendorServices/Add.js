@@ -139,7 +139,7 @@ export default function Add() {
       if (response.status == "success") {
         setTimeout(() => {
           Swal.close();
-          navigate("/services");
+          navigate("/vendor-services");
         }, 1000);
       }
     });

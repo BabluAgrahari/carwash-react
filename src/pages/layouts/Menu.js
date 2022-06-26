@@ -138,7 +138,7 @@ export default class Menu extends Component {
                   </li>
                 )}
 
-                {permission(["vendor"]) && (
+                {permission(["admin","vendor"]) && (
                   <li className="nav-item">
                     <NavLink
                       to="/driver"

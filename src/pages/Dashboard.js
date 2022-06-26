@@ -14,7 +14,7 @@ export default class Dashboard extends Component {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h6 className="m-0">Dashboard is Under Development.....</h6>
+                <h3 className="m-0">Dashboard </h3>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
@@ -29,64 +29,64 @@ export default class Dashboard extends Component {
         <section className="content">
           <div className="container-fluid">
 
-            {/* <div className="row">
+            <div className="row">
               <div className="col-lg-3 col-6">
 
-                <div className="small-box bg-info">
+                <div className="small-box">
                   <div className="inner">
-                    <h3>150</h3>
-                    <p>New Orders</p>
+                    <h4>150</h4>
+                    <p>Total Booking</p>
                   </div>
                   <div className="icon">
-                    <i className="ion ion-bag" />
+                   <i class="nav-icon fab fa-first-order"></i>
                   </div>
-                  <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+
                 </div>
               </div>
 
               <div className="col-lg-3 col-6">
 
-                <div className="small-box bg-success">
+                <div className="small-box">
                   <div className="inner">
-                    <h3>53<sup style={{ fontSize: 20 }}>%</sup></h3>
-                    <p>Bounce Rate</p>
+                    <h4>53</h4>
+                    <p>Total Service</p>
                   </div>
                   <div className="icon">
-                    <i className="ion ion-stats-bars" />
+                   <i class="nav-icon fas fa-concierge-bell"></i>
                   </div>
-                  <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+
                 </div>
               </div>
 
               <div className="col-lg-3 col-6">
 
-                <div className="small-box bg-warning">
+                <div className="small-box">
                   <div className="inner">
-                    <h3>44</h3>
-                    <p>User Registrations</p>
+                    <h4>44</h4>
+                    <p>Total User</p>
                   </div>
                   <div className="icon">
-                    <i className="ion ion-person-add" />
+                   <i class="nav-icon fas fa-solid fa-users"></i>
                   </div>
-                  <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+
                 </div>
               </div>
 
               <div className="col-lg-3 col-6">
 
-                <div className="small-box bg-danger">
+                <div className="small-box">
                   <div className="inner">
-                    <h3>65</h3>
-                    <p>Unique Visitors</p>
+                    <h4>65</h4>
+                    <p>Total Shopowner</p>
                   </div>
                   <div className="icon">
-                    <i className="ion ion-pie-graph" />
+                   <i class="nav-icon fas fa-store-alt"></i>
                   </div>
-                  <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+
                 </div>
               </div>
 
-            </div> */}
+            </div>
 
 
           </div>

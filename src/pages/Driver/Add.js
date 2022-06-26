@@ -6,6 +6,7 @@ import { getToken } from "../../token";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import Menu from "../layouts/Menu";
+import { permission } from "../../Helper/Helper";
 
 export default function Add() {
   const initialState = { alt: "", src: "" };
@@ -13,8 +14,9 @@ export default function Add() {
 
   const [inputs, setInputs] = useState([]);
   const [images, setImage] = useState([]);
+  const [dl, setDl] = useState([]);
   const [{ alt, src }, setPreview] = useState(initialState);
-
+  const [stores, setStore] = useState([]);
 
   const handleInput = (e) => {
     e.persist();
@@ -27,18 +29,31 @@ export default function Add() {
     setPreview(
       files.length
         ? {
-          src: URL.createObjectURL(files[0]),
-          alt: files[0].name,
-        }
+            src: URL.createObjectURL(files[0]),
+            alt: files[0].name,
+          }
         : initialState
     );
   };
+
+    const handleDl = (e) => {
+    setDl({ dl: e.target.files[0] });
+    const { files } = e.target;
+  };
+
+ useEffect(() => {
+    if (getToken() !== "") {
+      store();
+    }
+  }, [getToken()]);
 
   //for submit data in collection
   function submit(e) {
     e.preventDefault();
     const inputsV = new FormData();
+    inputsV.append('vendor_id',inputs.vendor_id?inputs.vendor_id:'');
     inputsV.append("image", images.image);
+    inputsV.append("dl", dl.dl);
     inputsV.append("name", inputs.name);
     inputsV.append("email", inputs.email);
     inputsV.append("phone", inputs.phone);
@@ -50,8 +65,8 @@ export default function Add() {
     inputsV.append("status", inputs.status);
 
     const headers = {
-      Authorization: `Bearer ${getToken()}`
-    }
+      Authorization: `Bearer ${getToken()}`,
+    };
 
     http.post("driver", inputsV, { headers }).then((res) => {
       let response = res.data;
@@ -66,6 +81,15 @@ export default function Add() {
           navigate("/driver");
         }, 1000);
       }
+    });
+  }
+
+  async function store() {
+    const headers = {
+      Authorization: `Bearer ${getToken()}`,
+    };
+    await http.get("shop-owner", { headers }).then((res) => {
+      setStore(res.data.data);
     });
   }
 
@@ -89,6 +113,29 @@ export default function Add() {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-row">
+
+                             {permission(["admin"]) && (
+                            <div className="form-group col-md-6">
+                              <label>Store</label>
+                              <select
+                                className="form-control"
+                                name="vendor_id"
+                                onChange={handleInput}
+                              >
+                                <option value="">Select</option>
+                                {stores.map((store, index) => (
+                                  <option value={store.id}>
+                                    {store.business_name}
+                                  </option>
+                                ))}
+                              </select>
+                              <span className="text-muted text-size">
+                                <i className="fas fa-question-circle"></i>
+                                &nbsp;Please Select Store
+                              </span>
+                            </div>
+                             )}
+
                             <div className="form-group col-md-6">
                               <label>Name</label>
                               <input
@@ -174,9 +221,30 @@ export default function Add() {
                               </span>
                             </div>
 
-                            <div className="col-md-6"></div>
+                            <div className="col-md-6">
+                              <label>Driver Liences</label>
+                              <div className="custom-file">
+                                <input
+                                  type="file"
+                                  className="custom-file-input"
+                                  id="dl"
+                                  name="dl"
+                                  onChange={handleDl}
+                                />
+                                <label
+                                  className="custom-file-label"
+                                  htmlFor="customFile"
+                                >
+                                  Choose file
+                                </label>
+                              </div>
+                              <span className="text-muted text-size">
+                                <i className="fas fa-question-circle"></i>
+                                &nbsp;Please Browse DL
+                              </span>
+                            </div>
                             <div className="form-group col-md-6">
-                              <label>Image</label>
+                              <label>Document</label>
                               <div className="custom-file">
                                 <input
                                   type="file"
@@ -194,15 +262,15 @@ export default function Add() {
                               </div>
                               <span className="text-muted text-size">
                                 <i className="fas fa-question-circle"></i>
-                                &nbsp;Please Browse Image
+                                &nbsp;Please Browse Document
                               </span>
                             </div>
-
+{/*
                             <div className="col-md-6">
                               {src && (
                                 <img className="preview" src={src} alt={alt} />
                               )}
-                            </div>
+                            </div> */}
                           </div>
                         </div>
 
@@ -210,19 +278,12 @@ export default function Add() {
                           <div className="form-row">
                             <div className="form-group col-md-6">
                               <label>City</label>
-                              <select
-                                name="city"
-                                onChange={handleInput}
-                                id="city"
-                                className="form-control"
-                              >
-                                <option value="">Select</option>
-                                <option value="delhi">Delhi</option>
-                                <option value="noida">Noida</option>
-                              </select>
+                              <input type="text"  name="city"
+                                onChange={handleInput} className="form-control"
+                                id="city" placeholder="Enter City"/>
                               <span className="text-muted text-size">
                                 <i className="fas fa-question-circle"></i>
-                                &nbsp;Please Select City
+                                &nbsp;Please Enter City
                               </span>
                             </div>
 
@@ -234,9 +295,56 @@ export default function Add() {
                                 id="status"
                                 className="form-control"
                               >
-                                <option value="">Select</option>
-                                <option value="delhi">Delhi</option>
-                                <option value="noida">Noida</option>
+                              <option value="">Select</option>
+                            <option value="Andhra Pradesh">
+                              Andhra Pradesh
+                            </option>
+                            <option value="Arunachal Pradesh">
+                              Arunachal Pradesh
+                            </option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">
+                              Himachal Pradesh
+                            </option>
+                            <option value="Jammu and Kashmir">
+                              Jammu and Kashmir
+                            </option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">
+                              Madhya Pradesh
+                            </option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                            <option value="Andaman and Nicobar Islands">
+                              Andaman and Nicobar Islands
+                            </option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Dadra and Nagar Haveli">
+                              Dadra and Nagar Haveli
+                            </option>
+                            <option value="Daman and Diu">Daman and Diu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Puducherry">Puducherry</option>
                               </select>
                               <span className="text-muted text-size">
                                 <i className="fas fa-question-circle"></i>
@@ -289,7 +397,8 @@ export default function Add() {
                               className="btn btn-success"
                             />
                             <Link to="/driver" className="ml-2 btn btn-warning">
-                              <i className="far fa-hand-point-left"></i>&nbsp;Back
+                              <i className="far fa-hand-point-left"></i>
+                              &nbsp;Back
                             </Link>
                           </div>
                         </div>
