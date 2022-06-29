@@ -17,8 +17,8 @@ function Login() {
     }
   }, []);
 
-  var url = "http://127.0.0.1:8000/api/login";
-  // var url = "https://crm.quarainfotech.com/api/public/api/login";
+  // var url = "http://127.0.0.1:8000/api/login";
+  var url = "https://crm.quarainfotech.com/api/public/api/login";
   async function login() {
     setLoader(true);
     let item = { email, password };
